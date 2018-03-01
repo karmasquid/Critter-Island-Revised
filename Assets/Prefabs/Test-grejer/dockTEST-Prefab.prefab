@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23268037923204450}
   - component: {fileID: 64894076284623666}
   m_Layer: 0
-  m_Name: dock
+  m_Name: dockTEST-Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

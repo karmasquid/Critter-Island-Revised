@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33624438270288860}
   - component: {fileID: 23948343159831186}
   m_Layer: 0
-  m_Name: village
+  m_Name: villageTEST-prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
