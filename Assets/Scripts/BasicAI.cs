@@ -16,27 +16,41 @@ public class BasicAI : MonoBehaviour {
     int currentHP = 100;
     int maxHP = 100;
     public int attackDMG = 0;
+   
     [SerializeField]
     float patrolSpeed = 0;
     [SerializeField]
     float targetingRange = 0;
     [SerializeField]
     float approachSpeed = 0;
-    float acceleration = 0.1f;
+    float acceleration = 0.1f; // patrolSpeed += acceleration;
     [SerializeField]
     float attackRange = 0;
     
-	void Start () {
-
+	void Start ()
+        {
+        InvokeRepeating("searching", 0f, 0.5f );
         playerInSight = false;
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, targetingRange);
+	    }
 
-	}
-
-	void Update () {
+	void Update ()
+        {
 		
-	}
+	    }
+
+    void searching()
+        {
+       GameObject playerMesh = GameObject.FindWithTag("Player");
+        for (playerInSight = false, ) {
+
+        }
+    }
 
     void playerTargeted() {
+        print ("Hey you!");
+        transform.position = new Vector3();
 
     }
 
