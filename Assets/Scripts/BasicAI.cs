@@ -16,42 +16,75 @@ public class BasicAI : MonoBehaviour {
     int currentHP = 100;
     int maxHP = 100;
     public int attackDMG = 0;
+    public Transform targetPlayer;
+    public string playerTag = "Player";
    
     [SerializeField]
-    float patrolSpeed = 0;
+    float patrolSpeed = 0f;
     [SerializeField]
-    float targetingRange = 0;
+    float targetingRange = 0f;
     [SerializeField]
-    float approachSpeed = 0;
+    float aggroRange = 0f;
+    [SerializeField]
+    float approachSpeed = 0f;
     float acceleration = 0.1f; // patrolSpeed += acceleration;
     [SerializeField]
-    float attackRange = 0;
+    float attackRange = 0f;
     
 	void Start ()
         {
-        InvokeRepeating("searching", 0f, 0.5f );
         playerInSight = false;
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, targetingRange);
+        InvokeRepeating("Searching", 0f, 0.5f );
+        
 	    }
 
-	void Update ()
-        {
-		
-	    }
+	
 
-    void searching()
+    void Searching()
         {
-       GameObject playerMesh = GameObject.FindWithTag("Player");
-        for (playerInSight = false, ) {
+       GameObject playerMesh = GameObject.FindWithTag(playerTag);
+        float closestRange = Mathf.Infinity;
+        GameObject pointBlankPlayer = null; //Närmsta spelarmodellen som finns relativt till fienden med detta script.
 
+         while (playerInSight == false)
+            {
+            float distanceToPlayer = Vector3.Distance(transform.position, playerMesh.transform.position);
+            if(distanceToPlayer < closestRange) //Om räckvidden till spelaren är mindre än närmsta räckvidden betyder det att fienden hittat spelaren. 
+            {
+                closestRange = distanceToPlayer;
+                pointBlankPlayer = playerMesh;
+            }
+        
+        }
+        if(pointBlankPlayer != null && closestRange <= targetingRange)
+        {
+            targetPlayer = pointBlankPlayer.transform;
+            PlayerTargeted();
         }
     }
 
-    void playerTargeted() {
+    void PlayerTargeted()
+    {
         print ("Hey you!");
-        transform.position = new Vector3();
+       // transform.position = new Vector3();
+          
+    }
+    void Update()
+    {
+        if (targetPlayer == null)
+        {
+            return; 
+        }
+    }
 
+    void OnDrawGizmosSelected () //Måste kunna se hur långt den kan göra olika saker.
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, targetingRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
 
 }
