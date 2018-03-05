@@ -18,21 +18,22 @@ public class BasicAI : MonoBehaviour {
     public int attackDMG = 0;
    
     [SerializeField]
-    float patrolSpeed = 0;
+    float patrolSpeed = 0f;
     [SerializeField]
-    float targetingRange = 0;
+    float targetingRange = 0f;
     [SerializeField]
-    float approachSpeed = 0;
+    float aggroRange = 0f;
+    [SerializeField]
+    float approachSpeed = 0f;
     float acceleration = 0.1f; // patrolSpeed += acceleration;
     [SerializeField]
-    float attackRange = 0;
+    float attackRange = 0f;
     
 	void Start ()
         {
-        InvokeRepeating("searching", 0f, 0.5f );
+        InvokeRepeating("Searching", 0f, 0.5f );
         playerInSight = false;
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, targetingRange);
+        
 	    }
 
 	void Update ()
@@ -40,18 +41,31 @@ public class BasicAI : MonoBehaviour {
 		
 	    }
 
-    void searching()
+    void Searching()
         {
        GameObject playerMesh = GameObject.FindWithTag("Player");
-        for (playerInSight = false, ) {
+        float closestRange = Mathf.Infinity;
+        GameObject pointBlankPlayer = null;
 
-        }
+        /* while (playerInSight = false) {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        } */
     }
 
     void playerTargeted() {
         print ("Hey you!");
-        transform.position = new Vector3();
+       // transform.position = new Vector3();
 
+    }
+
+    void OnDrawGizmosSelected () //Måste kunna se hur långt den kan göra olika saker.
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, targetingRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
 
 }
