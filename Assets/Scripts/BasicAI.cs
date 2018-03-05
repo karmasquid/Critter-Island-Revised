@@ -16,6 +16,8 @@ public class BasicAI : MonoBehaviour {
     int currentHP = 100;
     int maxHP = 100;
     public int attackDMG = 0;
+    public Transform targetPlayer;
+    public string playerTag = "Player";
    
     [SerializeField]
     float patrolSpeed = 0f;
@@ -31,31 +33,48 @@ public class BasicAI : MonoBehaviour {
     
 	void Start ()
         {
-        InvokeRepeating("Searching", 0f, 0.5f );
         playerInSight = false;
+        InvokeRepeating("Searching", 0f, 0.5f );
         
 	    }
 
-	void Update ()
-        {
-		
-	    }
+	
 
     void Searching()
         {
-       GameObject playerMesh = GameObject.FindWithTag("Player");
+       GameObject playerMesh = GameObject.FindWithTag(playerTag);
         float closestRange = Mathf.Infinity;
-        GameObject pointBlankPlayer = null;
+        GameObject pointBlankPlayer = null; //Närmsta spelarmodellen som finns relativt till fienden med detta script.
 
-        /* while (playerInSight = false) {
-            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        } */
+         while (playerInSight == false)
+            {
+            float distanceToPlayer = Vector3.Distance(transform.position, playerMesh.transform.position);
+            if(distanceToPlayer < closestRange) //Om räckvidden till spelaren är mindre än närmsta räckvidden betyder det att fienden hittat spelaren. 
+            {
+                closestRange = distanceToPlayer;
+                pointBlankPlayer = playerMesh;
+            }
+        
+        }
+        if(pointBlankPlayer != null && closestRange <= targetingRange)
+        {
+            targetPlayer = pointBlankPlayer.transform;
+            PlayerTargeted();
+        }
     }
 
-    void playerTargeted() {
+    void PlayerTargeted()
+    {
         print ("Hey you!");
        // transform.position = new Vector3();
-
+          
+    }
+    void Update()
+    {
+        if (targetPlayer == null)
+        {
+            return; 
+        }
     }
 
     void OnDrawGizmosSelected () //Måste kunna se hur långt den kan göra olika saker.
