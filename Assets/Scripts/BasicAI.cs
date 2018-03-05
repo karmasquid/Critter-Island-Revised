@@ -42,17 +42,17 @@ public class BasicAI : MonoBehaviour {
 
     void Searching()
         {
-       GameObject playerMesh = GameObject.FindWithTag(playerTag);
+       GameObject[] playerMesh = GameObject.FindGameObjectsWithTag(playerTag);
         float closestRange = Mathf.Infinity;
         GameObject pointBlankPlayer = null; //Närmsta spelarmodellen som finns relativt till fienden med detta script.
 
-         while (playerInSight == false)
+         foreach (GameObject player in playerMesh)
             {
-            float distanceToPlayer = Vector3.Distance(transform.position, playerMesh.transform.position);
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if(distanceToPlayer < closestRange) //Om räckvidden till spelaren är mindre än närmsta räckvidden betyder det att fienden hittat spelaren. 
             {
                 closestRange = distanceToPlayer;
-                pointBlankPlayer = playerMesh;
+                pointBlankPlayer = player;
             }
         
         }
