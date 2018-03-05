@@ -767,8 +767,8 @@ MonoBehaviour:
     currentValue: 100
   stamina:
     bar: {fileID: 1990469984}
-    maxValue: 100
-    currentValue: 100
+    maxValue: 200
+    currentValue: 200
 --- !u!4 &1567638747
 Transform:
   m_ObjectHideFlags: 0
@@ -1115,7 +1115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2038462919
 RectTransform:
   m_ObjectHideFlags: 0
