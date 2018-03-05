@@ -108,7 +108,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDMG: 0
+  targetPlayer: {fileID: 0}
+  playerTag: Player
   patrolSpeed: 0
   targetingRange: 10
+  aggroRange: 20
   approachSpeed: 0
   attackRange: 4

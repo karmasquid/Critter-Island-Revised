@@ -22,7 +22,7 @@ public class BasicAI : MonoBehaviour {
     [SerializeField]
     float patrolSpeed = 0f;
     [SerializeField]
-    float targetingRange = 0f;
+    float targetingRange = 10f;
     [SerializeField]
     float aggroRange = 0f;
     [SerializeField]
@@ -38,28 +38,35 @@ public class BasicAI : MonoBehaviour {
         
 	    }
 
-	
-
     void Searching()
         {
+        
        GameObject[] playerMesh = GameObject.FindGameObjectsWithTag(playerTag);
         float closestRange = Mathf.Infinity;
-        GameObject pointBlankPlayer = null; //Närmsta spelarmodellen som finns relativt till fienden med detta script.
+        GameObject nearestPlayer = null; //Närmsta spelarmodellen som finns relativt till fienden med detta script.
 
          foreach (GameObject player in playerMesh)
             {
+            
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
             if(distanceToPlayer < closestRange) //Om räckvidden till spelaren är mindre än närmsta räckvidden betyder det att fienden hittat spelaren. 
             {
+                
                 closestRange = distanceToPlayer;
-                pointBlankPlayer = player;
+                nearestPlayer = player;
             }
-        
+            
         }
-        if(pointBlankPlayer != null && closestRange <= targetingRange)
+        if (nearestPlayer != null && closestRange <= targetingRange)
         {
-            targetPlayer = pointBlankPlayer.transform;
+            print("Hello!");
+            targetPlayer = nearestPlayer.transform;
+
             PlayerTargeted();
+        }
+        else
+        {
+            targetPlayer = null;
         }
     }
 

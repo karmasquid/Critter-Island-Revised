@@ -701,17 +701,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114090595844076584, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c,
-        type: 2}
-      propertyPath: aggroRange
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114090595844076584, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c,
-        type: 2}
-      propertyPath: targetPlayer
-      value: 
-      objectReference: {fileID: 4885828084526920, guid: 675d6cc668d9eff40bb6919c74d04157,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c, type: 2}
   m_IsPrefabParent: 0
@@ -753,6 +742,14 @@ Prefab:
     - target: {fileID: 4885828084526920, guid: 675d6cc668d9eff40bb6919c74d04157, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876051181910330, guid: 675d6cc668d9eff40bb6919c74d04157, type: 2}
+      propertyPath: m_Name
+      value: TestPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876051181910330, guid: 675d6cc668d9eff40bb6919c74d04157, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 675d6cc668d9eff40bb6919c74d04157, type: 2}
