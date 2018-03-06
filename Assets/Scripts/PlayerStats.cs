@@ -4,28 +4,41 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
 
+    //Skapar stats från stats-scriptet.
     [SerializeField]
     private Stats health;
 
     [SerializeField]
     private Stats stamina;
 
-	// Use this for initialization
+    //Desto lägre staminaRecharge desto snabbare laddas stamina.
+    [SerializeField]
+    private float staminaRecharge;
+
+    //Variabel för timer.
+    private float timeCheck = 0;
+
 	private void Awake ()
     {
         health.Initialize();
         stamina.Initialize();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
+        //En timer som ökar stamina med 1 varje halv sekund så länge stamina ej är MaxValue.
         if (stamina.CurrentValue < stamina.MaxValue)
         {
+            timeCheck += Time.deltaTime;
+        }
+
+        if (timeCheck > staminaRecharge)
+        {
+            timeCheck = 0;
             stamina.CurrentValue += 1;
         }
         
-
+        //Test
         if (Input.GetKeyDown(KeyCode.A))
         {
             health.CurrentValue -= 10;
@@ -36,7 +49,7 @@ public class PlayerStats : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            stamina.CurrentValue -= 30;
+            stamina.CurrentValue -= 10;
         }
     }
 
