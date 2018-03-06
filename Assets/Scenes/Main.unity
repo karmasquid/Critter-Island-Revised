@@ -297,7 +297,7 @@ MonoBehaviour:
     bar: {fileID: 1990469984}
     maxValue: 100
     currentValue: 100
-  staminaRecharge: 0.1
+  staminaRecharge: 1
 --- !u!4 &1567638747
 Transform:
   m_ObjectHideFlags: 0
@@ -407,6 +407,30 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884734565220194, guid: 84281e3c7de46634499f4325a9b8e1b4, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114753668265568918, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224913257318549576, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 13.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114338840041165404, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224931767778712572, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -15.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84281e3c7de46634499f4325a9b8e1b4, type: 2}

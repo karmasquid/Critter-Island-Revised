@@ -31,13 +31,13 @@ public class BarScript : MonoBehaviour {
     {
         set
         {
-            string[] tmp = valueText.text.Split(':');
-            valueText.text = tmp[0] + ": " + value;
+            //string[] tmp = valueText.text.Split(':');
+            //valueText.text = tmp[0] + ": " + value;
+            valueText.text = value.ToString() + "/" + MaxValue.ToString();
             fillAmount = barCalc(value, 0, MaxValue, 0, 1);
         }
     }
 
-    // Use this for initialization
     void Start ()
     {
 		if (lerpColor)

@@ -18,6 +18,9 @@ public class PlayerStats : MonoBehaviour {
     //Variabel för timer.
     private float timeCheck = 0;
 
+    //waitTime variabel = nuvarande staminaRecharge
+    private float waitTime = 0.1f;
+
 	private void Awake ()
     {
         health.Initialize();
@@ -32,10 +35,12 @@ public class PlayerStats : MonoBehaviour {
             timeCheck += Time.deltaTime;
         }
 
-        if (timeCheck > staminaRecharge)
+        //timeCheck vs wait time
+        if (timeCheck > waitTime)
         {
             timeCheck = 0;
-            stamina.CurrentValue += 1;
+            //+= staminaRecharge
+            stamina.CurrentValue += staminaRecharge;
         }
         
         //Test
