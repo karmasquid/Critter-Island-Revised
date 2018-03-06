@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BasicAI : MonoBehaviour {
     /* AI states
@@ -19,29 +20,33 @@ public class BasicAI : MonoBehaviour {
     public Transform targetPlayer;
     public string playerTag = "Player";
    
-    [SerializeField]
-    float patrolSpeed = 0f;
+    
     [SerializeField]
     float targetingRange = 10f;
     [SerializeField]
     float aggroRange = 0f;
     [SerializeField]
-    float approachSpeed = 0f;
-    float acceleration = 0.1f; // patrolSpeed += acceleration;
-    [SerializeField]
     float attackRange = 0f;
+
+    NavMeshAgent agent;
     
 	void Start ()
         {
         playerInSight = false;
-        InvokeRepeating("Searching", 0f, 0.5f );
+        agent = GetComponent<NavMeshAgent>();
+      //  InvokeRepeating("Searching", 0f, 0.5f );
+        targetPlayer = PlayerManager.instance.player.transform;
         
 	    }
 
     void Searching()
         {
         
-       GameObject[] playerMesh = GameObject.FindGameObjectsWithTag(playerTag);
+
+        
+
+         
+       /*GameObject[] playerMesh = GameObject.FindGameObjectsWithTag(playerTag);
         float closestRange = Mathf.Infinity;
         GameObject nearestPlayer = null; //Närmsta spelarmodellen som finns relativt till fienden med detta script.
 
@@ -67,7 +72,7 @@ public class BasicAI : MonoBehaviour {
         else
         {
             targetPlayer = null;
-        }
+        } */
     }
 
     void PlayerTargeted()
@@ -78,9 +83,12 @@ public class BasicAI : MonoBehaviour {
     }
     void Update()
     {
-        if (targetPlayer == null)
+
+        float distanceToPlayer = Vector3.Distance(targetPlayer.position, transform.position);
+
+        if (distanceToPlayer <= targetingRange)
         {
-            return; 
+            agent.SetDestination(targetPlayer.position);
         }
     }
 
