@@ -73,15 +73,14 @@ public class Inventory : MonoBehaviour
     private void CreateInventory()
     {
         eqCanvas = Instantiate(inventoryCanvas) as Canvas;
-        eqCanvas.transform.name = "EquippedCanvas";
-        eqCanvas.transform.SetParent(GameObject.Find("Canvas").transform, false);
+        eqCanvas.transform.name = "InventoryCanvas";
 
         background = Instantiate(inventoryBackground) as Image;
-        background.transform.SetParent(GameObject.Find("EquippedCanvas").transform, false);
+        background.transform.SetParent(GameObject.Find("InventoryCanvas").transform, false);
 
         canvas = Instantiate(inventoryCanvas) as Canvas;
-        canvas.transform.name = "InventoryCanvas";
-        canvas.transform.SetParent(GameObject.Find("EquippedCanvas").transform, false);
+        canvas.transform.name = "InventoryCanvas2";
+        canvas.transform.SetParent(GameObject.Find("InventoryCanvas").transform, false);
 
         int eqdegrees = 360 / 5;
         int offset = -(eqdegrees / 2);
@@ -171,7 +170,6 @@ public class Inventory : MonoBehaviour
             }
         else
             {
-            Debug.Log("occupado!");
             Item storedItem = equippedButtons[slot].GetComponent<EquippedSlot>().ItemOnSlot;
             equippedItems[slot] = inventoryItems[index];
             equippedButtons[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
