@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+// Scritpt skriven av Felype Arévalo Arancibia.
+// Combat skriven av _____________.
+
 public class BasicAI : MonoBehaviour {
     /* AI states
      * 
@@ -13,6 +16,7 @@ public class BasicAI : MonoBehaviour {
      * ATTACK
      * LOSE TARGET > IDLE > PATROLING
      * DEAD  */
+
    // bool playerInSight;
     int currentHP = 100;
     int maxHP = 100;
@@ -35,22 +39,24 @@ public class BasicAI : MonoBehaviour {
     private Transform enemyAI;
     private float timer;
 
+    
     NavMeshAgent agent;
     
 	void Start ()
         {
       //  playerInSight = false;
-        agent = GetComponent<NavMeshAgent>();
-        InvokeRepeating("Roaming", 0f, 0f);
-        InvokeRepeating("Searching", 0f, 0.5f );
-        targetPlayer = PlayerManager.instance.player.transform;
+        agent = GetComponent<NavMeshAgent>(); // Tillåter agent att flytta på modellen via en gilltig NavMesh på scenen.
         
-	    }
+        InvokeRepeating("Searching", 0f, 0.5f ); //Startar metoden Searching vid sekund 0 och upprepar den var 0.5 sekund.
+        InvokeRepeating("Roaming", 0f, 2f);      //Startar metoden Roaming vid sekund 0 och upprepar den var 2 sekund.
+        targetPlayer = PlayerManager.instance.player.transform;
+        timer = roamingTimer;
+        
+        }
 
     void Searching()
         {
-        Roaming();
-
+       
         float distanceToPlayer = Vector3.Distance(targetPlayer.position, transform.position);
 
         if (distanceToPlayer <= targetingRange && distanceToPlayer <= aggroRange)
@@ -61,11 +67,14 @@ public class BasicAI : MonoBehaviour {
             if (distanceToPlayer <= attackRange)
             {
                 //attack
+                print("DÖ");
             }
         }
         else if (distanceToPlayer > aggroRange)
         {
+            print("Must have been my imagination");
             return; // Gå tillbaka till att roama.
+
         }
     }
 
@@ -76,11 +85,30 @@ public class BasicAI : MonoBehaviour {
           
     }
 
-    void Roaming()
+    void Roaming() //Denna uppdateras automatiskt via searching() som i sin tur uppdateras via invoke repeat vid start.
     {
         // Anim patrol here
-        
+        timer += Time.deltaTime;
+
+        if (timer >= roamingTimer)
+        {
+            Vector3 newPos = RandomNavSphere(transform.position, roamingRadius, 1);
+            agent.SetDestination(newPos);
+            roamingTimer = 0;
+        }
     }
+
+    public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
+    {
+        Vector3 randDirection = Random.insideUnitSphere * dist;
+
+        randDirection += origin;
+        NavMeshHit navHit;
+
+        NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
+        return navHit.position;
+    }
+
 
     public void TakeDMG()
     {
@@ -106,6 +134,8 @@ public class BasicAI : MonoBehaviour {
         Gizmos.DrawWireSphere(transform.position, targetingRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, aggroRange);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, roamingRadius);
     }
 
 }
