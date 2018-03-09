@@ -755,29 +755,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 1269112337624112, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1269112337624112, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c, type: 2}
-      propertyPath: m_NavMeshLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 195621884803709110, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c,
-        type: 2}
-      propertyPath: m_Speed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 195621884803709110, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 195621884803709110, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c,
-        type: 2}
-      propertyPath: m_AutoBraking
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb6230ec0709fbe4d8cf3bbd39c78d5c, type: 2}
   m_IsPrefabParent: 0

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 60f8ff4c5f438254f859668717d77292
+timeCreated: 1519925312
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - InventoryUIGo: {fileID: 1208831950473328, guid: e551a35824d109644ab0fdac49aca030,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
