@@ -23,7 +23,7 @@ public class BasicAI : MonoBehaviour {
     public int maxArmor = 0;
     public int currentArmor = 0;
     public int attackDMG = 0;
-    
+    bool playerInSight;
     Transform targetPlayer;
     string playerTag = "Player";
     
@@ -44,7 +44,7 @@ public class BasicAI : MonoBehaviour {
     
 	void Start ()
         {
-      //  playerInSight = false;
+        playerInSight = false;
         agent = GetComponent<NavMeshAgent>(); // Tillåter agent att flytta på modellen via en gilltig NavMesh på scenen.
         
         InvokeRepeating("Searching", 0f, 0.5f ); //Startar metoden Searching vid sekund 0 och upprepar den var 0.5 sekund.
@@ -61,6 +61,7 @@ public class BasicAI : MonoBehaviour {
 
         if (distanceToPlayer <= targetingRange && distanceToPlayer <= aggroRange)
         {
+            playerInSight = true;
             PlayerTargeted();
             agent.SetDestination(targetPlayer.position);
 
@@ -73,6 +74,7 @@ public class BasicAI : MonoBehaviour {
         else if (distanceToPlayer > aggroRange)
         {
             print("Must have been my imagination");
+            playerInSight = false;
             return; // Gå tillbaka till att roama.
 
         }
@@ -87,6 +89,11 @@ public class BasicAI : MonoBehaviour {
 
     void Roaming() //Denna uppdateras automatiskt via searching() som i sin tur uppdateras via invoke repeat vid start.
     {
+        if (playerInSight == true)
+        {
+            return;
+        }
+        print("Whistle*");
         // Anim patrol here
         timer += Time.deltaTime;
 
@@ -95,6 +102,7 @@ public class BasicAI : MonoBehaviour {
             Vector3 newPos = RandomNavSphere(transform.position, roamingRadius, 1);
             agent.SetDestination(newPos);
             roamingTimer = 0;
+            
         }
     }
 
@@ -116,12 +124,13 @@ public class BasicAI : MonoBehaviour {
         /// tänk på att armor och HP ska vara aktiva variabler här.
         if(currentHP <= 0)
         {
+            //Death anim 
             Destroy(gameObject);
         }
     }
 
     public void DealDMG()
-    {
+    {   /// Attack anim.
         /// Damage ska skickas härifrån till spelaren, är det så att ett bättre sätt upptäcktes 
         /// från spelarscriptet så kan denna tas bort.
     }
