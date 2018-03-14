@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33321444168063686}
   - component: {fileID: 23395400068141254}
   - component: {fileID: 95688773934782286}
+  - component: {fileID: 64350090234349638}
   m_Layer: 0
   m_Name: asset_prfb_env_cave_main_ground_1_100x500
   m_TagString: Untagged
@@ -82,6 +83,20 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628881597661168}
+  m_Mesh: {fileID: 4300000, guid: 33ab63faa7e20ce4a9310ddc8a7cdb4b, type: 3}
+--- !u!64 &64350090234349638
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628881597661168}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 33ab63faa7e20ce4a9310ddc8a7cdb4b, type: 3}
 --- !u!95 &95688773934782286
 Animator:
