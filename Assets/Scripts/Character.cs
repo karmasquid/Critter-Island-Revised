@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public float Speed = 5f;
-    public float Gravity = -9.81f;
-    public float GroundDistance = 0.2f;
-    public float DashDistance = 5f;
-    public LayerMask Ground;
-    public Vector3 Drag;
+    [SerializeField]
+    float Speed = 5f;
+    [SerializeField]
+    float speedMultiplier = 1.5f;
+    [SerializeField]
+    float Gravity = -9.81f;
+    [SerializeField]
+    float GroundDistance = 0.2f;
+    [SerializeField]
+    float DashDistance = 5f;
+    [SerializeField]
+    LayerMask Ground;
+    [SerializeField]
+    Vector3 Drag;
+    [SerializeField]
+    float rotationSpeed;
 
+    private bool running;
     private CharacterController _controller;
     private Vector3 _velocity;
     private bool _isGrounded = true;
     private Transform _groundChecker;
+    private Vector3 targetRotation;
 
-    Vector3 targetRotation;
-    [SerializeField]
-    int rotationSpeed;
 
     void Start()
     {
@@ -41,18 +50,19 @@ public class Character : MonoBehaviour
 
         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation.x, Mathf.Round(targetRotation.y / 45) * 45, targetRotation.z), Time.deltaTime * rotationSpeed);
         //_____________________________________________________________________________________________________________________________________________
+        if (Input.GetKeyDown(KeyCode.LeftShift)  || Input.GetKeyDown("joystick button 5")) { Speed = Speed * speedMultiplier; running = true; }
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp("joystick button 5")) { Speed = Speed / speedMultiplier; running = false; }
+        //_____________________________________________________RUNNING______________________________________________________
         _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
         if (_isGrounded && _velocity.y < 0)
             _velocity.y = 0f;
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        _controller.Move(move * Time.deltaTime * Speed);
-        if (move != Vector3.zero)
-            transform.forward = move;
+        //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        _controller.Move(input * Time.deltaTime * Speed);
 
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
+
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4")) //Check stamina here.
         {
-            Debug.Log("Dash");
             _velocity += Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
         }
 
