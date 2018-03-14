@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 96fd53d949de04043b42a3d173d7f3db
-timeCreated: 1520506579
+guid: b64d8d0aa5722b44195502a1643dadaa
+timeCreated: 1521017523
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: asset_env_cave_main_wall_mat_1
+    2100000: asset_env_cave_main_wall_mat_3
     2300000: //RootNode
     3300000: //RootNode
-    4300000: asset_env_cave_main_wall_1
+    4300000: asset_env_cave_main_wall_3
     9500000: //RootNode
   externalObjects: {}
   materials:
