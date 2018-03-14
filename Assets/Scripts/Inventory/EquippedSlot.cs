@@ -47,6 +47,8 @@ public class EquippedSlot : MonoBehaviour {
         }
     }
 
+
+
     public void ChangeSprite()
     {
         this.transform.GetChild(0).GetComponent<Image>().overrideSprite = itemOnSlot.Icon;

@@ -16,7 +16,9 @@ public class Inventory : MonoBehaviour
     //array of itemslots (buttons)    
     private List<Button> inventoryButtons = new List<Button>();
 
-    private Button[] equippedButtons = new Button[5];
+    private Button[] equippedButton = new Button[5];
+
+    private Button[] inventoryButton = new Button[12];
 
 
     //prefabs
@@ -36,10 +38,14 @@ public class Inventory : MonoBehaviour
 
     //reference to database
     private ItemDatabase database;
+    private InventorySlot inventorySlotScript;
+    private EquippedSlot equippedSlotScript;
 
     bool showInventory;
     
     public static Inventory instance;
+
+    GameObject EventSystemManager;
 
     private void Awake()
     {
@@ -59,7 +65,7 @@ public class Inventory : MonoBehaviour
     {
 
         database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
-
+        EventSystemManager = GameObject.Find("EventSystem");
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
         equippedSlot = Resources.Load<Button>("Prefabs/UI/EquippedSlot");
@@ -70,6 +76,30 @@ public class Inventory : MonoBehaviour
         CreateInventory();
     }
 
+    void FixedUpdate()
+    {
+
+        //open and close inventory.
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (!showInventory)
+            {
+                //SoundManager.instance.PlaySingle(invOpenSound);
+                showInventory = true;
+                eqCanvas.enabled = true; ;
+                UpdateInventory();
+            }
+
+            else
+            {
+                //SoundManager.instance.PlaySingle(invCloseSound);
+                showInventory = false;
+                eqCanvas.enabled = false;
+            }
+        }
+    }
+
+    //creates inventory at start.
     private void CreateInventory()
     {
         eqCanvas = Instantiate(inventoryCanvas) as Canvas;
@@ -91,10 +121,18 @@ public class Inventory : MonoBehaviour
             eqslotRotation = i * eqdegrees + offset;
             Button button = Instantiate(equippedSlot, equippedSlot.transform.position, Quaternion.Euler(new Vector3(0, 0, eqslotRotation))) as Button;
             button.name = "equippedSlot" + i.ToString();
-            equippedButtons[i] = button;
+            equippedButton[i] = button;
             button.transform.SetParent(eqCanvas.transform, false);
             button.GetComponent<EquippedSlot>().UpdateSlot(-eqslotRotation);
             button.GetComponent<EquippedSlot>().IndexInList = i;
+        }
+
+        for (int i = 0; i < 12; i++)
+        {
+            Button button = Instantiate(inventorySlot);
+            button.name = "slot" + i.ToString();
+            inventoryButton[i] = button;
+            button.transform.SetParent(canvas.transform, false);
         }
 
         //close inventory
@@ -102,58 +140,29 @@ public class Inventory : MonoBehaviour
         showInventory = false;
     }
 
+    //Updates inventryUI after changes.
     public void UpdateInventory()
     {
-
-        if (inventoryButtons.Count > 0) // destroy all previous buttons
+        for (int i = 0; i < 12; i++)
         {
-            foreach (Transform child in canvas.transform)
-            {
-                GameObject.Destroy(child.gameObject);
-            }
+            inventoryButton[i].gameObject.SetActive(false);
         }
-
-
         if (inventoryItems.Count > 0) //place out new buttons
         {
             int slotRotation;
-            int degrees = 360 / inventoryItems.Count;
+            int degrees = -360 / inventoryItems.Count;
 
             for (int i = 0; i < inventoryItems.Count; i++)
             {
                 slotRotation = i * degrees;
-                
-                Button button = Instantiate(inventorySlot, inventorySlot.transform.position, Quaternion.Euler(new Vector3(0, 0, slotRotation))) as Button;
-                button.name = "slot" + i.ToString();
-                inventoryButtons.Add(button);
-                button.transform.SetParent(canvas.transform, false);
-                button.GetComponent<InventorySlot>().ItemOnSlot = inventoryItems[i];
-                button.GetComponent<InventorySlot>().UpdateSlot(-slotRotation);
-                button.GetComponent<InventorySlot>().IndexInList = i;
-                
-            }
-        }
-    }
 
-    void FixedUpdate()
-    {
-
-        //open and close inventory.
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (!showInventory)
-            {
-                //SoundManager.instance.PlaySingle(invOpenSound);
-                showInventory = true;
-                eqCanvas.enabled = true;
-                UpdateInventory();
-            }
-
-            else
-            {
-                //SoundManager.instance.PlaySingle(invCloseSound);
-                showInventory = false;
-                eqCanvas.enabled = false;
+                inventoryButton[i].gameObject.SetActive(true);
+                inventorySlotScript = inventoryButton[i].gameObject.GetComponent<InventorySlot>();
+                inventoryButton[i].gameObject.transform.SetPositionAndRotation(inventoryButton[i].gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, -slotRotation)));
+                inventorySlotScript.ItemOnSlot = inventoryItems[i];
+                inventorySlotScript.UpdateImage();
+                inventorySlotScript.RotateSlot();
+                inventorySlotScript.IndexInList = i;
             }
         }
     }
@@ -163,17 +172,17 @@ public class Inventory : MonoBehaviour
         if (equippedItems[slot] == null)
             {
             equippedItems[slot] = inventoryItems[index];
-            equippedButtons[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
-            equippedButtons[slot].GetComponent<EquippedSlot>().ChangeSprite();
+            equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
+            equippedButton[slot].GetComponent<EquippedSlot>().ChangeSprite();
             inventoryItems.RemoveAt(index);
             UpdateInventory();
             }
         else
             {
-            Item storedItem = equippedButtons[slot].GetComponent<EquippedSlot>().ItemOnSlot;
+            Item storedItem = equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot;
             equippedItems[slot] = inventoryItems[index];
-            equippedButtons[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
-            equippedButtons[slot].GetComponent<EquippedSlot>().ChangeSprite();
+            equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
+            equippedButton[slot].GetComponent<EquippedSlot>().ChangeSprite();
             inventoryItems[index] = storedItem;
             UpdateInventory();
         }
@@ -200,7 +209,7 @@ public class Inventory : MonoBehaviour
         {
             inventoryItems.Add(database.allItems[databaseIndex]);
         }
-
+        UpdateInventory();
     }
 }
 

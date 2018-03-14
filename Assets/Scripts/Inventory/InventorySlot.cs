@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 
 public class InventorySlot : MonoBehaviour {
@@ -31,22 +32,22 @@ public class InventorySlot : MonoBehaviour {
 
     void Start()
     {
-
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(TaskOnClick);
     }
 
-    public void UpdateSlot(int rotation)
+    public void RotateSlot()
     {
+
         foreach (Transform child in transform)
         {
-            child.Rotate(0, 0, rotation);
-            
+            child.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -gameObject.transform.rotation.z));
         }
-
-
+    }
+    public void UpdateImage()
+    {
         this.transform.GetChild(0).GetComponent<Image>().overrideSprite = itemOnSlot.Icon;
     }
 
