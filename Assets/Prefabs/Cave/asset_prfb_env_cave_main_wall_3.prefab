@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33965741021625670}
   - component: {fileID: 23377573071011544}
   - component: {fileID: 95406451240331608}
+  - component: {fileID: 64075076037070038}
   m_Layer: 0
   m_Name: asset_prfb_env_cave_main_wall_3
   m_TagString: Untagged
@@ -66,14 +67,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624476495543818}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.001617, y: 6.2236366, z: 7.00101}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -63, y: -1, z: -54.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4040679605105368}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!23 &23377573071011544
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -156,6 +157,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1624476495543818}
   m_Mesh: {fileID: 4300000, guid: 410c55791622e4941aea0476b5df931a, type: 3}
+--- !u!64 &64075076037070038
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1624476495543818}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: b64d8d0aa5722b44195502a1643dadaa, type: 3}
 --- !u!95 &95406451240331608
 Animator:
   serializedVersion: 3
