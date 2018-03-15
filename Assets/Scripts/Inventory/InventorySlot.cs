@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 
-public class InventorySlot : MonoBehaviour {
+public class InventorySlot : MonoBehaviour, ISelectHandler
+{
 
     private Button button;
 
@@ -14,6 +16,8 @@ public class InventorySlot : MonoBehaviour {
     private Item.TypeOfItem itemType;
 
     private int indexInList;
+
+    private Transform descText;
 
     public int IndexInList
     {
@@ -36,6 +40,8 @@ public class InventorySlot : MonoBehaviour {
 
         button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(TaskOnClick);
+        descText = this.transform.GetChild(2);
+        descText.gameObject.SetActive(false);
     }
 
     public void RotateSlot()
@@ -46,9 +52,16 @@ public class InventorySlot : MonoBehaviour {
             child.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -gameObject.transform.rotation.z));
         }
     }
+
     public void UpdateImage()
     {
         this.transform.GetChild(0).GetComponent<Image>().overrideSprite = itemOnSlot.Icon;
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        Debug.Log("selected : " + gameObject.name);
+
     }
 
     void TaskOnClick()

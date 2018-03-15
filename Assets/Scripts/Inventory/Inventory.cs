@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     //array of itemslots (buttons)    
     private List<Button> inventoryButtons = new List<Button>();
 
-    private Button[] equippedButton = new Button[5];
+    private Image[] equippedButton = new Image[5];
 
     private Button[] inventoryButton = new Button[12];
 
@@ -25,13 +25,13 @@ public class Inventory : MonoBehaviour
     private Image inventoryBackground;
     private Canvas inventoryCanvas;  
     private Button inventorySlot;
-    private Button equippedSlot;
+    private Image equippedSlot;
 
     private Image background;
     private Canvas canvas;
     private Canvas eqCanvas;
     private Button slot;
-    private Button equipped;
+    private Image equipped;
 
     //sounds open/close inventory
     //private AudioClip invOpenSound, invCloseSound;
@@ -68,7 +68,7 @@ public class Inventory : MonoBehaviour
         EventSystemManager = GameObject.Find("EventSystem");
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
-        equippedSlot = Resources.Load<Button>("Prefabs/UI/EquippedSlot");
+        equippedSlot = Resources.Load<Image>("Prefabs/UI/EquippedSlot");
         inventoryBackground = Resources.Load<Image>("Prefabs/UI/InventoryBackground");
         //invOpenSound = Resources.Load<AudioClip>("Audio/Inventory/openInv");
         //invCloseSound = Resources.Load<AudioClip>("Audio/Inventory/closeInv");
@@ -119,12 +119,12 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             eqslotRotation = i * eqdegrees + offset;
-            Button button = Instantiate(equippedSlot, equippedSlot.transform.position, Quaternion.Euler(new Vector3(0, 0, eqslotRotation))) as Button;
-            button.name = "equippedSlot" + i.ToString();
-            equippedButton[i] = button;
-            button.transform.SetParent(eqCanvas.transform, false);
-            button.GetComponent<EquippedSlot>().UpdateSlot(-eqslotRotation);
-            button.GetComponent<EquippedSlot>().IndexInList = i;
+            Image image = Instantiate(equippedSlot, equippedSlot.transform.position, Quaternion.Euler(new Vector3(0, 0, eqslotRotation))) as Image;
+            image.name = "equippedSlot" + i.ToString();
+            equippedButton[i] = image;
+            image.transform.SetParent(eqCanvas.transform, false);
+            image.GetComponent<EquippedSlot>().UpdateSlot(-eqslotRotation);
+            image.GetComponent<EquippedSlot>().IndexInList = i;
         }
 
         for (int i = 0; i < 12; i++)
@@ -143,16 +143,18 @@ public class Inventory : MonoBehaviour
     //Updates inventryUI after changes.
     public void UpdateInventory()
     {
+        int itemsInInventory = inventoryItems.Count;
+
         for (int i = 0; i < 12; i++)
         {
             inventoryButton[i].gameObject.SetActive(false);
         }
-        if (inventoryItems.Count > 0) //place out new buttons
+        if (itemsInInventory > 0) //place out new buttons
         {
             int slotRotation;
-            int degrees = -360 / inventoryItems.Count;
+            int degrees = -360 / itemsInInventory;
 
-            for (int i = 0; i < inventoryItems.Count; i++)
+            for (int i = 0; i < itemsInInventory; i++)
             {
                 slotRotation = i * degrees;
 
@@ -164,9 +166,39 @@ public class Inventory : MonoBehaviour
                 inventorySlotScript.RotateSlot();
                 inventorySlotScript.IndexInList = i;
             }
+            //if (itemsInInventory > 1)
+            //{
+
+            //    for (int i = 0; i < itemsInInventory; i++)
+            //    {
+            //        inventorySlotScript = inventoryButton[i].gameObject.GetComponent<InventorySlot>();
+
+            //        if (i == 0)
+            //        {
+            //            inventorySlotScript.SetSelectables(inventoryButton[1], inventoryButton[itemsInInventory]);
+            //            Debug.Log("first added");
+            //        }
+            //        else if (i == itemsInInventory)
+            //        {
+            //            inventorySlotScript.SetSelectables(inventoryButton[1],inventoryButton[itemsInInventory - 1]);
+            //            Debug.Log("Last added");
+            //        }
+            //        else
+            //        {
+                        
+            //            inventorySlotScript.SetSelectables(inventoryButton[i + 1], inventoryButton[i - 1]);
+            //            Debug.Log("middle added");
+            //        }
+            //    }
+
+            //}
+
+            EventSystem.current.SetSelectedGameObject(inventoryButton[0].gameObject, null);
+
         }
     }
 
+    //method for moving item to equippeditem.
     public void EquipItem(int index, int slot)
     {
         if (equippedItems[slot] == null)
@@ -189,6 +221,7 @@ public class Inventory : MonoBehaviour
 
     }
     
+    //method called when unequipping item
     public void UnEquipItem(int index)
     {
         if (inventoryItems.Count <= 12 && equippedItems[index] != null)
@@ -199,8 +232,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // used to add item to inventory by name.
-    public void AddItem(string nameOfItem) // kommer behöva ändras för att lägga till på rätt position.
+    // used to add item to inventory by name. ----------------------------------------------------Trydisshit----------------------------------
+    public void AddItem(string nameOfItem)
     {
         int databaseIndex = -1;
         databaseIndex = database.allItems.FindIndex(i => i.Name == nameOfItem);

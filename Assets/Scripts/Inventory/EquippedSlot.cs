@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EquippedSlot : MonoBehaviour {
 
 
-    private Button button;
+    //private Button button;
 
     private Item itemOnSlot;
 
@@ -35,8 +35,8 @@ public class EquippedSlot : MonoBehaviour {
 
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
 
-        button = gameObject.GetComponent<Button>();
-        button.onClick.AddListener(TaskOnClick);
+        //button = gameObject.GetComponent<Button>();
+        //button.onClick.AddListener(TaskOnClick);
     }
 
     public void UpdateSlot(int rotation)
@@ -46,7 +46,6 @@ public class EquippedSlot : MonoBehaviour {
             child.Rotate(0, 0, rotation);
         }
     }
-
 
 
     public void ChangeSprite()
