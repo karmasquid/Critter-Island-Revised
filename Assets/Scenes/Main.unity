@@ -432,6 +432,11 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: -15.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114750402641961638, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_ShowMaskGraphic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84281e3c7de46634499f4325a9b8e1b4, type: 2}
   m_IsPrefabParent: 0
