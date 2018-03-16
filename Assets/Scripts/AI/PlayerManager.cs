@@ -4,12 +4,31 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
+    //Skapar stats från stats-scriptet.
+    [SerializeField]
+    private Stats health;
+
+    [SerializeField]
+    private Stats stamina;
+
+    //Desto lägre staminaRecharge desto snabbare laddas stamina.
+    [SerializeField]
+    private float staminaRecharge;
+
+    //Variabel för timer.
+    private float timeCheck = 0;
+
+    //waitTime variabel = nuvarande staminaRecharge
+    private float waitTime = 0.1f;
+
+    //Daniel Laggar del
+
+    //relevanta script
     private Inventory inventoryScript;
-    private Movement movementScript;
+    private Character characterScript;
     private BarScript barScript;
     private BasicAI basicAI;
 
-    private float health; // <------------ fråga daniel
     private float armor;
 
     private int ammoCount;
@@ -17,6 +36,7 @@ public class PlayerManager : MonoBehaviour {
     public GameObject player;
 
     #region Singleton
+
     public static PlayerManager instance;
     void Awake()
     {
@@ -30,43 +50,66 @@ public class PlayerManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        health.Initialize();
+        stamina.Initialize();
 
         DontDestroyOnLoad(gameObject);
     }
     #endregion
 
+    private void Update()
+    { 
+        //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
+        if (stamina.CurrentValue < stamina.MaxValue)
+        {
+            timeCheck += Time.deltaTime;
+        }
+
+        //timeCheck vs wait time
+        if (timeCheck > waitTime)
+        {
+            timeCheck = 0;
+            //+= staminaRecharge
+            stamina.CurrentValue += staminaRecharge;
+        }
+       //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
+    }
+
     public void AddPlayerstats(Item itemAdd)
     {
-        health += itemAdd.Health;
+        health.MaxValue += itemAdd.Health;
         armor += itemAdd.Armor;
 
-        //Barscriptvariabel += itemAdd.StaminaRecovery;
+        staminaRecharge += itemAdd.StaminaRecovery;
         ammoCount += itemAdd.AmmoCount;
 
-        //movmentscriptvariabel += itemAdd.MovementDiff;
+        characterScript.SpeedMultiplier += itemAdd.MovementDiff;
 
-        //movementspeedstuff += itemAdd.AttackSpeed;
+        //characterattackthingystuffscript.attackrate += itemAdd.AttackSpeed;
     }
 
     public void Removestats(Item itemrem)
     {
-        health -= itemrem.Health;
+        health.MaxValue-= itemrem.Health;
         armor -= itemrem.Armor;
 
-        //Datbarscriptfloat += itemAdd.StaminaRecovery
+        staminaRecharge -= itemrem.StaminaRecovery;
+        
+        characterScript.SpeedMultiplier -= itemrem.MovementDiff;
 
-        ammoCount = itemrem.AmmoCount;
-        //movementscript -= itemrem.MovementDiff;
         //movementscriptstuff += itemrem.AttackSpeed;
     }
 
-    public void MeleeAttack()
+    public void MeleeAttack(GameObject enemy)
     {
-        //barscript -= stamina för rätt item.
-
+        stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCost;
         
+        //if (staminaRecharging == true)
+        //{
+        //    //kör corutine!
+        //}
 
-
+        //deal damage to enemy.
     }
 
     public void RangeAttack(GameObject enemy)
@@ -74,15 +117,27 @@ public class PlayerManager : MonoBehaviour {
         if (ammoCount > 0)
       {
             ammoCount -= 1;
-            //barscript -stamina
-            basicAI = enemy.GetComponent<BasicAI>();
+            stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
+
+            //if (staminaRecharging == true)
+            //{
+            //    //kör corutine!
+            //}
+
+            //basicAI = enemy.GetComponent<BasicAI>();
             //aiScript.currentHP  <----------fixa en set.
-       }
+        }
     }
 
     public void SpecAttack(GameObject enemy)
     {
-        //Remove stamina
+        stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCostSpec;
+
+        //if (staminaRecharging == true)
+        //{
+        //    //kör corutine!
+        //}
+
         //Deal damage.
     }
 

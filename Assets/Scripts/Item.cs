@@ -27,6 +27,7 @@ public class Item
     protected float staminaRecovery;
 
     protected float range;
+    //protected float stackLimit;
     protected int ammoCount;
     protected float movementDiff;
     protected float attackSpeed;

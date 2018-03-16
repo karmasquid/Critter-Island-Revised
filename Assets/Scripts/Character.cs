@@ -21,6 +21,12 @@ public class Character : MonoBehaviour
     [SerializeField]
     float rotationSpeed;
 
+    public float SpeedMultiplier
+    {
+        get { return this.speedMultiplier; }
+        set { this.speedMultiplier = value; }
+    }
+
     private bool running;
     private CharacterController _controller;
     private Vector3 _velocity;
