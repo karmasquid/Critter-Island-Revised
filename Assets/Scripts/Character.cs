@@ -6,6 +6,8 @@ public class Character : MonoBehaviour
 {
     [SerializeField]
     float Speed = 5f;
+    float rawSpeed;
+    bool atckn = false;
     [SerializeField]
     float speedMultiplier = 1.5f;
     [SerializeField]
@@ -31,6 +33,7 @@ public class Character : MonoBehaviour
 
     void Start()
     {
+        rawSpeed = Speed;
         _controller = GetComponent<CharacterController>();
         _groundChecker = transform.GetChild(0);
     }
@@ -50,8 +53,28 @@ public class Character : MonoBehaviour
 
         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation.x, Mathf.Round(targetRotation.y / 45) * 45, targetRotation.z), Time.deltaTime * rotationSpeed);
         //_____________________________________________________________________________________________________________________________________________
-        if (Input.GetKeyDown(KeyCode.LeftShift)  || Input.GetKeyDown("joystick button 5")) { Speed = Speed * speedMultiplier; running = true; }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp("joystick button 5")) { Speed = Speed / speedMultiplier; running = false; }
+        if (Input.GetKeyDown(KeyCode.LeftShift)  || Input.GetKeyDown("joystick button 5") && running == false)
+        {
+            Speed = Speed * speedMultiplier; running = true;
+            if (Speed > 1 && atckn == true)
+            {
+                Speed = 1;
+            }
+            //Drain stamina.
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp("joystick button 5") && running == true)
+        {
+            Speed = Speed / speedMultiplier; running = false;
+            if (Speed < 1)
+            {
+                Speed = 1;
+            }
+            if (Speed > rawSpeed)
+            {
+                Speed = rawSpeed;
+            }
+        }
         //_____________________________________________________RUNNING______________________________________________________
         _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
         if (_isGrounded && _velocity.y < 0)
@@ -74,6 +97,44 @@ public class Character : MonoBehaviour
         _velocity.z /= 1 + Drag.z * Time.deltaTime;
 
         _controller.Move(_velocity * Time.deltaTime);
+
+        RestricMove();
+    }
+    void RestricMove() //TODO Justera, mycket hårdkodning:
+    {
+        if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown("joystick button 2"))
+        {
+            atckn = true;
+            if (running)
+            {
+                Speed = Speed / (speedMultiplier* rawSpeed);
+            }
+            else if (!running)
+            {
+                Speed = Speed / rawSpeed;
+
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2"))
+        {
+            atckn = false;
+            if (running)
+            {
+                Speed = Speed * speedMultiplier * rawSpeed;
+                if (Speed < 1)
+                {
+                    Speed = 1;
+                }
+            }
+            else if (!running)
+            {
+                Speed = Speed * rawSpeed;
+                if (Speed > rawSpeed)
+                {
+                    Speed = rawSpeed;
+                }
+            }
+        }
     }
 
 }
