@@ -6,7 +6,9 @@ public class Attacker : MonoBehaviour {
 
     [SerializeField]
     Collider[] attackHitBoxes;
-
+    [SerializeField]
+    GameObject[] projectiles; //Set size once we know amount of consumables.
+    GameObject Currentequipped;
     bool chargingAttack; 
     float chargeTimer;
 
@@ -29,7 +31,19 @@ public class Attacker : MonoBehaviour {
             CheckWeapon();
             Attacking();
         }
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
+
+            if (Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 3")) // && Ammo count != 0
+        {
+            GameObject Currentequipped = Instantiate(projectiles[0]); //Change index deppending on item equipped.
+            Currentequipped.transform.position = transform.position + attackHitBoxes[2].transform.up;
+            Rigidbody rb = Currentequipped.GetComponent<Rigidbody>();
+            rb.velocity = attackHitBoxes[2].transform.forward * 20;
+
+            Destroy(Currentequipped, Time.deltaTime + 2f);
+
+            
+        }
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
         {
             chargingAttack = false;
             chargeTimer = 0;
@@ -84,13 +98,4 @@ public class Attacker : MonoBehaviour {
         }
         chargeTimer = 0;
     }
-
-
-
-
-
-
-
-
-
 }

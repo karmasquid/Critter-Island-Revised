@@ -115,7 +115,7 @@ public class Character : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2"))
+        if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 2") || Input.GetKeyUp("joystick button 3")) // Om slag attack eller kast attack.
         {
             atckn = false;
             if (running)
