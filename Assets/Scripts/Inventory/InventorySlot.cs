@@ -68,7 +68,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
     {  
         switch (itemOnSlot.ItemType)
         {
-            case Item.TypeOfItem.Helmet:
+            case Item.TypeOfItem.Headgear:
                 inventory.EquipItem(indexInList,3);
                 break;
 
@@ -84,8 +84,12 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
                 inventory.EquipItem(indexInList, 0);
                 break;
 
-            case Item.TypeOfItem.Equippable:
+            case Item.TypeOfItem.Ranged:
                 inventory.EquipItem(indexInList, 1);
+                break;
+
+            case Item.TypeOfItem.Consumables:
+                //USE CONSUMABLE (playermanager.UseItem());
                 break;
         }
     }

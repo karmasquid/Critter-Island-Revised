@@ -45,8 +45,6 @@ public class Inventory : MonoBehaviour
     
     public static Inventory instance;
 
-    GameObject EventSystemManager;
-
     private void Awake()
     {
         if (instance == null)
@@ -65,7 +63,6 @@ public class Inventory : MonoBehaviour
     {
 
         database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
-        EventSystemManager = GameObject.Find("EventSystem");
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
         equippedSlot = Resources.Load<Image>("Prefabs/UI/EquippedSlot");
@@ -85,16 +82,17 @@ public class Inventory : MonoBehaviour
             if (!showInventory)
             {
                 //SoundManager.instance.PlaySingle(invOpenSound);
-                showInventory = true;
-                eqCanvas.enabled = true; ;
                 UpdateInventory();
+                showInventory = true;
+                eqCanvas.gameObject.SetActive(true);
+
             }
 
             else
             {
                 //SoundManager.instance.PlaySingle(invCloseSound);
+                eqCanvas.gameObject.SetActive(false);
                 showInventory = false;
-                eqCanvas.enabled = false;
             }
         }
     }
@@ -136,7 +134,7 @@ public class Inventory : MonoBehaviour
         }
 
         //close inventory
-        eqCanvas.enabled = false;
+        eqCanvas.gameObject.SetActive(false);
         showInventory = false;
     }
 
@@ -166,7 +164,7 @@ public class Inventory : MonoBehaviour
                 inventorySlotScript.RotateSlot();
                 inventorySlotScript.IndexInList = i;
             }
-            //if (itemsInInventory > 1)
+            //if (itemsInInventory > 1) 
             //{
 
             //    for (int i = 0; i < itemsInInventory; i++)

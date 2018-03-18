@@ -12,48 +12,54 @@ public class Item
     protected Sprite icon;
     protected GameObject go;
 
-    public enum TypeOfItem { Helmet, Armor, Boots, Weapon, Equippable, Miscellaneous }
+    public enum TypeOfItem { Headgear, Armor, Boots, Weapon, Ranged, Consumables, Miscellaneous }
     private TypeOfItem itemType;
 
     //Wearables related info
-    protected int damageBuff;
-    protected int healthBuff;
-    protected float staminaRechargeBuff;
+    protected float damageMelee;
+    protected float damageSpec;
+    protected float damageRange;
+    protected float health;
+    protected float armor;
 
-    protected int damage;
-    protected bool infiniteAmmo;
-    protected int ammo;
-    protected float fireRate;
+    protected float staminaCost;
+    protected float staminaCostSpec;
+    protected float staminaRecovery;
 
-    protected float meleeRange;
-    protected float throwRange;
-    protected int staminaLoss;
+    protected float range;
+    //protected float stackLimit;
+    protected int ammoCount;
+    protected float movementDiff;
+    protected float attackSpeed;
+
+    protected int ability;
+    protected int cost;
 
 
-    public Item(int Id, string Name, string Desc, TypeOfItem KindOfGear, int DamageBuff, int HealthBuff, float StaminaRechargeBuff, int Damage, bool InfiniteAmmo, int AmmoCount, float FireRate, float MeleeRange, float ThrowRange, int StaminaLoss)
+    public Item(int Id, string Name, string Desc, TypeOfItem KindOfGear, float MeleeDamage, float RangeDamage, float SpecDamage, float Health, float Armor, float StaminaCost, float StaminaCostSpec, float StaminaRecovery, float Range, int AmmoCount, float MovementDiff, float Attackspeed, int Ability, int Cost)
     {
         id = Id;
-
-        //Description
         name = Name;
         desc = Desc;
         itemType = KindOfGear;
 
-        //Stats
-        damageBuff = DamageBuff;
-        healthBuff = HealthBuff;
-        staminaRechargeBuff = StaminaRechargeBuff;
+        damageMelee = MeleeDamage;
+        damageRange = RangeDamage;
+        damageSpec = SpecDamage;
+        health = Health;
+        armor = Armor;
 
-        damage = Damage;
-        infiniteAmmo = InfiniteAmmo;
-        ammo = AmmoCount;
+        staminaCost = StaminaCost;
+        staminaCostSpec = StaminaCostSpec;
+        staminaRecovery = StaminaRecovery;
 
-        fireRate = FireRate;
-        meleeRange = MeleeRange;
-        throwRange = ThrowRange;
+        range = Range;
+        ammoCount = AmmoCount;
+        movementDiff = MovementDiff;
+        attackSpeed = Attackspeed;
 
-        staminaLoss = StaminaLoss;
-
+        ability = Ability;
+        cost = Cost;
         //Sprite and Prefab for item;
         icon = Resources.Load<Sprite>("Sprites/UI/Item Icons/" + name);
         go = Resources.Load<GameObject>("Sprites/UI/Item Prefabs/" + name);
@@ -69,27 +75,26 @@ public class Item
     public string Desc { get { return this.desc; } }
     public TypeOfItem ItemType { get { return this.itemType; } }
 
-    public int DamageBuff { get { return this.damageBuff; } }
-    public int HealthBuff { get { return this.healthBuff; } }
-    public float StaminaRechargeBuff { get { return this.staminaRechargeBuff; } }
+    public float DamageMelee { get { return this.damageMelee; } }
+    public float DamageRange { get { return this.damageRange; } }
+    public float DamageSpec { get { return this.damageSpec; } }
+    public float Health { get { return this.health; } }
+    public float Armor { get { return this.armor; } }
 
-    public int Damage { get { return this.damage; } }
-    public bool Infiniteammo { get { return this.infiniteAmmo; } }
-    public int Ammo { get { return ammo; } }
+    public float StaminaCost { get { return this.staminaCost; } }
+    public float StaminaCostSpec { get { return this.staminaCostSpec; } }
+    public float StaminaRecovery { get { return this.staminaRecovery; } }
 
-    public float FireRate { get { return this.fireRate; } }
-    public float MeleeRange { get { return this.meleeRange; } }
-    public float ThrowRange { get { return this.throwRange; } }
+    public float Range { get { return this.range; } }
+    public int AmmoCount { get { return this.ammoCount; } }
+    public float MovementDiff { get { return movementDiff; } }
 
-    public int StaminaLoss { get { return this.staminaLoss; } }
+    public float AttackSpeed { get { return this.attackSpeed; } }
+    public int Ability { get { return this.ability; } }
+    public int Cost { get { return this.cost; } }
 
     public Sprite Icon { get { return this.icon; } }
     public GameObject Go { get { return this.go; } }
-
-
-
-
-
 }
 //Stina Hedman
 
