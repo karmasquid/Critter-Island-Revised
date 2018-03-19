@@ -31,8 +31,6 @@ public class BarScript : MonoBehaviour {
     {
         set
         {
-            //string[] tmp = valueText.text.Split(':');
-            //valueText.text = tmp[0] + ": " + value;
             valueText.text = value.ToString("0") + "/" + MaxValue.ToString("0");
             fillAmount = barCalc(value, 0, MaxValue, 0, 1);
         }

@@ -11,14 +11,12 @@ public class PlayerStats : MonoBehaviour {
     [SerializeField]
     private Stats stamina;
 
-    //Desto lägre staminaRecharge desto snabbare laddas stamina.
     [SerializeField]
     private float staminaRecharge;
 
-    //Variabel för timer.
+    //Variablar för timers.
     private float timeCheck = 0;
 
-    //waitTime variabel = nuvarande staminaRecharge
     private float waitTime = 0.1f;
 
 	private void Awake ()
