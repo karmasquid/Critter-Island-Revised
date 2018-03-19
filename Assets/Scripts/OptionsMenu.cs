@@ -47,9 +47,19 @@ public class OptionsMenu : MonoBehaviour
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
-    public void SetVolume(float volume)
+    public void SetMasterVol(float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("MasterVol", volume);
+    }
+
+    public void SetMusicVol(float volume)
+    {
+        audioMixer.SetFloat("MusicVol", volume);
+    }
+
+    public void SetSFXVol(float volume)
+    {
+        audioMixer.SetFloat("SFXVol", volume);
     }
 
     public void SetFullscreen(bool fullscreen)
