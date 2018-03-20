@@ -55,8 +55,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970623795337032}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -63, y: -1, z: -59.5}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.5, y: -1, z: 25}
   m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children:
   - {fileID: 4589140480783950}
@@ -171,7 +171,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 464db996ba039a84388abc3f86072f08, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 69b989f9bbe24a74ab6aec55965994ea, type: 3}
 --- !u!64 &64698055941422168
 MeshCollider:
   m_ObjectHideFlags: 1
