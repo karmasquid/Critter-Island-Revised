@@ -9,5 +9,5 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 64d5d8a628330e346a47ccf33bfcdaa8
   - enabled: 1
-    path: Assets/Scenes/testscneee.unity
-    guid: c4f63d34a22da1945bec3d5107617aac
+    path: Assets/Scenes/Prototyp_scen.unity
+    guid: 0a35cc4d51f13dd419756620035f0a2b
