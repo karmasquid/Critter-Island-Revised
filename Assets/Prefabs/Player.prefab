@@ -2054,8 +2054,9 @@ MonoBehaviour:
   - {fileID: 65610825386330992}
   - {fileID: 65955472534634708}
   - {fileID: 65884211144893994}
+  - {fileID: 0}
   projectiles:
-  - {fileID: 1983889093169666, guid: 2833f30b6f3628d4788e8ec6c9ca168d, type: 2}
+  - {fileID: 1466695949719852, guid: 8eac2b279fc3ae346b4f236577a56aad, type: 2}
   - {fileID: 1466695949719852, guid: 8eac2b279fc3ae346b4f236577a56aad, type: 2}
 --- !u!137 &137367487472164176
 SkinnedMeshRenderer:
