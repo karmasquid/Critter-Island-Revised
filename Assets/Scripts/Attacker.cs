@@ -8,24 +8,17 @@ public class Attacker : MonoBehaviour {
     Collider[] attackHitBoxes;
     [SerializeField]
     GameObject[] projectiles; //Set size once we know amount of consumables.
-
     GameObject Currentequipped;
-    bool chargingAttack;
-    bool throwing = false;
-    bool hit = false;
+    bool chargingAttack; 
     float chargeTimer;
-    string CurrentName;
-
-    IEnumerator Reload;
 
     void Start ()
     {
-         Currentequipped = projectiles[0];
-    }
+
+	}
 
     void Update ()
     {
-        //-------------------------------------Main Attacks & Controlls------------------------------------------------
         if (Input.GetKey(KeyCode.H) || Input.GetKey("joystick button 2"))
         {
             chargingAttack = false;
@@ -38,89 +31,38 @@ public class Attacker : MonoBehaviour {
             CheckWeapon();
             Attacking();
         }
-        if (Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 3")) // && Ammo count != 0
+
+            if (Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 3")) // && Ammo count != 0
         {
-            //GameObject Currentequipped = projectiles[0];
-            //CurrentName = Currentequipped.name;
-            if (!throwing)
-            { 
-            GameObject preo = Instantiate(Currentequipped) as GameObject; //Change index deppending on item equipped.
-            preo.transform.position = transform.position + attackHitBoxes[2].transform.up;
-            Rigidbody rb = preo.GetComponent<Rigidbody>();
+            GameObject Currentequipped = Instantiate(projectiles[0]); //Change index deppending on item equipped.
+            Currentequipped.transform.position = transform.position + attackHitBoxes[2].transform.up;
+            Rigidbody rb = Currentequipped.GetComponent<Rigidbody>();
             rb.velocity = attackHitBoxes[2].transform.forward * 20;
-                throwing = true;
-                Reload = ThrowCD(2.0f);
-                StartCoroutine(Reload);
-                if (preo != null)
-            {
-                attackHitBoxes[3] = preo.GetComponent<Collider>();
 
-            }
-            else
-            {
-                attackHitBoxes[3] = null;
-            }
-
-
-            Destroy(preo, Time.deltaTime + 2f);
-            }
+            Destroy(Currentequipped, Time.deltaTime + 2f);
 
             
-            /*
-            switch (Currentequipped.tag)
-            {
-                case "Throwable":
-                    GameObject preo = Instantiate(Currentequipped) as GameObject; //Change index deppending on item equipped.
-                    preo.transform.position = transform.position + attackHitBoxes[2].transform.up;
-                    Rigidbody rb = preo.GetComponent<Rigidbody>();
-                    rb.velocity = attackHitBoxes[2].transform.forward * 20;
-
-                    break;
-                case "Eatable":
-                    Debug.Log(CurrentName);
-                    //Check what type of eatable (Recover hp)
-
-                    break;
-                default:
-                    debug.log("Nothing equipped");
-            }
-            */
         }
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
         {
             chargingAttack = false;
             chargeTimer = 0;
         }
 
 
-        //----------------------------------------Invokes for throw------------------------------------------------------
-        if (throwing)
-        {
-            InvokeRepeating("DetectedThrow", 0f, 4f);
-        }
-        if (hit)
-        {
-            Invoke("Throwdamage", 0f);
-        }
     }
 
-    void LaunchAttack(Collider col)
+    private void LaunchAttack(Collider col)
     {
-        Collider[] cols = Physics.OverlapBox(col.bounds.center, col.bounds.extents, col.transform.rotation, LayerMask.GetMask("HitBox"));
+        Collider[] cols = Physics.OverlapBox(col.bounds.center, col.bounds.extents, col.transform.rotation, LayerMask.GetMask("Hitbox"));
         foreach (Collider c in cols)
         {
             if (c.transform.root == gameObject.transform) // Slå inte dig själv...
-            { continue; }
-            if (c.gameObject.tag == "Enemy")
-            {
-                hit = true;
-            }
+            { continue;}
+            //c.name = Fienden eller objektet som blir träffat.
 
         }
-
     }
-    
-    //------------------------------------Handles damage------------------------------------------------------------
     void CheckWeapon()
     {
             /*
@@ -137,23 +79,7 @@ public class Attacker : MonoBehaviour {
             getcomponent, attack script. Assign other colliders fitting the weapon.
             */
     }
-    void Throwdamage()
-    {
-        switch (Currentequipped.name)
-        {
-            case "IcaBasicChoklad": //Name Of thrown object.
-                Debug.Log("Chokladskada");
-                //Do damage
-                break;
-            case "2": //Name Of thrown object.
-
-                //Do damage
-                break;
-
-        }
-        hit = false;
-    }
-    void Attacking() //Checking Basic or special attack:
+    void Attacking()
     {
         if (chargingAttack)
         {
@@ -171,17 +97,5 @@ public class Attacker : MonoBehaviour {
             //stamina drain
         }
         chargeTimer = 0;
-    }
-    void DetectedThrow() //Failsafe throw:
-    {
-        if (attackHitBoxes[3] != null)
-        {
-            LaunchAttack(attackHitBoxes[3]);
-        }
-    }
-    IEnumerator ThrowCD (float CDTime) //Coroutine for throw:
-    {
-        yield return new WaitForSeconds(CDTime);
-        throwing = false;
     }
 }
