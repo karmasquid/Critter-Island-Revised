@@ -34,6 +34,12 @@ public class PlayerManager : MonoBehaviour {
 
     private int ammoCount;
 
+    private int rangeDamage;
+    public int RangeDamage { get { return this.rangeDamage; } }
+
+    private int meleeDamage;
+    public int MeleeDamage { get { return this.meleeDamage; } }
+
     public GameObject player;
 
     #region Singleton
@@ -159,7 +165,10 @@ public class PlayerManager : MonoBehaviour {
         health.CurrentValue -= Damage;
     }
 
+    private void LooseStamina(int stamina)
+    {
 
+    }
 
 
 }

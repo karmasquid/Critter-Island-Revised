@@ -18,8 +18,8 @@ public class BasicAI : MonoBehaviour {
      * DEAD  */
 
    // bool playerInSight;
-    int currentHP = 100;
-    int maxHP = 100;
+    public int currentHP = 100;
+    public int maxHP = 100;
     public int maxArmor = 0;
     public int currentArmor = 0;
     public int attackDMG = 0;
@@ -72,7 +72,7 @@ public class BasicAI : MonoBehaviour {
             if (distanceToPlayer <= attackRange && !isAttacking)
             {
                 isAttacking = true;
-                InvokeRepeating("Attack", 0f, 2f);
+                InvokeRepeating("Attack", 1f, 2.5f);
                 //attack
             }
         }
@@ -81,7 +81,7 @@ public class BasicAI : MonoBehaviour {
             print("Must have been my imagination");
             playerInSight = false;
             return; // Gå tillbaka till att roama.
-
+            isAttacking = false;
         }
     }
 
