@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 61f09b07e4b2f344d85adfbe518c5fd0
-timeCreated: 1521622749
+guid: 744681c079eae494988c421229c25cc5
+timeCreated: 1521641245
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -119,7 +119,7 @@ ModelImporter:
     400108: tail_6_JNT
     400110: tail_7_JNT
     400112: torso_JNT
-    7400000: Walk Charge
+    7400000: Charge_walk
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -149,7 +149,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk Charge
+      name: Charge_walk
       takeName: Take 001
       firstFrame: 1
       lastFrame: 47

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 98d55c889d0358547a25315069889c4d
-timeCreated: 1521622749
+guid: 0a060dfd8ee04bc4aad11204e2ec5256
+timeCreated: 1521641244
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -119,8 +119,7 @@ ModelImporter:
     400108: tail_6_JNT
     400110: tail_7_JNT
     400112: torso_JNT
-    7400000: Dodge Forward
-    7400002: Dodge Forward
+    7400000: F_Dodge
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -150,7 +149,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dodge Forward
+      name: F_Dodge
       takeName: Take 001
       firstFrame: 1
       lastFrame: 30

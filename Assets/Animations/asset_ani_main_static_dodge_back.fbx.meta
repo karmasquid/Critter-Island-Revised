@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 08a6837eb7b4b5e43a78f0f9b5a23168
-timeCreated: 1521622748
+guid: b50691f510bd70548b34663fce83bf19
+timeCreated: 1521641245
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -119,7 +119,7 @@ ModelImporter:
     400108: tail_6_JNT
     400110: tail_7_JNT
     400112: torso_JNT
-    7400000: Dodge back
+    7400000: B_Dodge
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -149,7 +149,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dodge back
+      name: B_Dodge
       takeName: Take 001
       firstFrame: 1
       lastFrame: 30
