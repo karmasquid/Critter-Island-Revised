@@ -13,11 +13,8 @@ public class Inventory : MonoBehaviour
 
     public Item[] equippedItems = new Item[5];
 
-    //array of itemslots (buttons)    
-    private List<Button> inventoryButtons = new List<Button>();
 
     private Image[] equippedButton = new Image[5];
-
     private Button[] inventoryButton = new Button[12];
 
 
@@ -164,35 +161,8 @@ public class Inventory : MonoBehaviour
                 inventorySlotScript.RotateSlot();
                 inventorySlotScript.IndexInList = i;
             }
-            //if (itemsInInventory > 1) 
-            //{
-
-            //    for (int i = 0; i < itemsInInventory; i++)
-            //    {
-            //        inventorySlotScript = inventoryButton[i].gameObject.GetComponent<InventorySlot>();
-
-            //        if (i == 0)
-            //        {
-            //            inventorySlotScript.SetSelectables(inventoryButton[1], inventoryButton[itemsInInventory]);
-            //            Debug.Log("first added");
-            //        }
-            //        else if (i == itemsInInventory)
-            //        {
-            //            inventorySlotScript.SetSelectables(inventoryButton[1],inventoryButton[itemsInInventory - 1]);
-            //            Debug.Log("Last added");
-            //        }
-            //        else
-            //        {
-                        
-            //            inventorySlotScript.SetSelectables(inventoryButton[i + 1], inventoryButton[i - 1]);
-            //            Debug.Log("middle added");
-            //        }
-            //    }
-
-            //}
 
             EventSystem.current.SetSelectedGameObject(inventoryButton[0].gameObject, null);
-
         }
     }
 

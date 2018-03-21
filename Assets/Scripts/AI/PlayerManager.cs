@@ -26,7 +26,8 @@ public class PlayerManager : MonoBehaviour {
     //relevanta script
     private Inventory inventoryScript;
     private Character characterScript;
-    private BarScript barScript;
+    private BarScript healthBarScript;
+    private BarScript staminaBarScript;
     private BasicAI basicAI;
 
     private float armor;
@@ -57,6 +58,13 @@ public class PlayerManager : MonoBehaviour {
     }
     #endregion
 
+    private void Start()
+    {
+        healthBarScript = GameObject.Find("HealthBar").GetComponent<BarScript>();
+        staminaBarScript = GameObject.Find("StaminaBar").GetComponent<BarScript>();
+        inventoryScript = GameObject.Find("Inventory").GetComponent<Inventory>();
+    }
+
     private void Update()
     { 
         //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
@@ -73,6 +81,11 @@ public class PlayerManager : MonoBehaviour {
             stamina.CurrentValue += staminaRecharge;
         }
        //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
+    }
+
+    void RechargeStamina()
+    {
+
     }
 
     public void AddPlayerstats(Item itemAdd)
@@ -143,7 +156,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void TakeDamage(int Damage)
     {
-        //float damagedealt = Damage
+        health.CurrentValue -= Damage;
     }
 
 

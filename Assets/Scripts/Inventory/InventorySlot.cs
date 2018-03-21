@@ -61,6 +61,12 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         Debug.Log("selected : " + gameObject.name);
+    }
+
+    private void DropItem()
+    {
+        inventory.inventoryItems.RemoveAt(IndexInList);
+        inventory.UpdateInventory();
 
     }
 
@@ -69,7 +75,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         switch (itemOnSlot.ItemType)
         {
             case Item.TypeOfItem.Headgear:
-                inventory.EquipItem(indexInList,3);
+                inventory.EquipItem(indexInList, 3);
                 break;
 
             case Item.TypeOfItem.Armor:

@@ -24,6 +24,7 @@ public class BasicAI : MonoBehaviour {
     public int currentArmor = 0;
     public int attackDMG = 0;
     bool playerInSight;
+    bool isAttacking; // <------------------------------------------- check
     Transform targetPlayer;
     string playerTag = "Player";
     
@@ -44,6 +45,7 @@ public class BasicAI : MonoBehaviour {
     
 	void Start ()
         {
+        isAttacking = false;
         playerInSight = false;
         agent = GetComponent<NavMeshAgent>(); // Tillåter agent att flytta på modellen via en gilltig NavMesh på scenen.
         
@@ -54,6 +56,7 @@ public class BasicAI : MonoBehaviour {
         
         }
 
+
     void Searching()
         {
        
@@ -61,14 +64,17 @@ public class BasicAI : MonoBehaviour {
 
         if (distanceToPlayer <= targetingRange && distanceToPlayer <= aggroRange)
         {
+            isAttacking = false;
             playerInSight = true;
             PlayerTargeted();
             agent.SetDestination(targetPlayer.position);
 
-            if (distanceToPlayer <= attackRange)
+            if (distanceToPlayer <= attackRange && !isAttacking)
             {
+                isAttacking = true;
+                InvokeRepeating("Attack", 0f, 2f);
                 //attack
-                print("DÖ");
+
             }
         }
         else if (distanceToPlayer > aggroRange)
@@ -77,6 +83,19 @@ public class BasicAI : MonoBehaviour {
             playerInSight = false;
             return; // Gå tillbaka till att roama.
 
+        }
+    }
+
+    void Attack()
+    {
+        if (isAttacking)
+        {
+            print("DÖ");
+            PlayerManager.instance.TakeDamage(5);
+        }
+        else
+        {
+            return;
         }
     }
 
