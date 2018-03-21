@@ -26,20 +26,18 @@ public class PlayerManager : MonoBehaviour {
     //relevanta script
     private Inventory inventoryScript;
     private Character characterScript;
-    private BarScript healthBarScript;
-    private BarScript staminaBarScript;
     private BasicAI basicAI;
 
     private float armor;
 
     private int ammoCount;
-
-    private int rangeDamage;
+    //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
+    private int rangeDamage = 15;
     public int RangeDamage { get { return this.rangeDamage; } }
 
-    private int meleeDamage;
+    private int meleeDamage = 30;
     public int MeleeDamage { get { return this.meleeDamage; } }
-
+     //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
 
     #region Singleton
@@ -66,8 +64,6 @@ public class PlayerManager : MonoBehaviour {
 
     private void Start()
     {
-        healthBarScript = GameObject.Find("HealthBar").GetComponent<BarScript>();
-        staminaBarScript = GameObject.Find("StaminaBar").GetComponent<BarScript>();
         inventoryScript = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 

@@ -27,7 +27,9 @@ public class BasicAI : MonoBehaviour {
     bool isAttacking; // <------------------------------------------- check
     Transform targetPlayer;
     string playerTag = "Player";
-    
+
+    [SerializeField]
+    float noGoZone = 2f;
     [SerializeField]
     float targetingRange = 10f;
     [SerializeField]
@@ -39,6 +41,9 @@ public class BasicAI : MonoBehaviour {
     public float roamingTimer = 0f;
     private Transform enemyAI;
     private float timer;
+    private float timeCheck;
+    private float timeBetweenAttacks = 2f;
+    private float timeForAttack;
 
     
     NavMeshAgent agent;
@@ -53,6 +58,7 @@ public class BasicAI : MonoBehaviour {
         InvokeRepeating("Roaming", 0f, 2f);      //Startar metoden Roaming vid sekund 0 och upprepar den var 2 sekund.
         targetPlayer = PlayerManager.instance.player.transform;
         timer = roamingTimer;
+        timeForAttack = Time.time + timeBetweenAttacks;
         
         }
 
@@ -64,45 +70,50 @@ public class BasicAI : MonoBehaviour {
 
         if (distanceToPlayer <= targetingRange && distanceToPlayer <= aggroRange)
         {
-            isAttacking = false;
-            playerInSight = true;
-            PlayerTargeted();
-            agent.SetDestination(targetPlayer.position);
 
-            if (distanceToPlayer <= attackRange && !isAttacking)
+            if (distanceToPlayer <= attackRange && Time.time >= timeForAttack)
             {
-                isAttacking = true;
-                InvokeRepeating("Attack", 1f, 2.5f);
+                Attack();
                 //attack
+                if (distanceToPlayer <= noGoZone)
+                {
+
+                }
             }
+            
+            else
+            {
+
+                PlayerTargeted();
+                agent.SetDestination(targetPlayer.position);
+                playerInSight = true;
+            }
+
         }
         else if (distanceToPlayer > aggroRange)
         {
             print("Must have been my imagination");
             playerInSight = false;
             return; // Gå tillbaka till att roama.
-            isAttacking = false;
         }
     }
 
     void Attack()
     {
-        if (isAttacking)
-        {
-            print("DÖ");
-            PlayerManager.instance.TakeDamage(5);
-        }
-        else
-        {
-            return;
-        }
+        PlayerManager.instance.TakeDamage(5);
+        timeForAttack = Time.time + timeBetweenAttacks;
     }
 
     void PlayerTargeted()
     {
         print ("Hey you!");
         // Anim alarmed/approaching here
-          
+
+        var lookPos = targetPlayer.position - transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
+
     }
 
     void Roaming() //Denna uppdateras automatiskt via searching() som i sin tur uppdateras via invoke repeat vid start.
@@ -136,10 +147,11 @@ public class BasicAI : MonoBehaviour {
     }
 
 
-    public void TakeDMG()
+    public void TakeDMG(int Damage)
     {
         /// Precis som metoden heter så ska skadan in här, 
         /// tänk på att armor och HP ska vara aktiva variabler här.
+        currentHP -= Damage;
         if(currentHP <= 0)
         {
             //Death anim 
@@ -155,6 +167,8 @@ public class BasicAI : MonoBehaviour {
 
     void OnDrawGizmosSelected () //Ritar ut wirespheres när modellen väls i scenen. De Visar hur lång de olika rangen är.
     {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, noGoZone);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.blue;
