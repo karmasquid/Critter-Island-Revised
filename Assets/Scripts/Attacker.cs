@@ -9,17 +9,20 @@ public class Attacker : MonoBehaviour {
     [SerializeField]
     GameObject[] projectiles; //Set size once we know amount of consumables.
 
+    public static bool hit = false; //Används för tillfället i throwable, bad practise med public statics tho.
+
     GameObject Currentequipped;
     bool chargingAttack;
     bool throwing = false;
-    bool hit = false;
     float chargeTimer;
     string CurrentName;
 
+    PlayerManager playermanager;
     IEnumerator Reload;
 
     void Start ()
     {
+        GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
          Currentequipped = projectiles[0];
     }
 
@@ -38,7 +41,7 @@ public class Attacker : MonoBehaviour {
             CheckWeapon();
             Attacking();
         }
-        if (Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 3")) // && Ammo count != 0
+        if (Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) // && Ammo count != 0
         {
             //GameObject Currentequipped = projectiles[0];
             //CurrentName = Currentequipped.name;
@@ -111,15 +114,9 @@ public class Attacker : MonoBehaviour {
         {
             if (c.transform.root == gameObject.transform) // Slå inte dig själv...
             { continue; }
-            if (c.gameObject.tag == "Enemy")
-            {
-                hit = true;
-            }
-
         }
-
     }
-    
+
     //------------------------------------Handles damage------------------------------------------------------------
     void CheckWeapon()
     {

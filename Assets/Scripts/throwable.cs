@@ -8,6 +8,7 @@ public class throwable : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            Attacker.hit = true;
             Destroy(gameObject);
         }
     }
