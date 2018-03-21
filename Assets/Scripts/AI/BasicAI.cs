@@ -74,7 +74,6 @@ public class BasicAI : MonoBehaviour {
                 isAttacking = true;
                 InvokeRepeating("Attack", 0f, 2f);
                 //attack
-
             }
         }
         else if (distanceToPlayer > aggroRange)
