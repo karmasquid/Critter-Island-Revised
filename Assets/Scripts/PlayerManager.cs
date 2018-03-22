@@ -161,9 +161,14 @@ public class PlayerManager : MonoBehaviour {
         health.CurrentValue -= Damage;
     }
 
-    private void LooseStamina(int stamina)
+    private void LooseStamina(int sta)
     {
-
+        if (stamina.CurrentValue >= sta)
+        {
+            stamina.CurrentValue -= sta;
+        }
+        else
+            stamina.CurrentValue = 0;
     }
 
 
