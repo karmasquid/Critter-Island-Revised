@@ -73,12 +73,12 @@ public class BasicAI : MonoBehaviour {
 
             if (distanceToPlayer <= attackRange && Time.time >= timeForAttack)
             {
+                isAttacking = true;
                 Attack();
                 //attack
                 if (distanceToPlayer <= noGoZone)
                 {
-
-                }
+                                   }
             }
             
             else
@@ -92,7 +92,7 @@ public class BasicAI : MonoBehaviour {
         }
         else if (distanceToPlayer > aggroRange)
         {
-            print("Must have been my imagination");
+            //print("Must have been my imagination");
             playerInSight = false;
             return; // Gå tillbaka till att roama.
         }
@@ -106,7 +106,7 @@ public class BasicAI : MonoBehaviour {
 
     void PlayerTargeted()
     {
-        print ("Hey you!");
+        //print ("Hey you!");
         // Anim alarmed/approaching here
 
         var lookPos = targetPlayer.position - transform.position;
@@ -122,7 +122,7 @@ public class BasicAI : MonoBehaviour {
         {
             return;
         }
-        print("Whistle*");
+        //print("Whistle*");
         // Anim patrol here
         timer += Time.deltaTime;
 
@@ -157,12 +157,6 @@ public class BasicAI : MonoBehaviour {
             //Death anim 
             Destroy(gameObject);
         }
-    }
-
-    public void DealDMG()
-    {   /// Attack anim.
-        /// Damage ska skickas härifrån till spelaren, är det så att ett bättre sätt upptäcktes 
-        /// från spelarscriptet så kan denna tas bort.
     }
 
     void OnDrawGizmosSelected () //Ritar ut wirespheres när modellen väls i scenen. De Visar hur lång de olika rangen är.

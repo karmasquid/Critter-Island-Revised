@@ -53,13 +53,13 @@ public class ItemDatabase : MonoBehaviour
         allItems.Add(new Item(10, "b2", "Super pretty boots!", Item.TypeOfItem.Boots, 10f, 0f, 5f, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
 
         //Miscellaneous
-        allItems.Add(new Item(9, "m1", "unlocks secret door", Item.TypeOfItem.Miscellaneous, 10f, 0f, 5f, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
-        allItems.Add(new Item(10, "m2", "unlocks a supersecret door", Item.TypeOfItem.Miscellaneous, 10f, 0f, 5f, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
+        allItems.Add(new Item(11, "m1", "unlocks secret door", Item.TypeOfItem.Miscellaneous, 10f, 0f, 5f, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
+        allItems.Add(new Item(12, "key", "unlocks a supersecret door", Item.TypeOfItem.Miscellaneous, 10f, 0f, 5f, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         if (inventory != null)
         {
-        for (int i = 0; i < allItems.Count-2; i++) // <-----------------------------------------------TA BORT SEN-------------------------------------------------------------------------------------------
+        for (int i = 0; i < allItems.Count-3; i++) // <-----------------------------------------------TA BORT SEN-------------------------------------------------------------------------------------------
         {
                 inventory.inventoryItems.Add(allItems[i]);
         }
