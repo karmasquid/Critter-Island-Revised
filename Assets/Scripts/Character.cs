@@ -124,7 +124,7 @@ public class Character : MonoBehaviour
             {
                 Speed = Speed / (speedMultiplier* rawSpeed);
             }
-            else if (!running)
+            else
             {
                 Speed = Speed / rawSpeed;
 
@@ -141,7 +141,7 @@ public class Character : MonoBehaviour
                     Speed = 1;
                 }
             }
-            else if (!running)
+            else 
             {
                 Speed = Speed * rawSpeed;
                 if (Speed > rawSpeed)
