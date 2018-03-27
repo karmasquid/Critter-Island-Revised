@@ -9,14 +9,19 @@ public class TempAnim : MonoBehaviour {
 
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
         {
             print("BOOP");
             anim.SetBool("isRunning", true);
         }
-       if (Input.GetKeyUp(KeyCode.W))
+       if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D))
         {
             anim.SetBool("isRunning", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
+        {
+            anim.SetTrigger("fDodge");
         }
     }
 	
