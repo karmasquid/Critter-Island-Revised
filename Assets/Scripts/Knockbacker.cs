@@ -17,12 +17,7 @@ public class Knockbacker : MonoBehaviour {
 		
 	}
 
-    private void OnMouseDown()
-    {
-        rb.AddForce(transform.forward * Force * 100f);
-        Debug.Log("Forced");
-    }
-
+    //Känner efter om spelaren vidrör collidern och hämtar då spelarens RigidBody för att kunna påverka den. Fixad av Kai.
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("In Trigger " + other.name);
@@ -35,12 +30,12 @@ public class Knockbacker : MonoBehaviour {
 
     void FixedUpdate()
     {
-
+        //Om rb blivit tilldelad, putta bak spelaren i puttarens framåtriktning. Fixad av Kai.
         if (rb != null)
         {
             Debug.Log("Has Body " + rb.name);
             rb.AddForce(transform.forward * Force * 10f, ForceMode.Impulse);
-            Debug.Log("KRaften är " + transform.forward * Force * 10f);
+            Debug.Log("Kraften är " + transform.forward * Force * 10f);
             rb = null;
         }
 
