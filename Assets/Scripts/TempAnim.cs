@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class TempAnim : MonoBehaviour {
     bool moving, idle, dodge, dodgeB, throwing, death;
+    float chargeTimer;
+
 
     public Animator anim;
 
     void Update ()
     {
+        chargeTimer += Time.deltaTime;
+        if(chargeTimer > 1.0f)
+            { anim.SetBool("isCharging", true); }
+
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
         {
             print("BOOP");
@@ -22,6 +28,11 @@ public class TempAnim : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
         {
             anim.SetTrigger("fDodge");
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            anim.SetTrigger("throw");
         }
     }
 	

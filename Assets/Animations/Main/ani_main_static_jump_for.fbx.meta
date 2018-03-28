@@ -152,7 +152,7 @@ ModelImporter:
       name: Foward_Dodge
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 29
+      lastFrame: 27
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -175,7 +175,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
