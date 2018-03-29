@@ -1,26 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 //Script for elderbrute, enemy.
 [RequireComponent(typeof(NavMeshAgent))]
-public class ElderBrute : MonoBehaviour {
+public class ElderBrute : MonoBehaviour { 
+    /// make this an AI class.
+    private Transform player;
 
+    [SerializeField]
     private StateMachine stateMachine = new StateMachine();
 
-    private GameObject player;
-
+    //AI variables
     [SerializeField]
     private LayerMask playerLayer;
     [SerializeField]
     private LayerMask obstacleLayer;
+    [Header("Range of the attack")]
     [SerializeField]
     private float attackRangeMin;
     [SerializeField]
     private float attackRangeMax;
 
-    [Header("Fov range and degrees (0-360)")]
+    [Header("FOV-Range and degrees (0-360)")]
     [SerializeField]
     private float viewRange;
     [SerializeField]
@@ -28,40 +29,17 @@ public class ElderBrute : MonoBehaviour {
     [SerializeField]
     private float roamRange;
     [SerializeField]
-    private float roamTimeDelay;
+    private float idleTimeBetweenMoves;
 
 
     private NavMeshAgent navMeshAgent;
 
-    public float AttackRangeMin {
-    get
-        {
-            return attackRangeMin;
-        }
-    }
-    public float AttackRangeMax
-    {
-        get
-        {
-            return attackRangeMax;
-        }
-    }
-
-    public float ViewRange
-    {
-        get
-        {
-            return viewRange;
-        }
-    }
-    public float ViewDeg
-    {        get
-        {
-            return viewDeg;
-        }
-    }
-
     //for unityeditor to make the spaces visable
+    public float AttackRangeMin {   get {   return attackRangeMin;  }   }
+    public float AttackRangeMax {   get {   return attackRangeMax;  }   }
+    public float ViewRange      {   get {   return viewRange;       }   }
+    public float ViewDeg        {   get {   return viewDeg;         }   }
+
     public Vector3 DirectionsFromDegrees(float angleInDegrees, bool angleIsGlobal)
     {
         if (!angleIsGlobal)
@@ -73,36 +51,55 @@ public class ElderBrute : MonoBehaviour {
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
-        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject, this.ViewRange, this.viewDeg,this.attackRangeMax, this.roamRange, this.roamTimeDelay, this.navMeshAgent, this.SearchDone));
+        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.viewRange, this.viewDeg,this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
     }
 
     private void Update()
+    {    this.stateMachine.ExecuteStateUpdate();    }
+
+    //-------------------------------------------------------------- could be made into only one method with enum? -------------------------------------------------------------------
+    //Next state after Searchstate
+    public void SearchDone(SearchResult searchResult)
     {
-        this.stateMachine.ExecuteStateUpdate();
-       
+        if (searchResult.trueForAttackFalseForIdle)
+        {
+            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent,this.gameObject.transform,this.player,this.attackRangeMin, this.attackRangeMax,this.viewRange,this.AttackDone));
+        }
+
+        else
+        {
+            //go to idle
+            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform,this.player,this.obstacleLayer,this.playerLayer,this.viewRange,this.ViewDeg,this.attackRangeMax,this.idleTimeBetweenMoves, this.IdleDone));
+            //currently going to roaming.
+        }
+
     }
-
-    public void SearchDone(SearchResults searchResults)
-    {
-        var playertransform = searchResults.playerfound;
-        var distanceFromAI = searchResults.distance;
-        this.stateMachine.ChangeState(new AttackState(this.navMeshAgent,this.gameObject,this.player,this.attackRangeMin, this.attackRangeMax,this.AttackDone));
+    //Next state after AttackState
+    public void AttackDone(AttackResult attackResults)
+    {   //attack     
+        if (attackResults.trueForSearchFalseForIdle)
+        {
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+        }
+        //idle
+        else
+        {
+            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone));
+        }
     }
-
-    public void AttackDone(AttackResult attackResult)
-    {
-        var goToIdle = attackResult;
-    }
-
-    ////trigger the Attack
-    //public PlayerInRange()
-    //{
-    //    //trigger the Attack
-    //}
-
-
-
+    public void IdleDone(IdleResult idleResult)
+    {   //attack     
+        if (idleResult.trueForAttackFalseForSearch)
+        {
+            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent, this.gameObject.transform, this.player, this.attackRangeMin, this.attackRangeMax, this.viewRange, this.AttackDone));
+        }
+        //idle
+        else
+        {
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+        }
+    }//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 } // Stina Hedman
