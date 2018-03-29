@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4893748744045048}
   - component: {fileID: 95799196593369202}
   m_Layer: 0
-  m_Name: Lantern 1
+  m_Name: asset_env_detail_lantern_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1a078da387ce8e2409542ad4121d25b4, type: 3}
+  - {fileID: 2100000, guid: 2bbe11fd52676ff47aa179de2ed3697c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -150,7 +150,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1a078da387ce8e2409542ad4121d25b4, type: 3}
+  - {fileID: 2100000, guid: 2bbe11fd52676ff47aa179de2ed3697c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
