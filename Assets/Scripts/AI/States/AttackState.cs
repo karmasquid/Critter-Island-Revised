@@ -1,79 +1,98 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AttackState : IState {
 
     private NavMeshAgent navMeshAgent;
-    private GameObject ownerGO;
-    private GameObject playerGO;
+    private Transform ownerGO;
+    private Transform playerGO;
     private float attackRangeMin;
     private float attackRangeMax;
     private float viewRange;
-    public bool attacking;
+    private bool moving;
+    public bool attackComplete;
     private System.Action<AttackResult> attackResultCallback;
 
-    public AttackState(NavMeshAgent navMeshAgent, GameObject ownerGO, GameObject playerGO, float attackRangeMin, float attackRangeMax, Action<AttackResult> attackResultCallback)
+    public AttackState(NavMeshAgent navMeshAgent, Transform ownerGO, Transform playerGO, float attackRangeMin, float attackRangeMax, float viewRange, Action<AttackResult> attackResultCallback)
     {
         this.navMeshAgent = navMeshAgent;
         this.ownerGO = ownerGO;
         this.playerGO = playerGO;
         this.attackRangeMin = attackRangeMin;
         this.attackRangeMax = attackRangeMax;
+        this.viewRange = viewRange;
         this.attackResultCallback = attackResultCallback;
     }
 
     void IState.Enter()
     {
-        Debug.Log("attacking");
+        Debug.Log("Entered attackstate");
     }
 
     void IState.Execute()
     {
-        if (!attacking)
+        Debug.Log("Attackstate");
+
+        if (!attackComplete)
         {
-            var distanceBetween = Vector3.Distance(playerGO.transform.position, ownerGO.transform.position);
+            var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
+            var direction = (this.ownerGO.position - this.playerGO.position);
+
             //move towards the enemy if its too far away
-            if (distanceBetween > attackRangeMax && distanceBetween < viewRange)
+            if (distanceBetween <= attackRangeMin)
             {
-                var lookPos = playerGO.transform.position - ownerGO.transform.position;
-                lookPos.y = 0;
-                var rotation = Quaternion.LookRotation(lookPos);
-                ownerGO.transform.rotation = Quaternion.Slerp(ownerGO.transform.rotation, rotation, Time.deltaTime * 2);
-                navMeshAgent.SetDestination(playerGO.transform.position);
+                if (!moving)
+                {
+                    RotateTowards();
+                    moving = true;
+                }
+                ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
             }
-            //else start attacking.
-            else if (distanceBetween < attackRangeMax && distanceBetween > attackRangeMin)
+            else if (distanceBetween >= attackRangeMin && distanceBetween <= attackRangeMax)
             {
-           
-                Debug.Log("dödadödadödadödadöda");
-                //attackera rövhatten.
-                
+                this.moving = false;
+                this.navMeshAgent.enabled = false;
+                RotateTowards();
+                //AI stannar
+                //AI attackerar spelaren
+            }
+            else if (distanceBetween >= attackRangeMax && distanceBetween <= viewRange)
+            {
+                this.navMeshAgent.enabled = true;
+                RotateTowards();
+                this.navMeshAgent.SetDestination(this.playerGO.position);
             }
             else
             {
-                var attackresult = new AttackResult(true);
-                this.attackResultCallback(attackresult);
-                attacking = false;
+                var attackResults = new AttackResult(false);
+                this.attackResultCallback(attackResults);
+                this.attackComplete = false;
             }
         }
-
     }
 
     void IState.Exit()
     {
-        Debug.Log("stopped attacking");
+
+    }
+
+    private void RotateTowards()
+    {
+        float rotationspeed = 10;
+        Vector3 direction = (this.playerGO.position - this.ownerGO.position).normalized;
+        direction.y = 0;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        this.ownerGO.transform.rotation = Quaternion.Slerp(this.ownerGO.rotation, lookRotation, Time.deltaTime * rotationspeed);
     }
 
 }
 public class AttackResult
 {
-    public bool goToIdle;
+    public bool trueForSearchFalseForIdle;
 
-    public AttackResult(bool goToIdle)
+    public AttackResult(bool trueForSearchFalseForIdle)
     {
-        this.goToIdle = goToIdle;
+        this.trueForSearchFalseForIdle = trueForSearchFalseForIdle;
     }
 }

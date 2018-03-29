@@ -51,25 +51,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f8ff4c5f438254f859668717d77292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  equippedUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  InventoryUIGo: {fileID: 0}
-  inventoryFrame: {fileID: 0}
-  inventorySlot: {fileID: 0}
