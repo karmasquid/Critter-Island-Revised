@@ -56,7 +56,7 @@ public class BasicAI : MonoBehaviour {
         
         InvokeRepeating("Searching", 0f, 0.5f ); //Startar metoden Searching vid sekund 0 och upprepar den var 0.5 sekund.
         InvokeRepeating("Roaming", 0f, 2f);      //Startar metoden Roaming vid sekund 0 och upprepar den var 2 sekund.
-        targetPlayer = PlayerManager.instance.player.transform;
+        targetPlayer = GameObject.FindGameObjectWithTag("Player").transform;
         timer = roamingTimer;
         timeForAttack = Time.time + timeBetweenAttacks;
         
@@ -100,7 +100,7 @@ public class BasicAI : MonoBehaviour {
 
     void Attack()
     {
-        PlayerManager.instance.TakeDamage(5);
+        //PlayerManager.instance.TakeDamage(5);
         timeForAttack = Time.time + timeBetweenAttacks;
     }
 

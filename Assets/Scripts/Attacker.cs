@@ -22,7 +22,7 @@ public class Attacker : MonoBehaviour {
 
     void Start ()
     {
-        GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        //GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
          Currentequipped = projectiles[0];
     }
 
