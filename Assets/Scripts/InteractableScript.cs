@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class InteractableScript : MonoBehaviour {
 
+    [Header("One key needed to open the door")]
+    public bool bronzeKey;
+    public bool silverKey;
+    public bool goldKey;
 
-    public string NeededKey;
+    private string keyname;
 
     Inventory inventory;
 
     // Use this for initialization
     void Start () {
+
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+
+        if (bronzeKey)
+        {
+            keyname = "Bronze Key";
+        }
+        else if (silverKey)
+        {
+            keyname = "Silver Key";
+        }
+        else if (goldKey)
+        {
+            keyname = "Gold Key";
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private void OnTriggerEnter(Collider col)
     {
@@ -27,7 +40,7 @@ public class InteractableScript : MonoBehaviour {
 
             foreach (Item i in inventory.inventoryItems)
             {
-                if (i.Name == NeededKey)
+                if (i.Name == keyname)
                 {
                     Destroy(gameObject);
                 }

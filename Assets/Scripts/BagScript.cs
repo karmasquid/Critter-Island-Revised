@@ -4,26 +4,37 @@ using UnityEngine;
 
 public class BagScript : MonoBehaviour {
 
+    private List<string> itemsInBag = new List<string>();
+
     private Item itemInBag;
 
-    public string thisItem;
+    [Header("Possible Drops")]
+    public bool bronzeKey, silverKey, goldKey;
 
     Inventory inventory;
+
     ItemDatabase itemDatabase;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+
         itemDatabase = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
 
-
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (bronzeKey)
+        {
+            itemsInBag.Add("Bronze Key");
+        }
+        if (silverKey)
+        {
+            itemsInBag.Add("Silver Key");
+        }
+        if (goldKey)
+        {
+            itemsInBag.Add("Gold Key");
+        }
+        
     }
 
     private void OnTriggerEnter(Collider col)
