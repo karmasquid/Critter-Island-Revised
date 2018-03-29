@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4524241041918964}
   - component: {fileID: 95666040233527030}
   m_Layer: 0
-  m_Name: asset_env_detail_lantern_1
+  m_Name: asset_prfb_env_detail_lantern_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,7 +81,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1757832702447808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7499309, y: 1.2644525, z: 2.297892}
+  m_LocalPosition: {x: -8.600149, y: -3.661982, z: -4.52749}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4591768213497966}
