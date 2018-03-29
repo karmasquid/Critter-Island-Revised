@@ -22,6 +22,11 @@ public class SearchFor : IState {
 
     public bool searchCompleted;
 
+    //tempvariables.
+    private bool roaming;
+    private float wait = 5f;
+    private float waittime;
+
     private System.Action<SearchResult> searchResultCallback;
 
 
@@ -96,17 +101,24 @@ public class SearchFor : IState {
 
     private void Roam()
     {
-        {
+        if (!roaming)
+        {           
             Vector3 roamingPoint;
 
             if (RoamToPoint(ownerGo.position, roamRadius, out roamingPoint))
             {
                 Debug.Log("found roampos");
                 navMeshAgent.SetDestination(roamingPoint);
-                var searchResult = new SearchResult(false);
-                this.searchResultCallback(searchResult);
-                this.searchCompleted = true;
+                //var searchResult = new SearchResult(false);
+                //this.searchResultCallback(searchResult);
+                //this.searchCompleted = true;
+                roaming = true;
+                waittime = Time.time + wait;
             }
+        }
+        else if (Time.time > waittime)
+        {
+            roaming = false;
         }
     }
 
