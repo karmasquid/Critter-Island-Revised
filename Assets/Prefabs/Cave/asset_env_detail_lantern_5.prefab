@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4428397706962004}
   - component: {fileID: 95222988684839838}
   m_Layer: 0
-  m_Name: Lantern 4
+  m_Name: asset_env_detail_lantern_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
