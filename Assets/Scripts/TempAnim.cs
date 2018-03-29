@@ -11,23 +11,19 @@ public class TempAnim : MonoBehaviour {
 
     void Update ()
     {
-       /* chargeTimer += Time.deltaTime;
-        if(chargeTimer >= 1.0f)
-            { anim.SetBool("isCharging", true);
-            if (Input.GetKeyUp(KeyCode.H))
-            {
-                anim.SetTrigger("chargeAttack");
-            }
-
-         } */
+      
 
         if (Input.GetKeyDown(KeyCode.O))
         {
             anim.SetBool("isCharging", true);
-            if (Input.GetKeyUp(KeyCode.O))
-            {
-                anim.SetTrigger("chargeAttack");
-            }
+            
+        }
+
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+          
+            anim.SetTrigger("chargeAttack");
+
         }
 
         if (Input.GetKeyDown(KeyCode.H))
