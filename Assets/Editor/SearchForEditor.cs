@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 //editor to make the fov of characters visable;
@@ -23,4 +21,4 @@ public class SearchForEditor : Editor {
         Handles.color = Color.red;
         Handles.DrawWireArc(aI.transform.position, Vector3.up, Vector3.forward, 360, aI.AttackRangeMin);
     }
-}
+}// Stina Hedman

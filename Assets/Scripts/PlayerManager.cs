@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour {
     private float waitTime = 0.1f;
 
     //Daniel Laggar del
+    private float knockBackForce = 2f;
 
     //relevanta script
     private Inventory inventoryScript;
@@ -98,6 +99,8 @@ public class PlayerManager : MonoBehaviour {
         staminaRecharge += itemAdd.StaminaRecovery;
         ammoCount += itemAdd.AmmoCount;
 
+        //knockBackForce += itemAdd.knockBackForce;
+
         characterScript.SpeedMultiplier += itemAdd.MovementDiff;
 
         //characterattackthingystuffscript.attackrate += itemAdd.AttackSpeed;
@@ -109,7 +112,9 @@ public class PlayerManager : MonoBehaviour {
         armor -= itemrem.Armor;
 
         staminaRecharge -= itemrem.StaminaRecovery;
-        
+
+        //knockBackForce -= itemAdd.knockBackForce;
+
         characterScript.SpeedMultiplier -= itemrem.MovementDiff;
 
         //movementscriptstuff += itemrem.AttackSpeed;
@@ -118,12 +123,13 @@ public class PlayerManager : MonoBehaviour {
     public void MeleeAttack(GameObject enemy)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCost;
-        
+
         //if (staminaRecharging == true)
         //{
         //    //kör corutine!
         //}
-
+        Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+        enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
         //deal damage to enemy.
     }
 
@@ -144,10 +150,17 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    public void SpecAttack(GameObject enemy)
+    public void SpecAttack(GameObject[] enemys)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCostSpec;
 
+        foreach (GameObject enemy in enemys)
+        {
+            // ---------------------------------------------------------------------------------------- Make enemy move away from player instead of player forward.------------------------------------------------------------------------
+            Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+            enemyRB.AddForce(-enemy.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
+            // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        }
         //if (staminaRecharging == true)
         //{
         //    //kör corutine!
@@ -172,4 +185,4 @@ public class PlayerManager : MonoBehaviour {
     }
 
 
-}
+} // Stina Hedman

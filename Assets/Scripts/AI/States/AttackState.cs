@@ -7,6 +7,7 @@ public class AttackState : IState {
     private NavMeshAgent navMeshAgent;
     private Transform ownerGO;
     private Transform playerGO;
+    private Vector3 startPos;
     private float attackRangeMin;
     private float attackRangeMax;
     private float viewRange;
@@ -28,6 +29,7 @@ public class AttackState : IState {
     void IState.Enter()
     {
         Debug.Log("Entered attackstate");
+        this.startPos = ownerGO.position;
     }
 
     void IState.Execute()
@@ -54,8 +56,9 @@ public class AttackState : IState {
                 this.moving = false;
                 this.navMeshAgent.enabled = false;
                 RotateTowards();
-                //AI stannar
-                //AI attackerar spelaren
+                //----------------------------------------------------------------------------SWITCH THIS SHIT OUT LAT0RZ-----------------------------------------------------------------------------
+                
+                //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             }
             else if (distanceBetween >= attackRangeMax && distanceBetween <= viewRange)
             {
@@ -65,7 +68,7 @@ public class AttackState : IState {
             }
             else
             {
-                var attackResults = new AttackResult(false);
+                var attackResults = new AttackResult(true);
                 this.attackResultCallback(attackResults);
                 this.attackComplete = false;
             }
@@ -95,4 +98,4 @@ public class AttackResult
     {
         this.trueForSearchFalseForIdle = trueForSearchFalseForIdle;
     }
-}
+}// Stina Hedman

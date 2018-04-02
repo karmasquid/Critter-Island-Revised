@@ -28,24 +28,24 @@ public class InteractableScript : MonoBehaviour {
         }
         else if (goldKey)
         {
-            keyname = "Gold Key";
+            keyname = "key";
         }
     }
-
-    private void OnTriggerEnter(Collider col)
+    private void OnCollisionEnter(Collision col)
     {
+        Debug.Log("at door");
         if (col.gameObject.tag == "Player")
         {
             Debug.Log("found player");
 
             foreach (Item i in inventory.inventoryItems)
             {
-                if (i.Name == keyname)
+                if (i.Name == "key")
                 {
-                    Destroy(gameObject);
+                    Destroy(this.gameObject);
                 }
             }
         }
     }
 
-}
+}// Stina Hedman

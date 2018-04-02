@@ -118,4 +118,4 @@ public class IdleResult
     }
 
 
-}
+}// Stina Hedman

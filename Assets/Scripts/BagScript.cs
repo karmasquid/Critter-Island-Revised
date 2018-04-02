@@ -9,7 +9,12 @@ public class BagScript : MonoBehaviour {
     private Item itemInBag;
 
     [Header("Possible Drops")]
-    public bool bronzeKey, silverKey, goldKey;
+    [SerializeField]
+    private bool bronzeKey;
+    [SerializeField]
+    private bool silverKey;
+    [SerializeField]
+    private bool goldKey;
 
     Inventory inventory;
 
