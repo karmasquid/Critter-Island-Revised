@@ -6,6 +6,7 @@ public class TempAnim : MonoBehaviour {
     bool moving, idle, dodge, dodgeB, throwing, death;
     float chargeTimer;
 
+    int nowMoving = Animator.StringToHash("isMoving");
 
     public Animator anim;
 
@@ -31,6 +32,9 @@ public class TempAnim : MonoBehaviour {
             anim.SetTrigger("attack");
 
         }
+
+      //  anim.SetFloat(nowMoving, Character.nowMoving);
+
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
         {
             print("BOOP");
@@ -40,7 +44,7 @@ public class TempAnim : MonoBehaviour {
         {
             anim.SetBool("isRunning", false);
         }
-
+       
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
         {
             anim.SetTrigger("fDodge");
