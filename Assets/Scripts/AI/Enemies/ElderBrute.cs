@@ -10,11 +10,18 @@ public class ElderBrute : MonoBehaviour {
     [SerializeField]
     private StateMachine stateMachine = new StateMachine();
 
+    PlayerManager playerManager;
+
     //AI variables
     [SerializeField]
     private LayerMask playerLayer;
     [SerializeField]
     private LayerMask obstacleLayer;
+    [Header("Health and Damage")]
+    [SerializeField]
+    private int health;
+    [SerializeField]
+    private int damage;
     [Header("Range of the attack")]
     [SerializeField]
     private float attackRangeMin;
@@ -31,6 +38,9 @@ public class ElderBrute : MonoBehaviour {
     [SerializeField]
     private float idleTimeBetweenMoves;
 
+    private Vector3 startPos;
+
+    private bool dead;
 
     private NavMeshAgent navMeshAgent;
 
@@ -52,12 +62,37 @@ public class ElderBrute : MonoBehaviour {
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
-        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.viewRange, this.viewDeg,this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg,this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
     }
 
     private void Update()
-    {    this.stateMachine.ExecuteStateUpdate();    }
+    {   if (!dead)
+        {
+            this.stateMachine.ExecuteStateUpdate();
+        }
+    
+    }
+
+
+    public void DealDamage()
+    {
+        playerManager.TakeDamage(this.damage);
+    }
+    public void TakeDamange(int damageDealt)
+    {
+        health -= damageDealt;
+
+        if (health <= 0)
+        {
+            dead = true;
+            
+
+
+            //this.gameObject.transform.rotate(new Vector3())
+        }
+    }
 
     //-------------------------------------------------------------- could be made into only one method with enum? -------------------------------------------------------------------
     //Next state after Searchstate
@@ -81,7 +116,7 @@ public class ElderBrute : MonoBehaviour {
     {   //attack     
         if (attackResults.trueForSearchFalseForIdle)
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
         }
         //idle
         else
@@ -98,7 +133,7 @@ public class ElderBrute : MonoBehaviour {
         //idle
         else
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
         }
     }//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

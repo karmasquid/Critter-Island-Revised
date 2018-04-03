@@ -18,14 +18,13 @@ public class SearchFor : IState {
     private float attackRange;
     private string tagToLookFor = "Player";
 
-
-
     public bool searchCompleted;
 
     //tempvariables.
     private bool roaming;
     private float wait = 5f;
     private float waittime;
+    private Vector3 startPos;
 
     private System.Action<SearchResult> searchResultCallback;
 
@@ -33,7 +32,7 @@ public class SearchFor : IState {
 
     //int triedToFind = 0;
 
-    public SearchFor(LayerMask searchLayer, LayerMask obstacleLayer, Transform ownerGo, float viewRange, float viewDeg, float attackRange, float roamRadius, NavMeshAgent navMeshAgent, Action<SearchResult> searchResultCallback)
+    public SearchFor(LayerMask searchLayer, LayerMask obstacleLayer, Transform ownerGo, Vector3 startPos, float viewRange, float viewDeg, float attackRange, float roamRadius, NavMeshAgent navMeshAgent, Action<SearchResult> searchResultCallback)
     {
 
         this.searchLayer = searchLayer;
@@ -45,19 +44,17 @@ public class SearchFor : IState {
         this.navMeshAgent = navMeshAgent;
         this.searchResultCallback = searchResultCallback;
         this.attackRange = attackRange;
+        this.startPos = startPos;
     }
 
    
 
     public void Enter()
     {
-        Debug.Log("enterstatesearchfor");
     }
 
     public void Execute()
     {
-        Debug.Log("Search running");
-
         if (!searchCompleted)
         {
             SearchForPlayer();
@@ -72,7 +69,6 @@ public class SearchFor : IState {
 
     private void SearchForPlayer()
     {
-        Debug.Log("searching");
         Collider[] foundTargets = Physics.OverlapSphere(ownerGo.transform.position, this.viewRange, this.searchLayer);
 
         for (int i = 0; i < foundTargets.Length; i++)
@@ -107,14 +103,15 @@ public class SearchFor : IState {
 
             if (RoamToPoint(ownerGo.position, roamRadius, out roamingPoint))
             {
-                Debug.Log("found roampos");
                 navMeshAgent.SetDestination(roamingPoint);
                 //var searchResult = new SearchResult(false);
                 //this.searchResultCallback(searchResult);
                 //this.searchCompleted = true;
+                //RotateTowards();
                 roaming = true;
                 waittime = Time.time + wait;
             }
+            
         }
         else if (Time.time > waittime)
         {
@@ -135,6 +132,15 @@ public class SearchFor : IState {
         result = Vector3.zero;
         return false;
     }
+
+    //private void RotateTowards()
+    //{
+    //    float rotationspeed = 10;
+    //    Vector3 direction = (this.startPos - this.ownerGo.position).normalized;
+    //    direction.y = 0;
+    //    Quaternion lookRotation = Quaternion.LookRotation(direction);
+    //    this.ownerGo.transform.rotation = Quaternion.Slerp(this.ownerGo.rotation, lookRotation, Time.deltaTime * rotationspeed);
+    //}
 }
 public class SearchResult
 {
