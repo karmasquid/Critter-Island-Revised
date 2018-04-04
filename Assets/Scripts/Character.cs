@@ -27,6 +27,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     float rotationSpeed;
 
+    Animator anim;
 
     public float SpeedMultiplier
     {
@@ -68,6 +69,7 @@ public class Character : MonoBehaviour
 
         InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
 
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -77,6 +79,7 @@ public class Character : MonoBehaviour
         dodger(); //Handles Dodge.
         RestricMove(); //Restricts Movement when attacking.
         PlayerManager.instance.RechargeStamina(stamReCharge);
+        
     }
     void RestricMove() //TODO Justera, mycket hårdkodning:
     {
@@ -193,6 +196,7 @@ public class Character : MonoBehaviour
 
             if (!PlayerManager.outOfstamina) //If there is stamina:
             {
+                anim.SetTrigger("fDodge");
                 PosBeforeDodge = this.curPos;
                 if (inHole) //Inside hole coll.
                 {
@@ -225,6 +229,8 @@ public class Character : MonoBehaviour
     {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         Vector3 inputRaw = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
+         
+      //  anim.SetFloat("Speed", isMoving); LET'S FIX THIS
         if (input.sqrMagnitude > 1f)
             input.Normalize();
         if (inputRaw.sqrMagnitude > 1f)
