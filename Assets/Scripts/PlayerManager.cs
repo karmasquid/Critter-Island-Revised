@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
+    public static bool outOfstamina; //Fullösning bör inte användas vid optimering.
+
     //Skapar stats från stats-scriptet.
     [SerializeField]
     private Stats health;
@@ -30,6 +32,7 @@ public class PlayerManager : MonoBehaviour {
     private BasicAI basicAI;
 
     private float armor;
+    private float drainingStamina;
 
     private int ammoCount;
     //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
@@ -86,7 +89,7 @@ public class PlayerManager : MonoBehaviour {
        //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
     }
 
-    void RechargeStamina()
+    public void RechargeStamina(float recharge)
     {
 
     }
@@ -174,14 +177,32 @@ public class PlayerManager : MonoBehaviour {
         health.CurrentValue -= Damage;
     }
 
-    private void LooseStamina(int sta)
+    public void LooseStamina(float sta)
     {
+        //____________________NEW CODE________________
+        drainingStamina = sta;
+
+        if (stamina.CurrentValue < drainingStamina)
+        {
+            outOfstamina = true; //Fullösning med public static bool...
+        }
+        else
+        {
+            stamina.CurrentValue -= drainingStamina;
+            outOfstamina = false;
+        }
+
+
+        //______________________OLD CODE______________
+
+        /*
         if (stamina.CurrentValue >= sta)
         {
             stamina.CurrentValue -= sta;
         }
         else
             stamina.CurrentValue = 0;
+            */
     }
 
 

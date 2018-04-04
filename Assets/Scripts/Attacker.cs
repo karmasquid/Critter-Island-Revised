@@ -11,6 +11,7 @@ public class Attacker : MonoBehaviour {
 
     public static bool hit = false; //Används för tillfället i throwable, bad practise med public statics tho.
 
+    GameObject names;
     GameObject Currentequipped;
     bool chargingAttack;
     bool throwing = false;
@@ -22,8 +23,9 @@ public class Attacker : MonoBehaviour {
 
     void Start ()
     {
-        //GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-         Currentequipped = projectiles[0];
+        GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+
+        Currentequipped = projectiles[0];
     }
 
     void Update ()
@@ -139,7 +141,7 @@ public class Attacker : MonoBehaviour {
         switch (Currentequipped.name)
         {
             case "IcaBasicChoklad": //Name Of thrown object.
-                Debug.Log("Chokladskada");
+                //Debug.Log("Chokladskada");
                 //Do damage
                 break;
             case "2": //Name Of thrown object.
@@ -152,22 +154,30 @@ public class Attacker : MonoBehaviour {
     }
     void Attacking() //Checking Basic or special attack:
     {
-        if (chargingAttack)
+        PlayerManager.instance.LooseStamina(0);
+        if (!PlayerManager.outOfstamina)
         {
-            Debug.Log("*Swoosh* Special attack");
-            //TODO: Add check for weapon and them assign correct animation.
-            LaunchAttack(attackHitBoxes[1]);
-            chargingAttack = false;
-            //stamina drain
+            if (chargingAttack)
+            {
+                Debug.Log("*Swoosh* Special attack");
+                //TODO: Add check for weapon and them assign correct animation.
+                LaunchAttack(attackHitBoxes[1]);
+                chargingAttack = false;
+                PlayerManager.instance.LooseStamina(20); //Stamina drain
+            }
+            else
+            {
+                Debug.Log("*Swoosh* Basic attack");
+                //TODO: Add check for weapon and them assign correct animation.
+                LaunchAttack(attackHitBoxes[0]);
+                PlayerManager.instance.LooseStamina(2); //Stamina drain
+            }
+            chargeTimer = 0;
         }
         else
         {
-            Debug.Log("*Swoosh* Basic attack");
-            //TODO: Add check for weapon and them assign correct animation.
-            LaunchAttack(attackHitBoxes[0]);
-            //stamina drain
+            Debug.Log("Attack is unavailable!");
         }
-        chargeTimer = 0;
     }
     void DetectedThrow() //Failsafe throw:
     {
