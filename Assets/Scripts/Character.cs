@@ -15,7 +15,11 @@ public class Character : MonoBehaviour
     [SerializeField]
     float GroundDistance = 0.2f;
     [SerializeField]
-    float DashDistance = 5f;
+    float DashDistance = 3f;
+    [SerializeField]
+    float stamReCharge; //Stamina recharge per frame.
+    [SerializeField]
+    float dodgeCost;
     [SerializeField]
     LayerMask Ground;
     [SerializeField]
@@ -23,12 +27,13 @@ public class Character : MonoBehaviour
     [SerializeField]
     float rotationSpeed;
 
+
     public float SpeedMultiplier
     {
         get { return this.speedMultiplier; }
         set { this.speedMultiplier = value; }
     }
-
+    //Controls and rotation.
     private bool running;
     private CharacterController _controller;
     private Vector3 _velocity;
@@ -36,84 +41,42 @@ public class Character : MonoBehaviour
     private Transform _groundChecker;
     private Vector3 targetRotation;
 
+    //Movement and stamina:
+    private Vector3 curPos;
+    private Vector3 pastPos;
+    private bool moving;
+    private float rawStamRe;
+
+    //Hole dodge:
+    private bool dodgeronies = false;
+    private bool inHole = false;
+    private GameObject pitHole;
+    IEnumerator DelayGravity;
+    Vector3 PosBeforeDodge;
+    float overHole;
+    float normalDash;
 
     void Start()
     {
+        //Modular variables. Saves start values set in inspector:
+        rawStamRe = stamReCharge;
         rawSpeed = Speed;
+        normalDash = DashDistance;
+
         _controller = GetComponent<CharacterController>();
         _groundChecker = transform.GetChild(0);
+
+        InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
+
     }
 
     void Update()
     {
-        //____________________________ROTATION_SCRIPT________________________________________________________________
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-        Vector3 inputRaw = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
-        if (input.sqrMagnitude > 1f)
-            input.Normalize();
-        if (inputRaw.sqrMagnitude > 1f)
-            inputRaw.Normalize();
-
-        if (inputRaw != Vector3.zero)
-            targetRotation = Quaternion.LookRotation(input).eulerAngles;
-
-        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation.x, Mathf.Round(targetRotation.y / 45) * 45, targetRotation.z), Time.deltaTime * rotationSpeed);
-        //_____________________________________________________________________________________________________________________________________________
-        if (Input.GetKeyDown(KeyCode.LeftShift)  || Input.GetKeyDown("joystick button 5") && running == false)
-        {
-            Speed = Speed * speedMultiplier; running = true;
-            if (Speed > 1 && atckn == true)
-            {
-                Speed = 1;
-            }
-            if (Speed<rawSpeed * speedMultiplier)
-            {
-                Speed = rawSpeed * speedMultiplier;
-            }
-            //Drain stamina.
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp("joystick button 5") && running == true)
-        {
-            Speed = Speed / speedMultiplier; running = false;
-            if (Speed < 1)
-            {
-                Speed = 1;
-            }
-            if (Speed > rawSpeed)
-            {
-                Speed = rawSpeed;
-            }
-        }
-        //_____________________________________________________RUNNING______________________________________________________
-        _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
-        if (_isGrounded && _velocity.y < 0)
-            _velocity.y = 0f;
-
-        //Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        _controller.Move(input * Time.deltaTime * Speed);
-
-
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4")) //Check stamina here.
-        {
-            _velocity += Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
-
-            //Look for dashboots
-            //then dashdistance ^Up
-
-            
-        }
-
-
-        _velocity.y += Gravity * Time.deltaTime;
-
-        _velocity.x /= 1 + Drag.x * Time.deltaTime;
-        _velocity.y /= 1 + Drag.y * Time.deltaTime;
-        _velocity.z /= 1 + Drag.z * Time.deltaTime;
-
-        _controller.Move(_velocity * Time.deltaTime);
-
-        RestricMove();
+        mover(); //Handles Movement and Rotation.
+        runner(); //Handles Running.
+        dodger(); //Handles Dodge.
+        RestricMove(); //Restricts Movement when attacking.
+        PlayerManager.instance.RechargeStamina(stamReCharge);
     }
     void RestricMove() //TODO Justera, mycket hårdkodning:
     {
@@ -122,9 +85,9 @@ public class Character : MonoBehaviour
             atckn = true;
             if (running)
             {
-                Speed = Speed / (speedMultiplier* rawSpeed);
+                Speed = Speed / (speedMultiplier * rawSpeed);
             }
-            else
+            else if (!running)
             {
                 Speed = Speed / rawSpeed;
 
@@ -141,7 +104,7 @@ public class Character : MonoBehaviour
                     Speed = 1;
                 }
             }
-            else 
+            else if (!running)
             {
                 Speed = Speed * rawSpeed;
                 if (Speed > rawSpeed)
@@ -151,5 +114,197 @@ public class Character : MonoBehaviour
             }
         }
     }
+    void LastPosition() // Check for movement.
+    {
+        curPos = this.transform.position;
+        if (curPos == pastPos)
+        {
+            moving = false;
+        }
+        if (curPos != pastPos)
+        {
+            moving = true;
+        }
+        pastPos = curPos;
+    }
+    void runner()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown("joystick button 5"))
+        {
+            if (running)
+            {
+                Speed = Speed * speedMultiplier;
+            }
+            else
+            {
+                if (Speed > 1 && atckn == true)
+                {
+                    Speed = 1;
+                }
 
+                if (Speed >= rawSpeed)
+                {
+                    Speed = rawSpeed * speedMultiplier;
+                }
+                running = true;
+            }
+        }
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey("joystick button 5"))
+        {
+            if (!PlayerManager.outOfstamina && running == true) //Om du inte står stilla, drain.
+            {
+                Speed = rawSpeed * speedMultiplier;
+            }
+            else if (running == true)
+            {
+                running = false;
+                Speed = rawSpeed;
+            }
+            if (!moving) //And out of stamina
+            {
+                stamReCharge = rawStamRe;
+            }
+            else //Moving and running.
+            {
+                PlayerManager.instance.LooseStamina(20 * Time.deltaTime); //Stamina drain.
+                stamReCharge = 0f;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp("joystick button 5"))
+        {
+            Speed = Speed / speedMultiplier; running = false;
+            if (Speed < 1)
+            {
+                Speed = 1;
+            }
+            if (Speed > rawSpeed || Speed > 1)
+            {
+                Speed = rawSpeed;
+            }
+            stamReCharge = rawStamRe;
+        }
+    }
+    void dodger()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
+        {
+            PlayerManager.instance.LooseStamina(dodgeCost); //TODO Change value 40 to variable whose value change depending on equipment.
+
+            if (!PlayerManager.outOfstamina) //If there is stamina:
+            {
+                PosBeforeDodge = this.curPos;
+                if (inHole) //Inside hole coll.
+                {
+                    pitHole.GetComponent<Collider>().isTrigger = true;
+                }
+                //Dodge move on player:
+                _velocity += Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
+
+
+            }
+            /*  else
+             *  {
+             *   Play no-mana sound/animation.
+             *  }
+
+
+                /*
+                    Rechargestamina = breathing(2.0f);
+                    StartCoroutine(Rechargestamina);
+                }
+                //Look for dashboots
+                //then dashdistance ^Up
+                */
+
+
+        }
+
+    }
+    void mover()
+    {
+        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
+        Vector3 inputRaw = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
+        if (input.sqrMagnitude > 1f)
+            input.Normalize();
+        if (inputRaw.sqrMagnitude > 1f)
+            inputRaw.Normalize();
+
+        if (inputRaw != Vector3.zero)
+            targetRotation = Quaternion.LookRotation(input).eulerAngles;
+
+        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation.x, Mathf.Round(targetRotation.y / 45) * 45, targetRotation.z), Time.deltaTime * rotationSpeed);
+
+        _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
+
+        if (_isGrounded && _velocity.y < 0)
+            _velocity.y = 0f;
+
+        _controller.Move(input * Time.deltaTime * Speed);
+
+
+        _velocity.y += Gravity * Time.deltaTime;
+
+        _velocity.x /= 1 + Drag.x * Time.deltaTime;
+        _velocity.y /= 1 + Drag.y * Time.deltaTime;
+        _velocity.z /= 1 + Drag.z * Time.deltaTime;
+
+        _controller.Move(_velocity * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Hole") //&& Right jumping shoes...
+        {
+            dodgeronies = true;
+            Gravity = 0f;
+            pitHole = other.gameObject;
+            inHole = true;
+            overHole = (other.bounds.size.x / DashDistance) + other.bounds.size.x;
+            if (dodgeronies)
+            {
+                DashDistance = overHole;
+                dodgeronies = false;
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Hole")
+        {
+            inHole = false;
+            pitHole.GetComponent<Collider>().isTrigger = false;
+            DashDistance = normalDash;
+            Gravity = -76.8f;
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Hole" && other.isTrigger == true)
+        {
+            DelayGravity = Down(DashDistance / 10);
+            StartCoroutine(DelayGravity);
+            DashDistance = normalDash;
+            //Gravity = 0f;
+            //Boomerang lul.
+            //this.transform.Translate(new Vector3(this.transform.position.x * Time.deltaTime / DashDistance, 0, this.transform.position.z * Time.deltaTime / DashDistance));
+        }
+    }
+    IEnumerator Down(float CDTime) //Coroutine for throw:
+    {
+        yield return new WaitForSeconds(CDTime);
+        Gravity = -76.8f;
+
+        if (curPos.y < -2)
+        {
+            this.transform.position = PosBeforeDodge;
+            DashDistance = overHole;
+        }
+
+
+        inHole = true;
+
+
+        yield return new WaitForSeconds(CDTime);
+        Gravity = 0f;
+    }
 }
