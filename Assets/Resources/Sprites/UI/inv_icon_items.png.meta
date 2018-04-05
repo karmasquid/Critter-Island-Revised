@@ -95,7 +95,7 @@ TextureImporter:
         x: 43
         y: 458
         width: 336
-        height: 278
+        height: 310
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -106,10 +106,10 @@ TextureImporter:
       name: inv_icon_items_1
       rect:
         serializedVersion: 2
-        x: 425
-        y: 442
+        x: 427
+        y: 437
         width: 193
-        height: 165
+        height: 193
       alignment: 9
       pivot: {x: 0.4999997, y: 0.4919209}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -120,9 +120,9 @@ TextureImporter:
       name: inv_icon_items_2
       rect:
         serializedVersion: 2
-        x: 707
-        y: 441
-        width: 271
+        x: 693
+        y: 440
+        width: 308
         height: 308
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -134,9 +134,9 @@ TextureImporter:
       name: inv_icon_items_3
       rect:
         serializedVersion: 2
-        x: 1137
-        y: 430
-        width: 84
+        x: 1065
+        y: 432
+        width: 229
         height: 304
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -148,10 +148,10 @@ TextureImporter:
       name: inv_icon_items_4
       rect:
         serializedVersion: 2
-        x: 15
-        y: 19
+        x: 12
+        y: 0
         width: 424
-        height: 324
+        height: 424
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -162,9 +162,9 @@ TextureImporter:
       name: inv_icon_items_6
       rect:
         serializedVersion: 2
-        x: 584
-        y: 25
-        width: 280
+        x: 558
+        y: 21
+        width: 347
         height: 347
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -178,7 +178,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1007
         y: 22
-        width: 297
+        width: 296
         height: 296
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
