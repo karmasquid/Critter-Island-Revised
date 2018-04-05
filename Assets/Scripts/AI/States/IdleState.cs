@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class IdleState : IState {
 
+    private Animator anim;
+
     public bool idleCompleted;
     public bool idleWait;
 
@@ -22,7 +24,7 @@ public class IdleState : IState {
 
     private System.Action<IdleResult> idleResultsCallback;
 
-    public IdleState(Transform ownerGo, Transform playerGo, LayerMask obstacleLayer, LayerMask playerLayer, float viewRange, float viewDeg, float attackRange,float idleTime, Action<IdleResult> idleResultsCallback)
+    public IdleState(Transform ownerGo, Transform playerGo, LayerMask obstacleLayer, LayerMask playerLayer, float viewRange, float viewDeg, float attackRange, float idleTime, Action<IdleResult> idleResultsCallback, Animator anim)
     {
         this.ownerGo = ownerGo;
         this.playerGo = playerGo;
@@ -33,6 +35,7 @@ public class IdleState : IState {
         this.attackRange = attackRange;
         this.idleResultsCallback = idleResultsCallback;
         this.idleTime = idleTime;
+        this.anim = anim;
     }
 
     public void Enter()

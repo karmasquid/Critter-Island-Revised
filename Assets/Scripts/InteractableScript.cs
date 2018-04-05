@@ -9,7 +9,7 @@ public class InteractableScript : MonoBehaviour {
     public bool silverKey;
     public bool goldKey;
 
-    private string keyname;
+    private string keyName;
 
     Inventory inventory;
 
@@ -20,20 +20,19 @@ public class InteractableScript : MonoBehaviour {
 
         if (bronzeKey)
         {
-            keyname = "Bronze Key";
+            keyName = "Bronze Key";
         }
         else if (silverKey)
         {
-            keyname = "Silver Key";
+            keyName = "Silver Key";
         }
         else if (goldKey)
         {
-            keyname = "key";
+            keyName = "key";
         }
     }
     private void OnCollisionEnter(Collision col)
     {
-        Debug.Log("at door");
         if (col.gameObject.tag == "Player")
         {
             Debug.Log("found player");

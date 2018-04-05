@@ -33,7 +33,7 @@ public class TempAnim : MonoBehaviour {
 
         }
 
-      //  anim.SetFloat(nowMoving, Character.nowMoving);
+       // anim.SetFloat(nowMoving, Character.nowMoving);
 
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
         {

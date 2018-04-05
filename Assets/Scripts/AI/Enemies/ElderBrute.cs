@@ -12,6 +12,8 @@ public class ElderBrute : MonoBehaviour {
 
     PlayerManager playerManager;
 
+    Animator anim;
+
     //AI variables
     [SerializeField]
     private LayerMask playerLayer;
@@ -22,11 +24,13 @@ public class ElderBrute : MonoBehaviour {
     private int health;
     [SerializeField]
     private int damage;
-    [Header("Range of the attack")]
+    [Header("AttackSettings")]
     [SerializeField]
     private float attackRangeMin;
     [SerializeField]
     private float attackRangeMax;
+    [SerializeField]
+    private float timeBetweenAttacks;
 
     [Header("FOV-Range and degrees (0-360)")]
     [SerializeField]
@@ -64,7 +68,8 @@ public class ElderBrute : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
-        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg,this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+        this.anim = this.GetComponent<Animator>();
+        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg,this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
     }
 
     private void Update()
@@ -100,13 +105,13 @@ public class ElderBrute : MonoBehaviour {
     {
         if (searchResult.trueForAttackFalseForIdle)
         {
-            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent,this.gameObject.transform,this.player,this.attackRangeMin, this.attackRangeMax,this.viewRange,this.AttackDone));
+            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent,this.gameObject.transform,this.player,this.attackRangeMin, this.attackRangeMax,this.viewRange,this.AttackDone, this.anim, this.timeBetweenAttacks, this.playerManager, this.damage));
         }
 
         else
         {
             //go to idle
-            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform,this.player,this.obstacleLayer,this.playerLayer,this.viewRange,this.ViewDeg,this.attackRangeMax,this.idleTimeBetweenMoves, this.IdleDone));
+            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform,this.player,this.obstacleLayer,this.playerLayer,this.viewRange,this.ViewDeg,this.attackRangeMax,this.idleTimeBetweenMoves, this.IdleDone, this.anim));
             //currently going to roaming.
         }
 
@@ -116,24 +121,24 @@ public class ElderBrute : MonoBehaviour {
     {   //attack     
         if (attackResults.trueForSearchFalseForIdle)
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
         }
         //idle
         else
         {
-            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone));
+            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.anim));
         }
     }
     public void IdleDone(IdleResult idleResult)
     {   //attack     
         if (idleResult.trueForAttackFalseForSearch)
         {
-            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent, this.gameObject.transform, this.player, this.attackRangeMin, this.attackRangeMax, this.viewRange, this.AttackDone));
+            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent, this.gameObject.transform, this.player, this.attackRangeMin, this.attackRangeMax, this.viewRange, this.AttackDone, this.anim, this.timeBetweenAttacks, this.playerManager, this.damage));
         }
         //idle
         else
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone));
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
         }
     }//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
