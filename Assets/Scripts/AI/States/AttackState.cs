@@ -67,9 +67,9 @@ public class AttackState : IState {
                     RotateTowards();
                     rotating = true;
                 }
-                ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
+                //ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
             }
-            else if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax && Time.time > waitAttack)
+            else if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax && Time.time > waitAttack && !rotating)
             {
                 if (moving)
                 {
@@ -77,11 +77,15 @@ public class AttackState : IState {
                     moving = false;
                 }
                     
-                    anim.SetTrigger("attack");
+                anim.SetTrigger("attack");
 
                 this.rotating = false;
                 this.navMeshAgent.enabled = false;
-                RotateTowards();
+                if (!rotating)
+                {
+                    RotateTowards();
+                }
+
                 waitAttack = Time.time + timeBetweenAttacks;
                 // ANIMATION FOR ATTACKING AND DO DAMAGE.
                 playerManager.TakeDamage(damage);
@@ -124,6 +128,7 @@ public class AttackState : IState {
         direction.y = 0;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         this.ownerGO.transform.rotation = Quaternion.Slerp(this.ownerGO.rotation, lookRotation, Time.deltaTime * rotationspeed);
+        rotating = false;
     }
 
 }

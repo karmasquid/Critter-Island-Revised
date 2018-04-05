@@ -28,6 +28,7 @@ public class Character : MonoBehaviour
     float rotationSpeed;
 
     Animator anim;
+    
 
     public float SpeedMultiplier
     {
@@ -70,6 +71,8 @@ public class Character : MonoBehaviour
         InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
 
         anim = GetComponent<Animator>();
+
+       // if ()
     }
 
     void Update()
@@ -123,10 +126,12 @@ public class Character : MonoBehaviour
         if (curPos == pastPos)
         {
             moving = false;
+            
         }
         if (curPos != pastPos)
         {
             moving = true;
+         
         }
         pastPos = curPos;
     }
@@ -229,8 +234,11 @@ public class Character : MonoBehaviour
     {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         Vector3 inputRaw = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
-        int nowMoving = Animator.StringToHash("Speed");
-        anim.SetFloat("Speed", nowMoving); 
+
+        float nowMoving = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical") / 2;
+        anim.SetFloat("Speed", nowMoving);
+
+
         if (input.sqrMagnitude > 1f)
             input.Normalize();
         if (inputRaw.sqrMagnitude > 1f)

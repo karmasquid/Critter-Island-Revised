@@ -21,6 +21,8 @@ public class Attacker : MonoBehaviour {
     PlayerManager playermanager;
     IEnumerator Reload;
 
+    Animator anim;
+
     void Start ()
     {
         GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
@@ -160,6 +162,7 @@ public class Attacker : MonoBehaviour {
             if (chargingAttack)
             {
                 Debug.Log("*Swoosh* Special attack");
+                anim.SetTrigger("chargeAttack");
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[1]);
                 chargingAttack = false;
@@ -168,6 +171,7 @@ public class Attacker : MonoBehaviour {
             else
             {
                 Debug.Log("*Swoosh* Basic attack");
+                anim.SetTrigger("attack");
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[0]);
                 PlayerManager.instance.LooseStamina(2); //Stamina drain

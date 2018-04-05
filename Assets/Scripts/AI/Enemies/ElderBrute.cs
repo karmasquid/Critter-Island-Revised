@@ -77,14 +77,10 @@ public class ElderBrute : MonoBehaviour {
         {
             this.stateMachine.ExecuteStateUpdate();
         }
-    
+
     }
 
 
-    public void DealDamage()
-    {
-        playerManager.TakeDamage(this.damage);
-    }
     public void TakeDamange(int damageDealt)
     {
         health -= damageDealt;
