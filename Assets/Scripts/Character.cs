@@ -229,8 +229,8 @@ public class Character : MonoBehaviour
     {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
         Vector3 inputRaw = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
-         
-      //  anim.SetFloat("Speed", isMoving); LET'S FIX THIS
+        int nowMoving = Animator.StringToHash("Speed");
+        anim.SetFloat("Speed", nowMoving); 
         if (input.sqrMagnitude > 1f)
             input.Normalize();
         if (inputRaw.sqrMagnitude > 1f)
