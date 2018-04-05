@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class SearchFor : IState {
 
+    private Animator anim;
+
     private NavMeshAgent navMeshAgent;
 
     private LayerMask searchLayer;
@@ -23,8 +25,12 @@ public class SearchFor : IState {
     //tempvariables.
     private bool roaming;
     private float wait = 5f;
+    private float waitBetweenRoam = 2f;
     private float waittime;
+    private float waitroam;
+
     private Vector3 startPos;
+    private Vector3 roamPos;
 
     private System.Action<SearchResult> searchResultCallback;
 
@@ -32,7 +38,7 @@ public class SearchFor : IState {
 
     //int triedToFind = 0;
 
-    public SearchFor(LayerMask searchLayer, LayerMask obstacleLayer, Transform ownerGo, Vector3 startPos, float viewRange, float viewDeg, float attackRange, float roamRadius, NavMeshAgent navMeshAgent, Action<SearchResult> searchResultCallback)
+    public SearchFor(LayerMask searchLayer, LayerMask obstacleLayer, Transform ownerGo, Vector3 startPos, float viewRange, float viewDeg, float attackRange, float roamRadius, NavMeshAgent navMeshAgent, Action<SearchResult> searchResultCallback, Animator anim)
     {
 
         this.searchLayer = searchLayer;
@@ -45,12 +51,12 @@ public class SearchFor : IState {
         this.searchResultCallback = searchResultCallback;
         this.attackRange = attackRange;
         this.startPos = startPos;
+        this.anim = anim;
     }
-
-   
 
     public void Enter()
     {
+
     }
 
     public void Execute()
@@ -104,18 +110,19 @@ public class SearchFor : IState {
             if (RoamToPoint(ownerGo.position, roamRadius, out roamingPoint))
             {
                 navMeshAgent.SetDestination(roamingPoint);
-                //var searchResult = new SearchResult(false);
-                //this.searchResultCallback(searchResult);
-                //this.searchCompleted = true;
-                //RotateTowards();
                 roaming = true;
                 waittime = Time.time + wait;
+                waitroam = waittime + waitBetweenRoam;
+                
             }
             
         }
-        else if (Time.time > waittime)
+        if (roaming && ownerGo.position == roamPos || Time.time > waittime)
         {
+            anim.SetBool("isWalking", false);
+            if (Time.time > waitroam)
             roaming = false;
+
         }
     }
 
@@ -126,9 +133,10 @@ public class SearchFor : IState {
         NavMeshHit navHit;
         if (NavMesh.SamplePosition(randomRoamPos, out navHit, range, NavMesh.AllAreas))
         {   result = navHit.position;
+            roamPos = navHit.position;
+            anim.SetBool("isWalking", true);
             return true;
         }
-
         result = Vector3.zero;
         return false;
     }
