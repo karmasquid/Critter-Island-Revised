@@ -77,6 +77,10 @@ public class ElderBrute : MonoBehaviour {
         {
             this.stateMachine.ExecuteStateUpdate();
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
 
     }
 
@@ -88,8 +92,6 @@ public class ElderBrute : MonoBehaviour {
         if (health <= 0)
         {
             dead = true;
-            
-
 
             //this.gameObject.transform.rotate(new Vector3())
         }
