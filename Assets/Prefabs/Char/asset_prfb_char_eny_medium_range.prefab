@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 4086734388894194}
   - component: {fileID: 95138423999792156}
   m_Layer: 0
-  m_Name: asset_prfb_char_medium_range
+  m_Name: asset_prfb_char_eny_medium_range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1464,7 +1464,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 56c02e2fe26625a4ab4ca3d3831d8a13, type: 3}
+  - {fileID: 2100000, guid: 2483e1ac4a165054ab1636e274b5408c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

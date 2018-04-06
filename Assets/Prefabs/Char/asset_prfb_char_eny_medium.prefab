@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 4310955127336350}
   - component: {fileID: 95809534194432006}
   m_Layer: 0
-  m_Name: asset_prfb_char_medium
+  m_Name: asset_prfb_char_eny_medium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
