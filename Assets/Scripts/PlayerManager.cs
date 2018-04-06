@@ -29,6 +29,7 @@ public class PlayerManager : MonoBehaviour {
     //relevanta script
     private Inventory inventoryScript;
     private Character characterScript;
+    private ElderBrute elderBruteScript;
     private BasicAI basicAI;
 
     private float armor;
@@ -36,35 +37,13 @@ public class PlayerManager : MonoBehaviour {
 
     private int ammoCount;
     //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
-    private int rangeDamage = 15;
+    private int rangeDamage;
     public int RangeDamage { get { return this.rangeDamage; } }
 
-    private int meleeDamage = 30;
+    private int meleeDamage;
     public int MeleeDamage { get { return this.meleeDamage; } }
      //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
-
-    #region Singleton
-
-    public static PlayerManager instance;
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        health.Initialize();
-        stamina.Initialize();
-
-        DontDestroyOnLoad(gameObject);
-    }
-    #endregion
 
     private void Start()
     {
@@ -102,7 +81,7 @@ public class PlayerManager : MonoBehaviour {
         staminaRecharge += itemAdd.StaminaRecovery;
         ammoCount += itemAdd.AmmoCount;
 
-        //knockBackForce += itemAdd.knockBackForce;
+        //knockBackForce += itemAdd.knockback;
 
         characterScript.SpeedMultiplier += itemAdd.MovementDiff;
 
@@ -123,7 +102,7 @@ public class PlayerManager : MonoBehaviour {
         //movementscriptstuff += itemrem.AttackSpeed;
     }
 
-    public void MeleeAttack(GameObject enemy)
+    public void MeleeAttack(Collider[] enemies)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCost;
 
@@ -131,45 +110,46 @@ public class PlayerManager : MonoBehaviour {
         //{
         //    //kör corutine!
         //}
-        Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
-        enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
+        foreach (Collider col in enemies)
+        {
+            elderBruteScript = col.gameObject.GetComponent<ElderBrute>();
+            elderBruteScript.TakeDamange(meleeDamage);
+            Rigidbody enemyRB = col.gameObject.GetComponent<Rigidbody>();
+            enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
+        }
+
         //deal damage to enemy.
     }
 
-    public void RangeAttack(GameObject enemy)
+    public void RangeAttack(Collider enemy)
     {
         if (ammoCount > 0)
       {
             ammoCount -= 1;
             stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
 
-            //if (staminaRecharging == true)
-            //{
-            //    //kör corutine!
-            //}
-
-            //basicAI = enemy.GetComponent<BasicAI>();
-            //aiScript.currentHP  <----------fixa en set.
+            elderBruteScript = enemy.gameObject.GetComponent<ElderBrute>();
+            elderBruteScript.TakeDamange(meleeDamage);
+            Rigidbody enemyRB = enemy.gameObject.GetComponent<Rigidbody>();
+            enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
         }
     }
 
-    public void SpecAttack(GameObject[] enemys)
+    public void SpecAttack(Collider[] enemies)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCostSpec;
 
-        foreach (GameObject enemy in enemys)
+        foreach (Collider col in enemies)
         {
-            // ---------------------------------------------------------------------------------------- Make enemy move away from player instead of player forward.------------------------------------------------------------------------
-            Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
-            enemyRB.AddForce(-enemy.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
-            // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            elderBruteScript = col.gameObject.GetComponent<ElderBrute>();
+            elderBruteScript.TakeDamange(meleeDamage);
+            Rigidbody enemyRB = col.gameObject.GetComponent<Rigidbody>();
+            enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
         }
         //if (staminaRecharging == true)
         //{
         //    //kör corutine!
         //}
-
-        //Deal damage.
     }
 
     public void TakeDamage(int Damage)
