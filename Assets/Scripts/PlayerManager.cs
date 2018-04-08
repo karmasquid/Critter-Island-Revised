@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
+    public static PlayerManager instance;
+
     public static bool outOfstamina; //Fullösning bör inte användas vid optimering.
 
     //Skapar stats från stats-scriptet.
@@ -44,6 +46,20 @@ public class PlayerManager : MonoBehaviour {
     public int MeleeDamage { get { return this.meleeDamage; } }
      //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
+
+    private void Awake()
+    {
+      
+        if (instance == null)
+
+            instance = this;
+        
+        else if (instance != this)
+            
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
