@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
     float rotationSpeed;
 
     Animator anim;
-    
+    PlayerManager playermanager;
 
     public float SpeedMultiplier
     {
@@ -71,8 +71,7 @@ public class Character : MonoBehaviour
         InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
 
         anim = GetComponent<Animator>();
-
-       // if ()
+        playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
     }
 
     void Update()
@@ -81,10 +80,10 @@ public class Character : MonoBehaviour
         runner(); //Handles Running.
         dodger(); //Handles Dodge.
         RestricMove(); //Restricts Movement when attacking.
-        PlayerManager.instance.RechargeStamina(stamReCharge);
+        playermanager.RechargeStamina(stamReCharge);
         
     }
-    void RestricMove() //TODO Justera, mycket hårdkodning:
+    void RestricMove()
     {
         if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown("joystick button 2"))
         {
@@ -99,7 +98,7 @@ public class Character : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2")) // Om slag attack eller kast attack.
+        if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2")) // Om slag attack.
         {
             atckn = false;
             if (running)
@@ -159,7 +158,7 @@ public class Character : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey("joystick button 5"))
         {
-            if (!PlayerManager.outOfstamina && running == true) //Om du inte står stilla, drain.
+            if (!playermanager.outOfstamina && running == true) //Om du inte står stilla, drain.
             {
                 Speed = rawSpeed * speedMultiplier;
             }
@@ -174,7 +173,7 @@ public class Character : MonoBehaviour
             }
             else //Moving and running.
             {
-                PlayerManager.instance.LooseStamina(20 * Time.deltaTime); //Stamina drain.
+                playermanager.LooseStamina(20 * Time.deltaTime); //Stamina drain.
                 stamReCharge = 0f;
             }
         }
@@ -197,9 +196,9 @@ public class Character : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
         {
-            PlayerManager.instance.LooseStamina(dodgeCost); //TODO Change value 40 to variable whose value change depending on equipment.
+            playermanager.LooseStamina(dodgeCost); //TODO Change value 40 to variable whose value change depending on equipment.
 
-            if (!PlayerManager.outOfstamina) //If there is stamina:
+            if (!playermanager.outOfstamina) //If there is stamina:
             {
                 anim.SetTrigger("fDodge");
                 PosBeforeDodge = this.curPos;
@@ -212,24 +211,9 @@ public class Character : MonoBehaviour
 
 
             }
-            /*  else
-             *  {
-             *   Play no-mana sound/animation.
-             *  }
-
-
-                /*
-                    Rechargestamina = breathing(2.0f);
-                    StartCoroutine(Rechargestamina);
-                }
-                //Look for dashboots
-                //then dashdistance ^Up
-                */
-
-
         }
-
     }
+
     void mover()
     {
         Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
@@ -273,7 +257,7 @@ public class Character : MonoBehaviour
             Gravity = 0f;
             pitHole = other.gameObject;
             inHole = true;
-            overHole = (other.bounds.size.x / DashDistance) + other.bounds.size.x;
+            overHole = (other.bounds.size.x / DashDistance) + other.bounds.size.x; //TODO: ta Z om spelaren kommer från andra hållet.
             if (dodgeronies)
             {
                 DashDistance = overHole;
@@ -288,7 +272,7 @@ public class Character : MonoBehaviour
             inHole = false;
             pitHole.GetComponent<Collider>().isTrigger = false;
             DashDistance = normalDash;
-            Gravity = -76.8f;
+            Gravity = -180f;
         }
     }
     private void OnTriggerStay(Collider other)
@@ -306,7 +290,7 @@ public class Character : MonoBehaviour
     IEnumerator Down(float CDTime) //Coroutine for throw:
     {
         yield return new WaitForSeconds(CDTime);
-        Gravity = -76.8f;
+        Gravity = -180f;
 
         if (curPos.y < -2)
         {

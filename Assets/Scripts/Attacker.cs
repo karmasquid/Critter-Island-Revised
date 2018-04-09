@@ -9,12 +9,12 @@ public class Attacker : MonoBehaviour {
     [SerializeField]
     GameObject[] projectiles; //Set size once we know amount of consumables.
 
-    public static bool hit = false; //Används för tillfället i throwable, bad practise med public statics tho.
-
     GameObject names;
     GameObject Currentequipped;
+
     bool chargingAttack;
     bool throwing = false;
+    public bool hit = false;
     float chargeTimer;
     string CurrentName;
 
@@ -28,9 +28,10 @@ public class Attacker : MonoBehaviour {
 
     void Start ()
     {
-        GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         anim = GetComponent<Animator>();
         Currentequipped = projectiles[0];
+        
     }
 
     void Update ()
@@ -51,19 +52,19 @@ public class Attacker : MonoBehaviour {
             CheckWeapon();
             Attacking();
         }
-        if (Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) // && Ammo count != 0
-        {
-            anim.SetTrigger("throw");
 
-            if (!throwing)
-            { 
+        if (playermanager.hasAmmo && Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) 
+        {
+            if (!throwing && playermanager.hasAmmo)
+            {
+                anim.SetTrigger("throw");
                 GameObject preo = Instantiate(Currentequipped) as GameObject; //Change index deppending on item equipped.
                 preo.transform.position = transform.position + attackHitBoxes[2].transform.up;
                 Rigidbody rb = preo.GetComponent<Rigidbody>();
                 rb.velocity = attackHitBoxes[2].transform.forward * 20;
                 throwing = true;
 
-                PlayerManager.instance.AmmoCounter(1); //-1 ammo
+                playermanager.AmmoCounter(1); //-1 ammo
                 Reload = ThrowCD(2.0f);
                 StartCoroutine(Reload);
 
@@ -158,8 +159,8 @@ public class Attacker : MonoBehaviour {
     }
     void Attacking() //Checking Basic or special attack:
     {
-        PlayerManager.instance.LooseStamina(0);
-        if (!PlayerManager.outOfstamina)
+        playermanager.LooseStamina(0);
+        if (!playermanager.outOfstamina)
         {
             //---------Check if charging up an attack or not------------
             if (chargingAttack)
@@ -168,7 +169,7 @@ public class Attacker : MonoBehaviour {
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[1]);
                 chargingAttack = false;
-                PlayerManager.instance.LooseStamina(20); //Stamina drain
+                playermanager.LooseStamina(20); //Stamina drain
 
                 if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
                 {
@@ -176,7 +177,7 @@ public class Attacker : MonoBehaviour {
                 }
                 if (enemies != null)
                 {
-                    PlayerManager.instance.MeleeAttack(enemies, 30); //Added special attack damage.
+                    playermanager.MeleeAttack(enemies, 30); //Added special attack damage.
                 }
             }
             else
@@ -184,7 +185,7 @@ public class Attacker : MonoBehaviour {
                 anim.SetTrigger("attack");
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[0]);
-                PlayerManager.instance.LooseStamina(2); //Stamina drain
+                playermanager.LooseStamina(2); //Stamina drain
 
                 if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
                 {
@@ -192,7 +193,7 @@ public class Attacker : MonoBehaviour {
                 }
                 if (enemies != null)
                 {
-                    PlayerManager.instance.MeleeAttack(enemies, 0); //Special attack damage = 0 cuz not special enough.
+                    playermanager.MeleeAttack(enemies, 0); //Special attack damage = 0 cuz not special enough.
                 }
 
                 chargingAttack = false;

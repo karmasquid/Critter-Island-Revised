@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
-    public static bool outOfstamina; //Fullösning bör inte användas vid optimering.
+    public bool outOfstamina;
+    public bool hasAmmo = true;
 
     //Skapar stats från stats-scriptet.
     [SerializeField]
@@ -34,7 +35,7 @@ public class PlayerManager : MonoBehaviour {
     private float armor;
     private float drainingStamina;
 
-    private int ammoCount;
+    private int ammoCount = 2; //Just to test, REMOVE WHEN INVENTORY WORKS.
     //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
     private int rangeDamage = 15;
     public int RangeDamage { get { return this.rangeDamage; } }
@@ -86,7 +87,12 @@ public class PlayerManager : MonoBehaviour {
             //+= staminaRecharge
             stamina.CurrentValue += staminaRecharge;
         }
-       //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
+
+        if (ammoCount > 0)
+        {
+            hasAmmo = true;
+        }
+        //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
     }
 
     public void RechargeStamina(float recharge)
@@ -192,7 +198,17 @@ public class PlayerManager : MonoBehaviour {
     public void AmmoCounter(int AmmoDrain)
     {
         ammoCount -= AmmoDrain;
-        Debug.Log(ammoCount);
+
+        if (ammoCount <= 0)
+        {
+            hasAmmo = false;
+        }
+        else
+        {
+            hasAmmo = true;
+        }
+
+        Debug.Log("Current ammo count: " + ammoCount);
     }
 
     public void LooseStamina(float sta)
@@ -202,7 +218,7 @@ public class PlayerManager : MonoBehaviour {
 
         if (stamina.CurrentValue < drainingStamina)
         {
-            outOfstamina = true; //Fullösning med public static bool...
+            outOfstamina = true; 
         }
         else
         {
