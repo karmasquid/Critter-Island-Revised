@@ -38,6 +38,10 @@ public class Inventory : MonoBehaviour
     private InventorySlot inventorySlotScript;
     private EquippedSlot equippedSlotScript;
 
+    //slot for weaponitem.
+    private Transform playerHand;
+    private GameObject handHeldWeapon;
+
     bool showInventory;
     
     public static Inventory instance;
@@ -64,6 +68,7 @@ public class Inventory : MonoBehaviour
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
         equippedSlot = Resources.Load<Image>("Prefabs/UI/EquippedSlot");
         inventoryBackground = Resources.Load<Image>("Prefabs/UI/InventoryBackground");
+        playerHand = GameObject.FindGameObjectWithTag("Player").transform.Find("asset_char_mc_fixed_final/root_JNT/spine_1_JNT/spine_2_JNT/chest_JNT/torso_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_JNT/R_hand_JNT");
         //invOpenSound = Resources.Load<AudioClip>("Audio/Inventory/openInv");
         //invCloseSound = Resources.Load<AudioClip>("Audio/Inventory/closeInv");
 
@@ -211,6 +216,14 @@ public class Inventory : MonoBehaviour
             inventoryItems.Add(database.allItems[databaseIndex]);
         }
         UpdateInventory();
+    }
+    
+    public void HoldWeapon(Item weapon)
+    {
+        if (handHeldWeapon != null)
+        {
+            handHeldWeapon = Instantiate(weapon.Go, playerHand, false);
+        }
     }
 }
 

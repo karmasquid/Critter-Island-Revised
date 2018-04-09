@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
-    public static PlayerManager instance;
-
     public static bool outOfstamina; //Fullösning bör inte användas vid optimering.
 
     //Skapar stats från stats-scriptet.
@@ -31,7 +29,6 @@ public class PlayerManager : MonoBehaviour {
     //relevanta script
     private Inventory inventoryScript;
     private Character characterScript;
-    private ElderBrute elderBruteScript;
     private BasicAI basicAI;
 
     private float armor;
@@ -39,27 +36,35 @@ public class PlayerManager : MonoBehaviour {
 
     private int ammoCount;
     //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
-    private int rangeDamage;
+    private int rangeDamage = 15;
     public int RangeDamage { get { return this.rangeDamage; } }
 
-    private int meleeDamage;
+    private int meleeDamage = 30;
     public int MeleeDamage { get { return this.meleeDamage; } }
      //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
 
-    private void Awake()
-    {
-      
-        if (instance == null)
+    #region Singleton
 
+    public static PlayerManager instance;
+    void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
-        
+        }
+
         else if (instance != this)
-            
+        {
             Destroy(gameObject);
+        }
+
+        health.Initialize();
+        stamina.Initialize();
 
         DontDestroyOnLoad(gameObject);
     }
+    #endregion
 
     private void Start()
     {
@@ -97,7 +102,7 @@ public class PlayerManager : MonoBehaviour {
         staminaRecharge += itemAdd.StaminaRecovery;
         ammoCount += itemAdd.AmmoCount;
 
-        //knockBackForce += itemAdd.knockback;
+        //knockBackForce += itemAdd.knockBackForce;
 
         characterScript.SpeedMultiplier += itemAdd.MovementDiff;
 
@@ -118,59 +123,76 @@ public class PlayerManager : MonoBehaviour {
         //movementscriptstuff += itemrem.AttackSpeed;
     }
 
-    public void MeleeAttack(Collider[] enemies)
+    public void MeleeAttack(GameObject[] enemy, int extraDMG)
     {
-        stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCost;
+        //stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCost;
 
         //if (staminaRecharging == true)
         //{
         //    //kör corutine!
         //}
-        foreach (Collider col in enemies)
+        foreach (GameObject NME in enemy)
         {
-            elderBruteScript = col.gameObject.GetComponent<ElderBrute>();
-            elderBruteScript.TakeDamange(meleeDamage);
-            Rigidbody enemyRB = col.gameObject.GetComponent<Rigidbody>();
-            enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
+            Rigidbody enemyRB = NME.GetComponent<Rigidbody>();
+            enemyRB.AddForce(-NME.transform.forward * knockBackForce * 4f, ForceMode.Impulse);
+            NME.GetComponent<BasicAI>().TakeDMG(meleeDamage + extraDMG); //Takes basic melee damage + potetial special attack damage.
         }
-
         //deal damage to enemy.
     }
 
-    public void RangeAttack(Collider enemy)
+    public void RangeAttack(GameObject enemy, int throwDMG)
     {
+        enemy.GetComponent<BasicAI>().TakeDMG(throwDMG); //Tills ammo fungerar...
+
+        stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
+
+        /*
         if (ammoCount > 0)
-      {
+        {
+
             ammoCount -= 1;
             stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
 
-            elderBruteScript = enemy.gameObject.GetComponent<ElderBrute>();
-            elderBruteScript.TakeDamange(meleeDamage);
-            Rigidbody enemyRB = enemy.gameObject.GetComponent<Rigidbody>();
-            enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
+            enemy.GetComponent<BasicAI>().TakeDMG(throwDMG);
+
+            //if (staminaRecharging == true)
+            //{
+            //    //kör corutine!
+            //}
+
+            //basicAI = enemy.GetComponent<BasicAI>();
+            //aiScript.currentHP  <----------fixa en set.
         }
+        */
     }
 
-    public void SpecAttack(Collider[] enemies)
+    public void SpecAttack(GameObject[] enemys)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCostSpec;
 
-        foreach (Collider col in enemies)
+        foreach (GameObject enemy in enemys)
         {
-            elderBruteScript = col.gameObject.GetComponent<ElderBrute>();
-            elderBruteScript.TakeDamange(meleeDamage);
-            Rigidbody enemyRB = col.gameObject.GetComponent<Rigidbody>();
-            enemyRB.AddForce(player.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
+            // ---------------------------------------------------------------------------------------- Make enemy move away from player instead of player forward.------------------------------------------------------------------------
+            Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+            enemyRB.AddForce(-enemy.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
+            // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         }
         //if (staminaRecharging == true)
         //{
         //    //kör corutine!
         //}
+
+        //Deal damage.
     }
 
     public void TakeDamage(int Damage)
     {
         health.CurrentValue -= Damage;
+    }
+    public void AmmoCounter(int AmmoDrain)
+    {
+        ammoCount -= AmmoDrain;
+        Debug.Log(ammoCount);
     }
 
     public void LooseStamina(float sta)

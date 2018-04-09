@@ -23,10 +23,13 @@ public class Attacker : MonoBehaviour {
 
     Animator anim;
 
+    GameObject[] enemies;
+    List<GameObject> listOfEffect = new List<GameObject>();
+
     void Start ()
     {
         GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-
+        anim = GetComponent<Animator>();
         Currentequipped = projectiles[0];
     }
 
@@ -35,10 +38,13 @@ public class Attacker : MonoBehaviour {
         //-------------------------------------Main Attacks & Controlls------------------------------------------------
         if (Input.GetKey(KeyCode.H) || Input.GetKey("joystick button 2"))
         {
-            chargingAttack = false;
+
             chargeTimer += Time.deltaTime;
             if (chargeTimer > 1.0f)
-            { chargingAttack = true; }
+            {
+                chargingAttack = true;
+                anim.SetBool("isCharging", true);
+            }
         }
         if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2"))
         {
@@ -47,18 +53,21 @@ public class Attacker : MonoBehaviour {
         }
         if (Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) // && Ammo count != 0
         {
-            //GameObject Currentequipped = projectiles[0];
-            //CurrentName = Currentequipped.name;
+            anim.SetTrigger("throw");
+
             if (!throwing)
             { 
-            GameObject preo = Instantiate(Currentequipped) as GameObject; //Change index deppending on item equipped.
-            preo.transform.position = transform.position + attackHitBoxes[2].transform.up;
-            Rigidbody rb = preo.GetComponent<Rigidbody>();
-            rb.velocity = attackHitBoxes[2].transform.forward * 20;
+                GameObject preo = Instantiate(Currentequipped) as GameObject; //Change index deppending on item equipped.
+                preo.transform.position = transform.position + attackHitBoxes[2].transform.up;
+                Rigidbody rb = preo.GetComponent<Rigidbody>();
+                rb.velocity = attackHitBoxes[2].transform.forward * 20;
                 throwing = true;
+
+                PlayerManager.instance.AmmoCounter(1); //-1 ammo
                 Reload = ThrowCD(2.0f);
                 StartCoroutine(Reload);
-                if (preo != null)
+
+            if (preo != null)
             {
                 attackHitBoxes[3] = preo.GetComponent<Collider>();
 
@@ -105,10 +114,12 @@ public class Attacker : MonoBehaviour {
         {
             InvokeRepeating("DetectedThrow", 0f, 4f);
         }
+
         if (hit)
         {
-            Invoke("Throwdamage", 0f);
+            Invoke("Throwdamage", 0f); //Metod for hits.
         }
+
     }
 
     void LaunchAttack(Collider col)
@@ -117,7 +128,10 @@ public class Attacker : MonoBehaviour {
         foreach (Collider c in cols)
         {
             if (c.transform.root == gameObject.transform) // Slå inte dig själv...
-            { continue; }
+            {
+                continue;
+            }
+            listOfEffect.Add(c.gameObject);
         }
     }
 
@@ -140,18 +154,6 @@ public class Attacker : MonoBehaviour {
     }
     void Throwdamage()
     {
-        switch (Currentequipped.name)
-        {
-            case "IcaBasicChoklad": //Name Of thrown object.
-                //Debug.Log("Chokladskada");
-                //Do damage
-                break;
-            case "2": //Name Of thrown object.
-
-                //Do damage
-                break;
-
-        }
         hit = false;
     }
     void Attacking() //Checking Basic or special attack:
@@ -159,22 +161,46 @@ public class Attacker : MonoBehaviour {
         PlayerManager.instance.LooseStamina(0);
         if (!PlayerManager.outOfstamina)
         {
+            //---------Check if charging up an attack or not------------
             if (chargingAttack)
             {
-                Debug.Log("*Swoosh* Special attack");
                 anim.SetTrigger("chargeAttack");
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[1]);
                 chargingAttack = false;
                 PlayerManager.instance.LooseStamina(20); //Stamina drain
+
+                if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
+                {
+                    enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
+                }
+                if (enemies != null)
+                {
+                    PlayerManager.instance.MeleeAttack(enemies, 30); //Added special attack damage.
+                }
             }
             else
             {
-                Debug.Log("*Swoosh* Basic attack");
                 anim.SetTrigger("attack");
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[0]);
                 PlayerManager.instance.LooseStamina(2); //Stamina drain
+
+                if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
+                {
+                    enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
+                }
+                if (enemies != null)
+                {
+                    PlayerManager.instance.MeleeAttack(enemies, 0); //Special attack damage = 0 cuz not special enough.
+                }
+
+                chargingAttack = false;
+            }
+            listOfEffect.Clear();
+            if (listOfEffect.Count.Equals(0))
+            {
+                enemies = null;
             }
             chargeTimer = 0;
         }
