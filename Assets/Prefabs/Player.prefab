@@ -95,7 +95,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4166735368447942}
-  - component: {fileID: 95170069301761632}
   m_Layer: 9
   m_Name: asset_char_mc_fixed_final
   m_TagString: Untagged
@@ -1112,6 +1111,7 @@ GameObject:
   - component: {fileID: 143054842061091154}
   - component: {fileID: 114813102590434330}
   - component: {fileID: 114997951715501660}
+  - component: {fileID: 114828724507959844}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -3687,23 +3687,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &95170069301761632
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1032185391075574}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 34be2fda75a63c04ab6aa5188c30ac46, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4344206ce6089dd4cb3d03b097ccc032, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95756590142774076
 Animator:
   serializedVersion: 3
@@ -3712,7 +3695,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1493750008320064}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fa4c21c1826eed946abbc4b9c904f9d5, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 34be2fda75a63c04ab6aa5188c30ac46, type: 3}
   m_Controller: {fileID: 9100000, guid: 4344206ce6089dd4cb3d03b097ccc032, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -3734,16 +3717,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 5
   speedMultiplier: 1.5
-  Gravity: -1.91
+  Gravity: -80
   GroundDistance: 0.9
   DashDistance: 2
   stamReCharge: 0
   dodgeCost: 0
   Ground:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 16
   Drag: {x: 8, y: 0, z: 8}
   rotationSpeed: 10
+--- !u!114 &114828724507959844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493750008320064}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf52cc6bf6b58843ba79a3ea786eb33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
 --- !u!114 &114997951715501660
 MonoBehaviour:
   m_ObjectHideFlags: 1

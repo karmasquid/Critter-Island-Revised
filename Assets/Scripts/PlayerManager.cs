@@ -140,12 +140,20 @@ public class PlayerManager : MonoBehaviour {
         //deal damage to enemy.
     }
 
-    public void RangeAttack(GameObject enemy)
+    public void RangeAttack(GameObject enemy, int throwDMG)
     {
+        enemy.GetComponent<BasicAI>().TakeDMG(throwDMG); //Tills ammo fungerar...
+
+        stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
+
+        /*
         if (ammoCount > 0)
-      {
+        {
+
             ammoCount -= 1;
             stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
+
+            enemy.GetComponent<BasicAI>().TakeDMG(throwDMG);
 
             //if (staminaRecharging == true)
             //{
@@ -155,6 +163,7 @@ public class PlayerManager : MonoBehaviour {
             //basicAI = enemy.GetComponent<BasicAI>();
             //aiScript.currentHP  <----------fixa en set.
         }
+        */
     }
 
     public void SpecAttack(GameObject[] enemys)
@@ -179,6 +188,11 @@ public class PlayerManager : MonoBehaviour {
     public void TakeDamage(int Damage)
     {
         health.CurrentValue -= Damage;
+    }
+    public void AmmoCounter(int AmmoDrain)
+    {
+        ammoCount -= AmmoDrain;
+        Debug.Log(ammoCount);
     }
 
     public void LooseStamina(float sta)
