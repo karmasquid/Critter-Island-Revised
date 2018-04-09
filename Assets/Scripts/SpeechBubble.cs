@@ -20,7 +20,6 @@ public class SpeechBubble : MonoBehaviour {
     void Start()
     {
         //reference to image from resources.
-        Debug.Log("hey");
         canvas.enabled = false;
     }
 
