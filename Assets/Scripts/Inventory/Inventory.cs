@@ -222,8 +222,9 @@ public class Inventory : MonoBehaviour
     {
         if (handHeldWeapon != null)
         {
-            handHeldWeapon = Instantiate(weapon.Go, playerHand, false);
+            Destroy(handHeldWeapon.gameObject);
         }
+        handHeldWeapon = Instantiate(weapon.Go, playerHand, false);
     }
 }
 

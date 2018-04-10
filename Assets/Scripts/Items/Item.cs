@@ -62,7 +62,7 @@ public class Item
         cost = Cost;
         //Sprite and Prefab for item;
         icon = Resources.Load<Sprite>("Sprites/UI/Item Icons/" + name);
-        go = Resources.Load<GameObject>("Sprites/UI/Item Prefabs/" + name);
+        go = Resources.Load<GameObject>("Prefabs/Items/" + name);
     }
 
     public Item() //Gör ett tomt item
