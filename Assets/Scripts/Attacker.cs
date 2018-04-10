@@ -107,6 +107,7 @@ public class Attacker : MonoBehaviour {
         {
             chargingAttack = false;
             chargeTimer = 0;
+            anim.SetBool("isCharging", false);
         }
 
 
@@ -169,6 +170,7 @@ public class Attacker : MonoBehaviour {
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[1]);
                 chargingAttack = false;
+                anim.SetBool("isCharging", false);
                 playermanager.LooseStamina(20); //Stamina drain
 
                 if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
@@ -197,6 +199,7 @@ public class Attacker : MonoBehaviour {
                 }
 
                 chargingAttack = false;
+                anim.SetBool("isCharging", false);
             }
             listOfEffect.Clear();
             if (listOfEffect.Count.Equals(0))
