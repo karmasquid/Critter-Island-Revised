@@ -34,13 +34,15 @@ public class Inventory : MonoBehaviour
     //private AudioClip invOpenSound, invCloseSound;
 
     //reference to database
+    private PlayerManager playerManager;
     private ItemDatabase database;
     private InventorySlot inventorySlotScript;
     private EquippedSlot equippedSlotScript;
 
     //slot for weaponitem.
     private Transform playerHand;
-    private GameObject handHeldWeapon;
+    private GameObject meleeWeapon;
+    private GameObject rangedWeapon;
 
     bool showInventory;
     
@@ -64,6 +66,7 @@ public class Inventory : MonoBehaviour
     {
 
         database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
+        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
         equippedSlot = Resources.Load<Image>("Prefabs/UI/EquippedSlot");
@@ -174,6 +177,21 @@ public class Inventory : MonoBehaviour
     //method for moving item to equippeditem.
     public void EquipItem(int index, int slot)
     {
+        playerManager.AddPlayerstats(inventoryItems[index]);
+
+        if (slot == 1 || slot == 0)
+        {
+            if (slot == 1)
+            {
+                rangedWeapon = inventoryItems[index].Go;
+            }
+
+            else
+            {
+                HoldWeapon(inventoryItems[index]);              
+            }
+        }
+
         if (equippedItems[slot] == null)
             {
             equippedItems[slot] = inventoryItems[index];
@@ -185,13 +203,13 @@ public class Inventory : MonoBehaviour
         else
             {
             Item storedItem = equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot;
+            playerManager.Removestats(storedItem);
             equippedItems[slot] = inventoryItems[index];
             equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
             equippedButton[slot].GetComponent<EquippedSlot>().ChangeSprite();
             inventoryItems[index] = storedItem;
             UpdateInventory();
         }
-
     }
     
     //method called when unequipping item
@@ -220,11 +238,11 @@ public class Inventory : MonoBehaviour
     
     public void HoldWeapon(Item weapon)
     {
-        if (handHeldWeapon != null)
+        if (meleeWeapon != null)
         {
-            Destroy(handHeldWeapon.gameObject);
+            Destroy(meleeWeapon.gameObject);
         }
-        handHeldWeapon = Instantiate(weapon.Go, playerHand, false);
+        meleeWeapon = Instantiate(weapon.Go, playerHand, false);
     }
 }
 

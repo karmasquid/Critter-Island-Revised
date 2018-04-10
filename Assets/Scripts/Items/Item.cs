@@ -16,9 +16,9 @@ public class Item
     private TypeOfItem itemType;
 
     //Wearables related info
-    protected float damageMelee;
-    protected float damageSpec;
-    protected float damageRange;
+    protected int damageMelee;
+    protected int damageSpec;
+    protected int damageRange;
     protected float health;
     protected float armor;
 
@@ -36,7 +36,7 @@ public class Item
     protected int cost;
 
 
-    public Item(int Id, string Name, string Desc, TypeOfItem KindOfGear, float MeleeDamage, float RangeDamage, float SpecDamage, float Health, float Armor, float StaminaCost, float StaminaCostSpec, float StaminaRecovery, float Range, int AmmoCount, float MovementDiff, float Attackspeed, int Ability, int Cost)
+    public Item(int Id, string Name, string Desc, TypeOfItem KindOfGear, int MeleeDamage, int RangeDamage, int SpecDamage, float Health, float Armor, float StaminaCost, float StaminaCostSpec, float StaminaRecovery, float Range, int AmmoCount, float MovementDiff, float Attackspeed, int Ability, int Cost)
     {
         id = Id;
         name = Name;
@@ -75,9 +75,9 @@ public class Item
     public string Desc { get { return this.desc; } }
     public TypeOfItem ItemType { get { return this.itemType; } }
 
-    public float DamageMelee { get { return this.damageMelee; } }
-    public float DamageRange { get { return this.damageRange; } }
-    public float DamageSpec { get { return this.damageSpec; } }
+    public int DamageMelee { get { return this.damageMelee; } }
+    public int DamageRange { get { return this.damageRange; } }
+    public int DamageSpec { get { return this.damageSpec; } }
     public float Health { get { return this.health; } }
     public float Armor { get { return this.armor; } }
 

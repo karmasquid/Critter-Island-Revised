@@ -35,14 +35,17 @@ public class PlayerManager : MonoBehaviour {
     private float armor;
     private float drainingStamina;
 
-    private int ammoCount = 2; //Just to test, REMOVE WHEN INVENTORY WORKS.
+    private int ammoCount = 2;
     //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
-    private int rangeDamage = 15;
+    private int rangeDamage;
     public int RangeDamage { get { return this.rangeDamage; } }
 
-    private int meleeDamage = 30;
+    private int meleeDamage;
     public int MeleeDamage { get { return this.meleeDamage; } }
-     //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
+
+    private int meleeSpecDamage;
+    public int MeleeSpecDamage { get { return this.meleeSpecDamage; } }
+    //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
 
     #region Singleton
@@ -108,28 +111,38 @@ public class PlayerManager : MonoBehaviour {
         staminaRecharge += itemAdd.StaminaRecovery;
         ammoCount += itemAdd.AmmoCount;
 
+        meleeDamage = itemAdd.DamageMelee;
+
+        meleeSpecDamage = itemAdd.DamageSpec;
+
+        rangeDamage = itemAdd.DamageRange;
+
         //knockBackForce += itemAdd.knockBackForce;
 
-        characterScript.SpeedMultiplier += itemAdd.MovementDiff;
+        //characterScript.SpeedMultiplier += itemAdd.MovementDiff;
 
         //characterattackthingystuffscript.attackrate += itemAdd.AttackSpeed;
     }
 
     public void Removestats(Item itemrem)
     {
-        health.MaxValue-= itemrem.Health;
+        health.MaxValue -= itemrem.Health;
         armor -= itemrem.Armor;
-
         staminaRecharge -= itemrem.StaminaRecovery;
+        ammoCount -= itemrem.AmmoCount;
+        meleeDamage -= itemrem.DamageMelee;
+        meleeSpecDamage -= itemrem.DamageSpec;
+        rangeDamage -= itemrem.DamageRange;
+
 
         //knockBackForce -= itemAdd.knockBackForce;
 
-        characterScript.SpeedMultiplier -= itemrem.MovementDiff;
+        //characterScript.SpeedMultiplier -= itemrem.MovementDiff;
 
         //movementscriptstuff += itemrem.AttackSpeed;
     }
 
-    public void MeleeAttack(GameObject[] enemy, int extraDMG)
+    public void MeleeAttack(GameObject[] enemies)
     {
         //stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCost;
 
@@ -137,18 +150,22 @@ public class PlayerManager : MonoBehaviour {
         //{
         //    //kör corutine!
         //}
-        foreach (GameObject NME in enemy)
+        foreach (GameObject enemy in enemies)
         {
-            Rigidbody enemyRB = NME.GetComponent<Rigidbody>();
-            enemyRB.AddForce(-NME.transform.forward * knockBackForce * 4f, ForceMode.Impulse);
-            NME.GetComponent<BasicAI>().TakeDMG(meleeDamage + extraDMG); //Takes basic melee damage + potetial special attack damage.
+            Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+
+            enemyRB.AddForce(-enemy.transform.forward * knockBackForce * 4f, ForceMode.Impulse);
+
+            enemy.GetComponent<BasicAI>().TakeDMG(meleeDamage); //Takes basic melee damage + potetial special attack damage.
+
+            //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
         }
         //deal damage to enemy.
     }
 
-    public void RangeAttack(GameObject enemy, int throwDMG)
+    public void RangeAttack(GameObject enemy)
     {
-        enemy.GetComponent<BasicAI>().TakeDMG(throwDMG); //Tills ammo fungerar...
+        enemy.GetComponent<BasicAI>().TakeDMG(rangeDamage); //Tills ammo fungerar...
 
         stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
 

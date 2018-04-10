@@ -29,7 +29,7 @@ public class throwable : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            playermanager.RangeAttack(collision.gameObject, damageNum);
+            playermanager.RangeAttack(collision.gameObject);
             attacker.hit = true;
             Destroy(gameObject);
         }

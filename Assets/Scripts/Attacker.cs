@@ -177,7 +177,7 @@ public class Attacker : MonoBehaviour {
                 }
                 if (enemies != null)
                 {
-                    playermanager.MeleeAttack(enemies, 30); //Added special attack damage.
+                    playermanager.MeleeAttack(enemies); //Added special attack damage.
                 }
             }
             else
@@ -193,7 +193,7 @@ public class Attacker : MonoBehaviour {
                 }
                 if (enemies != null)
                 {
-                    playermanager.MeleeAttack(enemies, 0); //Special attack damage = 0 cuz not special enough.
+                    playermanager.MeleeAttack(enemies); //Special attack damage = 0 cuz not special enough.
                 }
 
                 chargingAttack = false;

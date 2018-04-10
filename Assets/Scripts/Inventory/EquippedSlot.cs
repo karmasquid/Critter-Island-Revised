@@ -61,3 +61,4 @@ public class EquippedSlot : MonoBehaviour {
         }
     }
 }
+//Stina Hedman

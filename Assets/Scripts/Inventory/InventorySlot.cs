@@ -87,7 +87,6 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
                 break;
 
             case Item.TypeOfItem.Weapon:
-                inventory.HoldWeapon(itemOnSlot);
                 inventory.EquipItem(indexInList, 0);
                 break;
 
@@ -101,3 +100,5 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         }
     }
 }
+
+//Stina Hedm
