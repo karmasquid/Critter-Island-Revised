@@ -5,17 +5,15 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     [SerializeField]
-    float Speed = 5f;
+    float Speed = 4f;
     float rawSpeed;
     bool atckn = false;
     [SerializeField]
     float speedMultiplier = 1.5f;
     [SerializeField]
-    float Gravity = -9.81f;
-    [SerializeField]
     float GroundDistance = 0.2f;
     [SerializeField]
-    float DashDistance = 3f;
+    float DashDistance = 10f;
     [SerializeField]
     float stamReCharge; //Stamina recharge per frame.
     [SerializeField]
@@ -37,13 +35,14 @@ public class Character : MonoBehaviour
     }
     //Controls and rotation.
     private bool running;
-    private CharacterController _controller;
-    private Vector3 _velocity;
+    private Rigidbody _body;
+    private Vector3 _inputs = Vector3.zero; 
     private bool _isGrounded = true;
-    private Transform _groundChecker;
     private Vector3 targetRotation;
+    private Transform _groundChecker;
 
     //Movement and stamina:
+    private bool dodging;
     private Vector3 curPos;
     private Vector3 pastPos;
     private bool moving;
@@ -65,8 +64,10 @@ public class Character : MonoBehaviour
         rawSpeed = Speed;
         normalDash = DashDistance;
 
-        _controller = GetComponent<CharacterController>();
-        _groundChecker = transform.GetChild(0);
+        _body = GetComponent<Rigidbody>();
+        _groundChecker = transform.GetChild(0); //Both
+
+
 
         InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
 
@@ -81,7 +82,6 @@ public class Character : MonoBehaviour
         dodger(); //Handles Dodge.
         RestricMove(); //Restricts Movement when attacking.
         playermanager.RechargeStamina(stamReCharge);
-        
     }
     void RestricMove()
     {
@@ -132,6 +132,7 @@ public class Character : MonoBehaviour
             moving = true;
          
         }
+
         pastPos = curPos;
     }
     void runner()
@@ -198,18 +199,24 @@ public class Character : MonoBehaviour
         {
             playermanager.LooseStamina(dodgeCost); //TODO Change value 40 to variable whose value change depending on equipment.
 
-            if (!playermanager.outOfstamina) //If there is stamina:
+            if (!dodging && !playermanager.outOfstamina) //If there is stamina:
             {
+                dodging = true;
                 anim.SetTrigger("fDodge");
                 PosBeforeDodge = this.curPos;
                 if (inHole) //Inside hole coll.
                 {
                     pitHole.GetComponent<Collider>().isTrigger = true;
+                    _body.isKinematic = false;
                 }
                 //Dodge move on player:
-                _velocity += Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * Drag.x + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * Drag.z + 1)) / -Time.deltaTime)));
+                _body.drag = 3;
+                Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
+                _body.AddForce(dashVelocity, ForceMode.VelocityChange);
 
-
+                DelayGravity = DodgeDown(DashDistance / (DashDistance * 2));
+                StartCoroutine(DelayGravity);
+                
             }
         }
     }
@@ -235,29 +242,37 @@ public class Character : MonoBehaviour
 
         _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
 
-        if (_isGrounded && _velocity.y < 0)
-            _velocity.y = 0f;
-
-        _controller.Move(input * Time.deltaTime * Speed);
-
-
-        _velocity.y += Gravity * Time.deltaTime;
-
-        _velocity.x /= 1 + Drag.x * Time.deltaTime;
-        _velocity.y /= 1 + Drag.y * Time.deltaTime;
-        _velocity.z /= 1 + Drag.z * Time.deltaTime;
-
-        _controller.Move(_velocity * Time.deltaTime);
+        _inputs = Vector3.zero;
+        _inputs.x = Input.GetAxis("Horizontal");
+        _inputs.z = Input.GetAxis("Vertical");
+        if (_inputs != Vector3.zero)
+            transform.forward = _inputs;
+    }
+    void FixedUpdate()
+    {
+        _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
+        _body.AddForce(Physics.gravity, ForceMode.Acceleration);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Hole") //&& Right jumping shoes...
         {
             dodgeronies = true;
-            Gravity = 0f;
+            _body.useGravity = false;
             pitHole = other.gameObject;
             inHole = true;
-            overHole = (other.bounds.size.x / DashDistance) + other.bounds.size.x; //TODO: ta Z om spelaren kommer från andra hållet.
+            float holeSize;
+
+            if (other.bounds.size.x < other.bounds.size.z) //Works alright for cube formed holes, not so much for other forms...
+            {
+                holeSize = other.bounds.size.z;
+            }
+            else
+            {
+                holeSize = other.bounds.size.x;
+            }
+
+            overHole = (holeSize / DashDistance) + holeSize * speedMultiplier;
             if (dodgeronies)
             {
                 DashDistance = overHole;
@@ -272,7 +287,7 @@ public class Character : MonoBehaviour
             inHole = false;
             pitHole.GetComponent<Collider>().isTrigger = false;
             DashDistance = normalDash;
-            Gravity = -180f;
+            _body.useGravity = true;
         }
     }
     private void OnTriggerStay(Collider other)
@@ -287,22 +302,25 @@ public class Character : MonoBehaviour
             //this.transform.Translate(new Vector3(this.transform.position.x * Time.deltaTime / DashDistance, 0, this.transform.position.z * Time.deltaTime / DashDistance));
         }
     }
-    IEnumerator Down(float CDTime) //Coroutine for throw:
+    IEnumerator DodgeDown(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        dodging = false;
+        _body.drag = 0;
+    }
+    IEnumerator Down(float CDTime) //Coroutine for Dodge:
     {
         yield return new WaitForSeconds(CDTime);
-        Gravity = -180f;
-
+        _body.useGravity = true;
+        _body.isKinematic = false;
         if (curPos.y < -2)
         {
+            _body.drag = 0;
             this.transform.position = PosBeforeDodge;
             DashDistance = overHole;
         }
 
 
         inHole = true;
-
-
-        yield return new WaitForSeconds(CDTime);
-        Gravity = 0f;
     }
 }
