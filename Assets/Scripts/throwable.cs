@@ -29,7 +29,8 @@ public class throwable : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            playermanager.RangeAttack(collision.gameObject);
+            collision.gameObject.GetComponent<BasicAI>().TakeDMG(playermanager.RangeDamage);
+
             attacker.hit = true;
             Destroy(gameObject);
         }

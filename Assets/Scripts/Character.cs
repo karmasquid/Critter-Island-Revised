@@ -85,7 +85,7 @@ public class Character : MonoBehaviour
         runner(); //Handles Running.
         dodger(); //Handles Dodge.
         RestricMove(); //Restricts Movement when attacking.
-        playermanager.RechargeStamina(stamReCharge);
+        playermanager.StaminaRecharge = stamReCharge;
     }
     void RestricMove()
     {

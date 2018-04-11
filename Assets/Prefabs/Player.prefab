@@ -3718,8 +3718,8 @@ MonoBehaviour:
   speedMultiplier: 1.5
   GroundDistance: 0.2
   DashDistance: 4
-  stamReCharge: 0
-  dodgeCost: 0
+  stamReCharge: 2
+  dodgeCost: 30
   Ground:
     serializedVersion: 2
     m_Bits: 16
