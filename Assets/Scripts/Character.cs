@@ -13,7 +13,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     float GroundDistance = 0.2f;
     [SerializeField]
-    float DashDistance = 10f;
+    float DashDistance = 4f;
     [SerializeField]
     float stamReCharge; //Stamina recharge per frame.
     [SerializeField]
@@ -57,6 +57,7 @@ public class Character : MonoBehaviour
     float overHole;
     float normalDash;
 
+    bool lockMove = false;
     void Start()
     {
         //Modular variables. Saves start values set in inspector:
@@ -77,7 +78,10 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        mover(); //Handles Movement and Rotation.
+        if (!lockMove)
+        {
+            mover(); //Handles Movement and Rotation.
+        }
         runner(); //Handles Running.
         dodger(); //Handles Dodge.
         RestricMove(); //Restricts Movement when attacking.
@@ -208,6 +212,7 @@ public class Character : MonoBehaviour
                 {
                     pitHole.GetComponent<Collider>().isTrigger = true;
                     _body.isKinematic = false;
+                    lockMove = true;
                 }
                 //Dodge move on player:
                 _body.drag = 3;
@@ -286,6 +291,7 @@ public class Character : MonoBehaviour
         {
             inHole = false;
             pitHole.GetComponent<Collider>().isTrigger = false;
+            _body.isKinematic = false;
             DashDistance = normalDash;
             _body.useGravity = true;
         }
@@ -312,7 +318,6 @@ public class Character : MonoBehaviour
     {
         yield return new WaitForSeconds(CDTime);
         _body.useGravity = true;
-        _body.isKinematic = false;
         if (curPos.y < -2)
         {
             _body.drag = 0;
@@ -320,7 +325,7 @@ public class Character : MonoBehaviour
             DashDistance = overHole;
         }
 
-
+        lockMove = false;
         inHole = true;
     }
 }
