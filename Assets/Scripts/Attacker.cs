@@ -179,7 +179,17 @@ public class Attacker : MonoBehaviour {
                 }
                 if (enemies != null)
                 {
-                    playermanager.MeleeAttack(enemies); //Added special attack damage.
+                    foreach (GameObject enemy in enemies)
+                    {
+                        Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+
+                        enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
+
+                        enemy.GetComponent<BasicAI>().TakeDMG(playermanager.MeleeSpecDamage); //Takes basic melee damage + potetial special attack damage.
+
+                        //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
+                    }
+                    //playermanager.MeleeAttack(enemies); //Added special attack damage.
                 }
             }
             else
@@ -195,7 +205,16 @@ public class Attacker : MonoBehaviour {
                 }
                 if (enemies != null)
                 {
-                    playermanager.MeleeAttack(enemies); //Special attack damage = 0 cuz not special enough.
+                    foreach (GameObject enemy in enemies)
+                    {
+                        Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+
+                        enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
+
+                        enemy.GetComponent<BasicAI>().TakeDMG(playermanager.MeleeDamage); //Takes basic melee damage + potetial special attack damage.
+
+                        //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
+                    }
                 }
 
                 chargingAttack = false;

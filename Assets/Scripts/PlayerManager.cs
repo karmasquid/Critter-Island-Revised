@@ -14,10 +14,6 @@ public class PlayerManager : MonoBehaviour {
     [SerializeField]
     private Stats stamina;
 
-    //Desto lägre staminaRecharge desto snabbare laddas stamina.
-    [SerializeField]
-    private float staminaRecharge;
-
     //Variabel för timer.
     private float timeCheck = 0;
 
@@ -45,6 +41,9 @@ public class PlayerManager : MonoBehaviour {
 
     private int meleeSpecDamage;
     public int MeleeSpecDamage { get { return this.meleeSpecDamage; } }
+
+    private float staminaRecharge;
+    public float StaminaRecharge { get { return this.staminaRecharge; } set { this.staminaRecharge = value; } }
     //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
 
@@ -141,32 +140,8 @@ public class PlayerManager : MonoBehaviour {
 
         //movementscriptstuff += itemrem.AttackSpeed;
     }
-
-    public void MeleeAttack(GameObject[] enemies)
-    {
-        //stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCost;
-
-        //if (staminaRecharging == true)
-        //{
-        //    //kör corutine!
-        //}
-        foreach (GameObject enemy in enemies)
-        {
-            Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
-
-            enemyRB.AddForce(-enemy.transform.forward * knockBackForce * 4f, ForceMode.Impulse);
-
-            enemy.GetComponent<BasicAI>().TakeDMG(meleeDamage); //Takes basic melee damage + potetial special attack damage.
-
-            //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
-        }
-        //deal damage to enemy.
-    }
-
     public void RangeAttack(GameObject enemy)
     {
-        enemy.GetComponent<BasicAI>().TakeDMG(rangeDamage); //Tills ammo fungerar...
-
         stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
 
         /*
