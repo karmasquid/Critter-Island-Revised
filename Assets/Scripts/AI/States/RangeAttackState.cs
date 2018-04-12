@@ -2,7 +2,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AttackState : IState {
+public class RangeAttackState : IState {
+
 
     private PlayerManager playerManager;
     private Animator anim;
@@ -27,9 +28,9 @@ public class AttackState : IState {
 
     public bool attackComplete;
 
-    private System.Action<AttackResult> attackResultCallback;
+    private System.Action<RangeAttackResult> rangeAttackResultCallback;
 
-    public AttackState(NavMeshAgent navMeshAgent, Transform ownerGO, Transform playerGO, float attackRangeMin, float attackRangeMax, float viewRange, Action<AttackResult> attackResultCallback, Animator anim, float timeBetweenAttacks, PlayerManager playerManager, int damage)
+    public RangeAttackState(NavMeshAgent navMeshAgent, Transform ownerGO, Transform playerGO, float attackRangeMin, float attackRangeMax, float viewRange, Action<RangeAttackResult> rangeAttackResultCallback, Animator anim, float timeBetweenAttacks, PlayerManager playerManager, int damage)
     {
         this.navMeshAgent = navMeshAgent;
         this.ownerGO = ownerGO;
@@ -37,7 +38,7 @@ public class AttackState : IState {
         this.attackRangeMin = attackRangeMin;
         this.attackRangeMax = attackRangeMax;
         this.viewRange = viewRange;
-        this.attackResultCallback = attackResultCallback;
+        this.rangeAttackResultCallback = rangeAttackResultCallback;
         this.anim = anim;
         this.timeBetweenAttacks = timeBetweenAttacks;
         this.playerManager = playerManager;
@@ -57,37 +58,40 @@ public class AttackState : IState {
         {
             var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
             var direction = (this.ownerGO.position - this.playerGO.position);
-            RotateTowards();
+
             //move towards the enemy if its too far away
-            //if (distanceBetween < attackRangeMin)
-            //{
-            //    //ANIMATION FOR IDLE
-            //    if (!rotating)
-            //    {
-            //        RotateTowards();
-            //        rotating = true;
-            //    }
-            //    ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
-            //}
-            if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax && Time.time > waitAttack && !rotating)
+            if (distanceBetween < attackRangeMin)
+            {
+                //ANIMATION FOR IDLE
+                if (!rotating)
+                {
+                    RotateTowards();
+                    rotating = true;
+                }
+                //ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
+            }
+            else if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax && Time.time > waitAttack && !rotating)
             {
                 if (moving)
                 {
-                    anim.SetTrigger("attack");
+                    anim.SetBool("isWalking", false);
                     moving = false;
-                    this.navMeshAgent.enabled = false;
+                }
+
+                anim.SetTrigger("attack");
+
+                this.rotating = false;
+                this.navMeshAgent.enabled = false;
+                if (!rotating)
+                {
+                    RotateTowards();
                 }
 
                 waitAttack = Time.time + timeBetweenAttacks;
-
-                if (Time.time < waitAttack)
-                {
-                    playerManager.TakeDamage(damage);
-                }
-
-               
+                
+                playerManager.TakeDamage(damage);
             }
-            else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange && !rotating)
+            else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
             {
                 this.navMeshAgent.enabled = true;
                 RotateTowards();
@@ -102,8 +106,8 @@ public class AttackState : IState {
             }
             else if (Time.time > waitMove)
             {
-                var attackResults = new AttackResult(true);
-                this.attackResultCallback(attackResults);
+                var rangeAttackResult = new RangeAttackResult(true);
+                this.rangeAttackResultCallback(rangeAttackResult);
                 this.attackComplete = false;
             }
         }
@@ -116,20 +120,22 @@ public class AttackState : IState {
 
     private void RotateTowards()
     {
-        float rotationspeed = 2 * Time.deltaTime;
-        Vector3 direction = (this.playerGO.position - this.ownerGO.position);
+        float rotationspeed = 10;
+        Vector3 direction = (this.playerGO.position - this.ownerGO.position).normalized;
         direction.y = 0;
-        Vector3 newDir = Vector3.RotateTowards(this.playerGO.transform.forward, direction, rotationspeed, 0f);
-        Debug.DrawRay(playerGO.transform.position, direction, Color.blue);
-        this.ownerGO.transform.rotation = Quaternion.LookRotation(direction);
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        this.ownerGO.transform.rotation = Quaternion.Slerp(this.ownerGO.rotation, lookRotation, Time.deltaTime * rotationspeed);
+        rotating = false;
     }
+
 }
-public class AttackResult
+public class RangeAttackResult
 {
     public bool trueForSearchFalseForIdle;
 
-    public AttackResult(bool trueForSearchFalseForIdle)
+    public RangeAttackResult(bool trueForSearchFalseForIdle)
     {
         this.trueForSearchFalseForIdle = trueForSearchFalseForIdle;
     }
-}// Stina Hedman
+}
+// Stina Hedman

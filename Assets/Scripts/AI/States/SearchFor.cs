@@ -131,12 +131,14 @@ public class SearchFor : IState {
         
         Vector3 randomRoamPos = center + UnityEngine.Random.insideUnitSphere * range;
         NavMeshHit navHit;
+
         if (NavMesh.SamplePosition(randomRoamPos, out navHit, range, NavMesh.AllAreas))
         {   result = navHit.position;
             roamPos = navHit.position;
             anim.SetBool("isWalking", true);
             return true;
         }
+
         result = Vector3.zero;
         return false;
     }

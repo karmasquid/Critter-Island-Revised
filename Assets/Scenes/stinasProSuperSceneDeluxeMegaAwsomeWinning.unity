@@ -112,7 +112,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 462e487dce70285499f553e7efce5a52, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: b2b7e6b410c740b4a83a4a5cc15a9ee5, type: 2}
 --- !u!1001 &86064137
 Prefab:
   m_ObjectHideFlags: 0
@@ -122,15 +122,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4298696131734444, guid: 348f2bbf7c2ed644a906e0afb311a374, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.9
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4298696131734444, guid: 348f2bbf7c2ed644a906e0afb311a374, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.07
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4298696131734444, guid: 348f2bbf7c2ed644a906e0afb311a374, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.52
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 4298696131734444, guid: 348f2bbf7c2ed644a906e0afb311a374, type: 2}
       propertyPath: m_LocalRotation.x
@@ -155,6 +155,16 @@ Prefab:
     - target: {fileID: 195132279294435468, guid: 348f2bbf7c2ed644a906e0afb311a374,
         type: 2}
       propertyPath: m_Speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114913827887248922, guid: 348f2bbf7c2ed644a906e0afb311a374,
+        type: 2}
+      propertyPath: attackRangeMin
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114913827887248922, guid: 348f2bbf7c2ed644a906e0afb311a374,
+        type: 2}
+      propertyPath: attackRangeMax
       value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -974,15 +984,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4485334660835998, guid: 72a2ad6f088cfe34aa585f52770619e8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 123.18
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 4485334660835998, guid: 72a2ad6f088cfe34aa585f52770619e8, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -5.35
+      value: -3.9
       objectReference: {fileID: 0}
     - target: {fileID: 4485334660835998, guid: 72a2ad6f088cfe34aa585f52770619e8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -55.3
+      value: -9.5
       objectReference: {fileID: 0}
     - target: {fileID: 4485334660835998, guid: 72a2ad6f088cfe34aa585f52770619e8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1723,6 +1733,25 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2010595139 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1422818500827234, guid: 4d44bcec87e80a24db5505f24210a031,
+    type: 2}
+  m_PrefabInternal: {fileID: 620456887}
+--- !u!64 &2010595141
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2010595139}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 0}
 --- !u!1 &2036733594
 GameObject:
   m_ObjectHideFlags: 0

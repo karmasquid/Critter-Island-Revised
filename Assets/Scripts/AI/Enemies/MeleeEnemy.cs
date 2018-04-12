@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-//Script for elderbrute, enemy.
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 
-public class ElderBrute : MonoBehaviour { 
+public class MeleeEnemy : MonoBehaviour {
     /// make this an AI class.
     private Transform player;
 
@@ -51,10 +50,10 @@ public class ElderBrute : MonoBehaviour {
     private NavMeshAgent navMeshAgent;
 
     //for unityeditor to make the spaces visable
-    public float AttackRangeMin {   get {   return attackRangeMin;  }   }
-    public float AttackRangeMax {   get {   return attackRangeMax;  }   }
-    public float ViewRange      {   get {   return viewRange;       }   }
-    public float ViewDeg        {   get {   return viewDeg;         }   }
+    public float AttackRangeMin { get { return attackRangeMin; } }
+    public float AttackRangeMax { get { return attackRangeMax; } }
+    public float ViewRange { get { return viewRange; } }
+    public float ViewDeg { get { return viewDeg; } }
 
     public Vector3 DirectionsFromDegrees(float angleInDegrees, bool angleIsGlobal)
     {
@@ -71,11 +70,12 @@ public class ElderBrute : MonoBehaviour {
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.anim = this.GetComponent<Animator>();
-        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg,this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
+        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
     }
 
     private void Update()
-    {   if (!dead)
+    {
+        if (!dead)
         {
             this.stateMachine.ExecuteStateUpdate();
         }
@@ -94,8 +94,6 @@ public class ElderBrute : MonoBehaviour {
         if (health <= 0)
         {
             dead = true;
-
-            //this.gameObject.transform.rotate(new Vector3())
         }
     }
 
@@ -105,13 +103,13 @@ public class ElderBrute : MonoBehaviour {
     {
         if (searchResult.trueForAttackFalseForIdle)
         {
-            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent,this.gameObject.transform,this.player,this.attackRangeMin, this.attackRangeMax,this.viewRange,this.AttackDone, this.anim, this.timeBetweenAttacks, this.playerManager, this.damage));
+            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent, this.gameObject.transform, this.player, this.attackRangeMin, this.attackRangeMax, this.viewRange, this.AttackDone, this.anim, this.timeBetweenAttacks, this.playerManager, this.damage));
         }
 
         else
         {
             //go to idle
-            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform,this.player,this.obstacleLayer,this.playerLayer,this.viewRange,this.ViewDeg,this.attackRangeMax,this.idleTimeBetweenMoves, this.IdleDone, this.anim));
+            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.anim));
             //currently going to roaming.
         }
 
