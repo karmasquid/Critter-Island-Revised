@@ -3758,6 +3758,7 @@ MonoBehaviour:
   projectiles:
   - {fileID: 1466695949719852, guid: 8eac2b279fc3ae346b4f236577a56aad, type: 2}
   - {fileID: 1466695949719852, guid: 8eac2b279fc3ae346b4f236577a56aad, type: 2}
+  hit: 0
 --- !u!137 &137367487472164176
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
