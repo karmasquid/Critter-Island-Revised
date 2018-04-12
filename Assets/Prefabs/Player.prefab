@@ -3745,8 +3745,6 @@ MonoBehaviour:
   - {fileID: 1466695949719852, guid: 8eac2b279fc3ae346b4f236577a56aad, type: 2}
   - {fileID: 1466695949719852, guid: 8eac2b279fc3ae346b4f236577a56aad, type: 2}
   hit: 0
-<<<<<<< HEAD
-=======
 --- !u!136 &136383156548925860
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -3760,7 +3758,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.95, z: 0}
->>>>>>> 6d2e1018e06837a9fa2b81ce75d8ad57fdb5efd0
 --- !u!137 &137367487472164176
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

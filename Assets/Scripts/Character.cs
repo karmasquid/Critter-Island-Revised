@@ -57,7 +57,7 @@ public class Character : MonoBehaviour
     float overHole;
     float normalDash;
 
-    bool lockMove = false;
+    public bool lockMove = false;
     void Start()
     {
         //Modular variables. Saves start values set in inspector:
@@ -86,6 +86,7 @@ public class Character : MonoBehaviour
         dodger(); //Handles Dodge.
         RestricMove(); //Restricts Movement when attacking.
         playermanager.StaminaRecharge = stamReCharge;
+
     }
     void RestricMove()
     {
@@ -294,18 +295,27 @@ public class Character : MonoBehaviour
             _body.isKinematic = false;
             DashDistance = normalDash;
             _body.useGravity = true;
+            this.GetComponent<CapsuleCollider>().isTrigger = false;
         }
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Hole" && other.isTrigger == true)
+        if (other.tag == "Hole")
         {
-            DelayGravity = Down(DashDistance / 10);
-            StartCoroutine(DelayGravity);
-            DashDistance = normalDash;
-            //Gravity = 0f;
-            //Boomerang lul.
-            //this.transform.Translate(new Vector3(this.transform.position.x * Time.deltaTime / DashDistance, 0, this.transform.position.z * Time.deltaTime / DashDistance));
+            if (other.isTrigger == true)
+            {
+                DelayGravity = Down(DashDistance / 6);
+                StartCoroutine(DelayGravity);
+                DashDistance = normalDash;
+                this.GetComponent<CapsuleCollider>().isTrigger = true;
+            }
+            else
+            {
+                if (curPos.y >= other.bounds.max.y)
+                {
+                    other.isTrigger = true;
+                }
+            }
         }
     }
     IEnumerator DodgeDown(float delay)
@@ -313,18 +323,19 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(delay);
         dodging = false;
         _body.drag = 0;
+        lockMove = false;
     }
     IEnumerator Down(float CDTime) //Coroutine for Dodge:
     {
         yield return new WaitForSeconds(CDTime);
         _body.useGravity = true;
-        if (curPos.y < -2)
+        if (curPos.y < pastPos.y - 4 || this.GetComponent<CapsuleCollider>().isTrigger == true)
         {
             _body.drag = 0;
-            this.transform.position = PosBeforeDodge;
+            this.transform.position =  PosBeforeDodge;
             DashDistance = overHole;
+            this.GetComponent<CapsuleCollider>().isTrigger = false;
         }
-
         lockMove = false;
         inHole = true;
     }
