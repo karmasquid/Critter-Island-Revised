@@ -2616,7 +2616,7 @@ GameObject:
   - component: {fileID: 4805280944855818}
   - component: {fileID: 95371653185513804}
   m_Layer: 0
-  m_Name: asset_level_cave_treasure_orb
+  m_Name: asset_prfblevel_cave_treasure_orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
