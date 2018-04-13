@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33979411351185250}
   - component: {fileID: 23319269076308164}
   m_Layer: 0
-  m_Name: asset_level_village_platform
+  m_Name: asset_prfb_level_village_platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
