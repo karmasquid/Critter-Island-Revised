@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: 6319fc59c5aa48e4dab5691a89660147
-timeCreated: 1523627708
+guid: 7b0c936adb33dca4f8cc340cb6886341
+timeCreated: 1523628589
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: asset_env_detail_entrance_gate
-    100002: asset_env_detail_village_platform
-    100004: //RootNode
-    400000: asset_env_detail_entrance_gate
-    400002: asset_env_detail_village_platform
-    400004: //RootNode
+    100000: //RootNode
+    100002: asset_level_village_gate
+    100004: asset_level_village_platform
+    400000: //RootNode
+    400002: asset_level_village_gate
+    400004: asset_level_village_platform
     2100000: lambert1
-    2300000: asset_env_detail_entrance_gate
-    2300002: asset_env_detail_village_platform
-    3300000: asset_env_detail_entrance_gate
-    3300002: asset_env_detail_village_platform
-    4300000: asset_env_detail_village_platform
-    4300002: asset_env_detail_entrance_gate
+    2300000: asset_level_village_gate
+    2300002: asset_level_village_platform
+    3300000: asset_level_village_gate
+    3300002: asset_level_village_platform
+    4300000: asset_level_village_platform
+    4300002: asset_level_village_gate
     9500000: //RootNode
   externalObjects: {}
   materials:
