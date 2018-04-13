@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4348336363640424}
   - component: {fileID: 33235178014892570}
   - component: {fileID: 23333871705657676}
-  - component: {fileID: 65591048118897054}
   m_Layer: 0
   m_Name: asset_env_detail_crystal_5
   m_TagString: Untagged
@@ -83,15 +82,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1896177298261806}
   m_Mesh: {fileID: 4300010, guid: 1a078da387ce8e2409542ad4121d25b4, type: 3}
---- !u!65 &65591048118897054
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1896177298261806}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5064845, y: 1.3010411, z: 0.8763702}
-  m_Center: {x: -0.0047748685, y: -0.25817037, z: 0.27920836}
