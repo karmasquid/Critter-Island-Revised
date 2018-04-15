@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-//editor to make the fov of characters visable;
-[CustomEditor (typeof(ElderBrute))]
-public class SearchForEditor : Editor {
+[CustomEditor(typeof(RangeEnemy))]
+public class AIRangeDrawRange : Editor {
+
+public class AIDrawRange : Editor
+{
 
     private void OnSceneGUI()
     {
-        ElderBrute aI = (ElderBrute)target;
+        RangeEnemy aI = (RangeEnemy)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(aI.transform.position, Vector3.up, Vector3.forward, 360, aI.ViewRange);
         Vector3 viewAngle1 = aI.DirectionsFromDegrees(-aI.ViewDeg / 2, false);
@@ -21,4 +23,5 @@ public class SearchForEditor : Editor {
         Handles.color = Color.red;
         Handles.DrawWireArc(aI.transform.position, Vector3.up, Vector3.forward, 360, aI.AttackRangeMin);
     }
-}// Stina Hedman
+}
+}
