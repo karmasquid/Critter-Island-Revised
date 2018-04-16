@@ -29,7 +29,6 @@ public class SearchFor : IState {
     private float waittime;
     private float waitroam;
 
-    private Vector3 startPos;
     private Vector3 roamPos;
 
     private System.Action<SearchResult> searchResultCallback;
@@ -38,21 +37,34 @@ public class SearchFor : IState {
 
     //int triedToFind = 0;
 
-    public SearchFor(LayerMask searchLayer, LayerMask obstacleLayer, Transform ownerGo, Vector3 startPos, float viewRange, float viewDeg, float attackRange, float roamRadius, NavMeshAgent navMeshAgent, Action<SearchResult> searchResultCallback, Animator anim)
+    public SearchFor(MeleeEnemy meleeEnemy)
     {
 
-        this.searchLayer = searchLayer;
-        this.obstacleLayer = obstacleLayer;
-        this.ownerGo = ownerGo;
-        this.viewRange = viewRange;
-        this.viewDeg = viewDeg; 
-        this.roamRadius = roamRadius;
-        this.navMeshAgent = navMeshAgent;
-        this.searchResultCallback = searchResultCallback;
-        this.attackRange = attackRange;
-        this.startPos = startPos;
-        this.anim = anim;
+        this.searchLayer = meleeEnemy.PlayerLayer;
+        this.obstacleLayer = meleeEnemy.ObstacleLayer;
+        this.ownerGo = meleeEnemy.Aitransform;
+        this.viewRange = meleeEnemy.ViewRange;
+        this.viewDeg = meleeEnemy.ViewDeg; 
+        this.roamRadius = meleeEnemy.RoamRange;
+        this.navMeshAgent = meleeEnemy.NavMeshAgent;
+        this.searchResultCallback = meleeEnemy.SearchDone;
+        this.attackRange = meleeEnemy.AttackRangeMax;
+        this.anim = meleeEnemy.Anim;
     }
+    //public SearchFor(RangeEnemy rangeEnemy)
+    //{
+
+    //    this.searchLayer = rangeEnemy.PlayerLayer;
+    //    this.obstacleLayer = rangeEnemy.ObstacleLayer;
+    //    this.ownerGo = rangeEnemy.Aitransform;
+    //    this.viewRange = rangeEnemy.ViewRange;
+    //    this.viewDeg = rangeEnemy.ViewDeg;
+    //    this.roamRadius = rangeEnemy.RoamRange;
+    //    this.navMeshAgent = rangeEnemy.NavMeshAgent;
+    //    this.searchResultCallback = rangeEnemy.SearchDone;
+    //    this.attackRange = rangeEnemy.AttackRangeMax;
+    //    this.anim = rangeEnemy.Anim;
+    //}
 
     public void Enter()
     {
@@ -117,7 +129,7 @@ public class SearchFor : IState {
             }
             
         }
-        if (roaming && ownerGo.position == roamPos || Time.time > waittime)
+        if (roaming && navMeshAgent.remainingDistance < 0.2|| Time.time > waittime)
         {
             anim.SetBool("isWalking", false);
             if (Time.time > waitroam)
