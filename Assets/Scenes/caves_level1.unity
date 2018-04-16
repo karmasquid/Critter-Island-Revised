@@ -117,8 +117,11 @@ NavMeshSettings:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of f747e58... Merge
+=======
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
 =======
 >>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
 --- !u!1 &12698403
@@ -32526,6 +32529,7 @@ BoxCollider:
   m_ObjectHideFlags: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 --- !u!1001 &200895932
 Prefab:
@@ -32541,12 +32545,15 @@ Prefab:
 >>>>>>> parent of f747e58... Merge
 =======
 >>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
+=======
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
   serializedVersion: 2
   m_Size: {x: 0.75035095, y: 5.080664, z: 4.999687}
   m_Center: {x: -2.4100494, y: 2.4596689, z: -5.1472397}
 --- !u!33 &2034133094
 MeshFilter:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD
   m_PrefabParentObject: {fileID: 33628109735282498, guid: 875f11894f2858144ab5adce874e87f1,
     type: 2}
   m_PrefabInternal: {fileID: 0}
@@ -32590,6 +32597,8 @@ BoxCollider:
   m_ObjectHideFlags: 0
 <<<<<<< HEAD
 >>>>>>> 9d7b094e6f6942dd313560dfa03a6d2b7bf0233d
+=======
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
 =======
 >>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
   serializedVersion: 2
@@ -33052,6 +33061,7 @@ Prefab:
   m_ParentPrefab: {fileID: 100100000, guid: 7c29542aaff03aa41bf2fdf225635349, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &773956616
+<<<<<<< HEAD
 =======
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
@@ -33062,11 +33072,353 @@ Prefab:
   m_Layer: 0
   m_Name: asset_env_detail_crystal_2 (83)
   m_TagString: Untagged
+=======
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 147.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -3.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -54.471
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638284488056028, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e9168d836cb1fd4419e0550521995f4e, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &782151864
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2050675339}
+    m_Modifications:
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 21.900024
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.399994
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224677657770951474, guid: 84281e3c7de46634499f4325a9b8e1b4,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 84281e3c7de46634499f4325a9b8e1b4, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &852873221
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -20.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -5.647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -44.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805280944855818, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: eb80004cb5b6a6f4082c59e733b85b2a, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &938290038
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -10.744
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.9678
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -44.086
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4879167597542300, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 3f62b11fdc96d2344a9563fb97312869, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1002636664
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 176.50691
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -43.373
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -188.258
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.996953
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.078004636
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4893748744045048, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -171.052
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4813a56361b80bd409efa9eae8bdd7b5, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1 &1068445126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1068445130}
+  - component: {fileID: 1068445129}
+  - component: {fileID: 1068445128}
+  - component: {fileID: 1068445127}
+  - component: {fileID: 1068445131}
+  m_Layer: 0
+  m_Name: Main Camera
+  m_TagString: MainCamera
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!4 &2051663293
+=======
+--- !u!81 &1068445127
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1068445126}
+  m_Enabled: 1
+--- !u!124 &1068445128
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1068445126}
+  m_Enabled: 1
+--- !u!20 &1068445129
+Camera:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1068445126}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: -1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1068445130
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 4004342703918506, guid: 875f11894f2858144ab5adce874e87f1,
@@ -33497,6 +33849,71 @@ MeshRenderer:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8859e05b629d87840b613672c6015411, type: 2}
+<<<<<<< HEAD
+=======
+  m_IsPrefabParent: 0
+--- !u!4 &1857879432 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4485334660835998, guid: 72a2ad6f088cfe34aa585f52770619e8,
+    type: 2}
+  m_PrefabInternal: {fileID: 1629756466}
+--- !u!1001 &1936289058
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.1915345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -169.4992
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 112.5307
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202588313154710, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 114897262679979458, guid: c1aeeffecdc35be47953e39d80c72fe0,
+        type: 2}
+      propertyPath: health.bar
+      value: 
+      objectReference: {fileID: 431733286}
+    - target: {fileID: 114897262679979458, guid: c1aeeffecdc35be47953e39d80c72fe0,
+        type: 2}
+      propertyPath: stamina.bar
+      value: 
+      objectReference: {fileID: 586189088}
+    - target: {fileID: 114897262679979458, guid: c1aeeffecdc35be47953e39d80c72fe0,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c1aeeffecdc35be47953e39d80c72fe0, type: 2}
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
   m_IsPrefabParent: 0
 --- !u!4 &1857879432 stripped
 <<<<<<< HEAD
@@ -33558,6 +33975,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1434744761
@@ -33916,6 +34334,11 @@ Transform:
 >>>>>>> 9d7b094e6f6942dd313560dfa03a6d2b7bf0233d
 =======
 >>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
+=======
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &2043211411
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -34266,6 +34689,7 @@ Prefab:
 --- !u!1001 &2118369078
 Prefab:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 --- !u!108 &2036733595
@@ -34670,6 +35094,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
 >>>>>>> parent of f747e58... Merge
+=======
+>>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
 =======
 >>>>>>> parent of 0556bd1... Merge branch 'master' of https://github.com/karmasquid/Critter-Island-Revised
   serializedVersion: 2
