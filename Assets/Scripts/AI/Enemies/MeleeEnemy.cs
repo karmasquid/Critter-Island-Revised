@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(EnemyStats))]
 
 public class MeleeEnemy : MonoBehaviour {
     /// make this an AI class.
@@ -12,6 +13,7 @@ public class MeleeEnemy : MonoBehaviour {
     private StateMachine stateMachine = new StateMachine();
 
     PlayerManager playerManager;
+    EnemyStats enemyStats;
 
     Animator anim;
 
@@ -20,11 +22,12 @@ public class MeleeEnemy : MonoBehaviour {
     private LayerMask playerLayer;
     [SerializeField]
     private LayerMask obstacleLayer;
+
     [Header("Health and Damage")]
     [SerializeField]
-    private int health;
+    private Stats health;
     [SerializeField]
-    private int damage;
+    private float damage;
     [Header("AttackSettings")]
     [SerializeField]
     private float attackRangeMin;
@@ -49,11 +52,154 @@ public class MeleeEnemy : MonoBehaviour {
 
     private NavMeshAgent navMeshAgent;
 
+
     //for unityeditor to make the spaces visable
     public float AttackRangeMin { get { return attackRangeMin; } }
     public float AttackRangeMax { get { return attackRangeMax; } }
     public float ViewRange { get { return viewRange; } }
     public float ViewDeg { get { return viewDeg; } }
+
+    public LayerMask PlayerLayer
+    {
+        get
+        {
+            return playerLayer;
+        }
+
+    }
+
+    public LayerMask ObstacleLayer
+    {
+        get
+        {
+            return obstacleLayer;
+        }
+
+    }
+
+    public Stats Health
+    {
+        get
+        {
+            return health;
+        }
+
+    }
+
+    public float Damage
+    {
+        get
+        {
+            return damage;
+        }
+
+    }
+
+    public float AttackRangeMin1
+    {
+        get
+        {
+            return attackRangeMin;
+        }
+
+    }
+
+    public float AttackRangeMax1
+    {
+        get
+        {
+            return attackRangeMax;
+        }
+
+    }
+
+    public float TimeBetweenAttacks
+    {
+        get
+        {
+            return timeBetweenAttacks;
+        }
+
+    }
+
+    public float ViewRange1
+    {
+        get
+        {
+            return viewRange;
+        }
+
+    }
+
+    public float ViewDeg1
+    {
+        get
+        {
+            return viewDeg;
+        }
+
+    }
+
+    public float RoamRange
+    {
+        get
+        {
+            return roamRange;
+        }
+    }
+
+    public float IdleTimeBetweenMoves
+    {
+        get
+        {
+            return idleTimeBetweenMoves;
+        }
+    }
+
+    public PlayerManager PlayerManager
+    {
+        get
+        {
+            return playerManager;
+        }
+
+    }
+
+    public EnemyStats EnemyStats
+    {
+        get
+        {
+            return enemyStats;
+        }
+
+    }
+
+    public Animator Anim
+    {
+        get
+        {
+            return anim;
+        }
+
+    }
+
+    public NavMeshAgent NavMeshAgent
+    {
+        get
+        {
+            return navMeshAgent;
+        }
+
+    }
+
+    public Transform Player
+    {
+        get
+        {
+            return player;
+        }
+
+    }
 
     public Vector3 DirectionsFromDegrees(float angleInDegrees, bool angleIsGlobal)
     {
@@ -68,17 +214,26 @@ public class MeleeEnemy : MonoBehaviour {
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        enemyStats = GetComponent<EnemyStats>();
+        if (EnemyStats == null)
+        {
+            Debug.Log("wuddaheck");
+        }
+        EnemyStats.Health = health;
+        EnemyStats.Damage = damage;
+
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.anim = this.GetComponent<Animator>();
-        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
+        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.Anim));
     }
 
     private void Update()
     {
-        if (!dead)
+        if (!EnemyStats.Dead)
         {
             this.stateMachine.ExecuteStateUpdate();
         }
+
         else
         {
             Destroy(this.gameObject);
@@ -87,15 +242,17 @@ public class MeleeEnemy : MonoBehaviour {
     }
 
 
-    public void TakeDamange(int damageDealt)
-    {
-        health -= damageDealt;
+    //public void TakeDamange(int damageDealt)
+    //{
+    //    health -= damageDealt;
 
-        if (health <= 0)
-        {
-            dead = true;
-        }
-    }
+    //    if (health <= 0)
+    //    {
+    //        dead = true;
+
+    //        //this.gameObject.transform.rotate(new Vector3())
+    //    }
+    //}
 
     //-------------------------------------------------------------- could be made into only one method with enum? -------------------------------------------------------------------
     //Next state after Searchstate
@@ -103,13 +260,13 @@ public class MeleeEnemy : MonoBehaviour {
     {
         if (searchResult.trueForAttackFalseForIdle)
         {
-            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent, this.gameObject.transform, this.player, this.attackRangeMin, this.attackRangeMax, this.viewRange, this.AttackDone, this.anim, this.timeBetweenAttacks, this.playerManager, this.damage));
+            this.stateMachine.ChangeState(new AttackState(this));
         }
 
         else
         {
             //go to idle
-            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.anim));
+            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.Anim));
             //currently going to roaming.
         }
 
@@ -119,25 +276,24 @@ public class MeleeEnemy : MonoBehaviour {
     {   //attack     
         if (attackResults.trueForSearchFalseForIdle)
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.Anim));
         }
         //idle
         else
         {
-            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.anim));
+            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.Anim));
         }
     }
     public void IdleDone(IdleResult idleResult)
     {   //attack     
         if (idleResult.trueForAttackFalseForSearch)
         {
-            this.stateMachine.ChangeState(new AttackState(this.navMeshAgent, this.gameObject.transform, this.player, this.attackRangeMin, this.attackRangeMax, this.viewRange, this.AttackDone, this.anim, this.timeBetweenAttacks, this.playerManager, this.damage));
+            this.stateMachine.ChangeState(new AttackState(this));
         }
         //idle
         else
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.anim));
+            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.Anim));
         }
     }//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 } // Stina Hedman

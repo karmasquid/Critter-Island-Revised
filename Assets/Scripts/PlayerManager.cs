@@ -183,7 +183,7 @@ public class PlayerManager : MonoBehaviour {
         //Deal damage.
     }
 
-    public void TakeDamage(int Damage)
+    public void TakeDamage(float Damage)
     {
         health.CurrentValue -= Damage;
     }
