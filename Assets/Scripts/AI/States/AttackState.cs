@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AttackState : MonoBehaviour , IState {
+public class AttackState : IState {
 
-    private EnemyStats enemyStats;
+    private PlayerManager playerManager;
     private Animator anim;
     private NavMeshAgent navMeshAgent;
     private Transform ownerGO;
@@ -20,10 +20,8 @@ public class AttackState : MonoBehaviour , IState {
     private float timeBetweenMoves = 4f;
     private float waitMove;
 
-    //private float waitDealingDamage;
-    //private float timeBeforeDealingDamage = 0.5f;
-
-    //private bool rotating;
+    private int damage;
+    private bool rotating;
     private bool moving;
     private bool attacking;
 
@@ -31,26 +29,26 @@ public class AttackState : MonoBehaviour , IState {
 
     private System.Action<AttackResult> attackResultCallback;
 
-    public AttackState(MeleeEnemy meleeEnemy)
+    public AttackState(NavMeshAgent navMeshAgent, Transform ownerGO, Transform playerGO, float attackRangeMin, float attackRangeMax, float viewRange, Action<AttackResult> attackResultCallback, Animator anim, float timeBetweenAttacks, PlayerManager playerManager, int damage)
     {
-        this.navMeshAgent = meleeEnemy.NavMeshAgent;
-        this.ownerGO = meleeEnemy.transform;
-        this.playerGO = meleeEnemy.Player;
-        this.attackRangeMin = meleeEnemy.AttackRangeMin;
-        this.attackRangeMax = meleeEnemy.AttackRangeMax;
-        this.viewRange = meleeEnemy.ViewRange;
-        this.attackResultCallback = meleeEnemy.AttackDone;
-        this.anim = meleeEnemy.Anim;
-        this.timeBetweenAttacks = meleeEnemy.TimeBetweenAttacks;
-        this.enemyStats = meleeEnemy.EnemyStats;
+        this.navMeshAgent = navMeshAgent;
+        this.ownerGO = ownerGO;
+        this.playerGO = playerGO;
+        this.attackRangeMin = attackRangeMin;
+        this.attackRangeMax = attackRangeMax;
+        this.viewRange = viewRange;
+        this.attackResultCallback = attackResultCallback;
+        this.anim = anim;
+        this.timeBetweenAttacks = timeBetweenAttacks;
+        this.playerManager = playerManager;
+        this.damage = damage;
     }
 
     void IState.Enter()
     {
         Debug.Log("Entered attackstate");
         this.startPos = ownerGO.position;
-        moving = true;
-        waitAttack = Time.time + timeBetweenAttacks;
+        moving = false;
     }
 
     void IState.Execute()
@@ -71,31 +69,28 @@ public class AttackState : MonoBehaviour , IState {
             //    }
             //    ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
             //}
-            if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax)
+            if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax && Time.time > waitAttack && !rotating)
             {
-                Debug.Log("attacking");
-
-                moving = false;
-
-                if (!attacking)
+                if (moving)
                 {
-                    this.navMeshAgent.enabled = false;
                     anim.SetTrigger("attack");
+                    moving = false;
+                    this.navMeshAgent.enabled = false;
                 }
 
-                if (Time.time > waitAttack)
+                waitAttack = Time.time + timeBetweenAttacks;
+
+                if (Time.time < waitAttack)
                 {
-                    waitAttack = Time.time + timeBetweenAttacks;
-                    enemyStats.DealDamage();
+                    playerManager.TakeDamage(damage);
                 }
 
-
+               
             }
-            else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
+            else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange && !rotating)
             {
-                Debug.Log("moving towards");
                 this.navMeshAgent.enabled = true;
-
+                RotateTowards();
                 if (!moving)
                 {
                     attacking = false;
@@ -105,7 +100,6 @@ public class AttackState : MonoBehaviour , IState {
                 waitMove = Time.time + timeBetweenMoves;
                 this.navMeshAgent.SetDestination(this.playerGO.position);
             }
-
             else if (Time.time > waitMove)
             {
                 var attackResults = new AttackResult(true);
@@ -119,9 +113,7 @@ public class AttackState : MonoBehaviour , IState {
     {
 
     }
-    
 
-    //FIXIT
     private void RotateTowards()
     {
         float rotationspeed = 2 * Time.deltaTime;
