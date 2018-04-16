@@ -4,12 +4,14 @@ using UnityEngine.AI;
 
 public class RangeAttackState : IState {
 
+    private EnemyStats enemyStats;
 
     private PlayerManager playerManager;
     private Animator anim;
     private NavMeshAgent navMeshAgent;
     private Transform ownerGO;
     private Transform playerGO;
+    private GameObject projectile;
     private Vector3 startPos;
     private float attackRangeMin;
     private float attackRangeMax;
@@ -21,35 +23,41 @@ public class RangeAttackState : IState {
     private float timeBetweenMoves = 4f;
     private float waitMove;
 
-    private int damage;
     private bool rotating;
-    private bool moving;
     private bool attacking;
+
+    private Vector3 direction;
+
+    private Quaternion startRotation;
 
     public bool attackComplete;
 
+    private RangeEnemy rangeEnemyScript;
+
     private System.Action<RangeAttackResult> rangeAttackResultCallback;
 
-    public RangeAttackState(NavMeshAgent navMeshAgent, Transform ownerGO, Transform playerGO, float attackRangeMin, float attackRangeMax, float viewRange, Action<RangeAttackResult> rangeAttackResultCallback, Animator anim, float timeBetweenAttacks, PlayerManager playerManager, int damage)
+    public RangeAttackState(RangeEnemy ai)
     {
-        this.navMeshAgent = navMeshAgent;
-        this.ownerGO = ownerGO;
-        this.playerGO = playerGO;
-        this.attackRangeMin = attackRangeMin;
-        this.attackRangeMax = attackRangeMax;
-        this.viewRange = viewRange;
-        this.rangeAttackResultCallback = rangeAttackResultCallback;
-        this.anim = anim;
-        this.timeBetweenAttacks = timeBetweenAttacks;
-        this.playerManager = playerManager;
-        this.damage = damage;
+        this.rangeEnemyScript = ai;
+        this.projectile = ai.Projectile;
+        this.navMeshAgent = ai.NavMeshAgent;
+        this.ownerGO = ai.Aitransform;
+        this.playerGO = ai.Player;
+        this.attackRangeMin = ai.AttackRangeMin;
+        this.attackRangeMax = ai.AttackRangeMax;
+        this.viewRange = ai.ViewRange;
+        this.rangeAttackResultCallback = ai.RangeAttackDone;
+        this.anim = ai.Anim;
+        this.timeBetweenAttacks = ai.TimeBetweenAttacks;
+        this.enemyStats = ai.EnemyStats;
+        this.startRotation = ai.StartRot;
     }
 
     void IState.Enter()
     {
-        Debug.Log("Entered attackstate");
         this.startPos = ownerGO.position;
-        moving = false;
+        waitAttack = Time.time;
+        this.navMeshAgent.enabled = false;
     }
 
     void IState.Execute()
@@ -57,65 +65,52 @@ public class RangeAttackState : IState {
         if (!attackComplete)
         {
             var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
-            var direction = (this.ownerGO.position - this.playerGO.position);
+            direction = (this.ownerGO.position - this.playerGO.position);
 
-            //move towards the enemy if its too far away
-            if (distanceBetween < attackRangeMin)
-            {
-                //ANIMATION FOR IDLE
-                if (!rotating)
-                {
-                    RotateTowards();
-                    rotating = true;
-                }
-                //ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
-            }
-            else if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax && Time.time > waitAttack && !rotating)
-            {
-                if (moving)
-                {
-                    anim.SetBool("isWalking", false);
-                    moving = false;
-                }
+            RotateTowards();
 
+            if (distanceBetween <= attackRangeMax && Time.time > waitAttack)
+            {
+                if (!attacking )
+                {              
+                    attacking = true;
+                }
                 anim.SetTrigger("attack");
+                Debug.Log("attacking!");
 
-                this.rotating = false;
-                this.navMeshAgent.enabled = false;
-                if (!rotating)
-                {
-                    RotateTowards();
-                }
+                rangeEnemyScript.ShootProjectile();
 
-                waitAttack = Time.time + timeBetweenAttacks;
+                this.waitAttack = Time.time + timeBetweenAttacks;
+
+                //Instantiate(projectile, ownerGO, false);
                 
-                playerManager.TakeDamage(damage);
             }
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
             {
-                this.navMeshAgent.enabled = true;
-                RotateTowards();
-                if (!moving)
+                if (attacking)
                 {
-                    attacking = false;
-                    moving = true;
-                    anim.SetBool("isWalking", true);
+                this.attacking = false;
                 }
-                waitMove = Time.time + timeBetweenMoves;
-                this.navMeshAgent.SetDestination(this.playerGO.position);
+                this.waitMove = Time.time + timeBetweenMoves;
             }
-            else if (Time.time > waitMove)
+            else if (distanceBetween > viewRange && Time.time > waitMove)
             {
                 var rangeAttackResult = new RangeAttackResult(true);
                 this.rangeAttackResultCallback(rangeAttackResult);
-                this.attackComplete = false;
+                this.attackComplete = true;
             }
         }
+    
     }
 
     void IState.Exit()
     {
+        this.navMeshAgent.enabled = true;
+    }   
 
+    private void Attack()
+    {
+        
     }
 
     private void RotateTowards()
@@ -125,10 +120,9 @@ public class RangeAttackState : IState {
         direction.y = 0;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         this.ownerGO.transform.rotation = Quaternion.Slerp(this.ownerGO.rotation, lookRotation, Time.deltaTime * rotationspeed);
-        rotating = false;
     }
+ }
 
-}
 public class RangeAttackResult
 {
     public bool trueForSearchFalseForIdle;
