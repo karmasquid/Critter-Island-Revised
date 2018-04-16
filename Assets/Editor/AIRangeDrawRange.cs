@@ -2,7 +2,9 @@
 using UnityEditor;
 
 [CustomEditor(typeof(RangeEnemy))]
-public class AIRangeDrawRange : Editor
+public class AIRangeDrawRange : Editor {
+
+public class AIDrawRange : Editor
 {
 
     private void OnSceneGUI()
@@ -22,4 +24,4 @@ public class AIRangeDrawRange : Editor
         Handles.DrawWireArc(aI.transform.position, Vector3.up, Vector3.forward, 360, aI.AttackRangeMin);
     }
 }
-
+}

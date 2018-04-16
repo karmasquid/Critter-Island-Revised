@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AttackState : IState {
+public class AttackState : MonoBehaviour , IState {
 
     private EnemyStats enemyStats;
     private Animator anim;
@@ -27,28 +27,27 @@ public class AttackState : IState {
     private bool moving;
     private bool attacking;
 
-    Vector3 direction;
-
     public bool attackComplete;
 
     private System.Action<AttackResult> attackResultCallback;
 
-    public AttackState(MeleeEnemy ai)
+    public AttackState(MeleeEnemy meleeEnemy)
     {
-        this.navMeshAgent = ai.NavMeshAgent;
-        this.ownerGO = ai.transform;
-        this.playerGO = ai.Player;
-        this.attackRangeMin = ai.AttackRangeMin;
-        this.attackRangeMax = ai.AttackRangeMax;
-        this.viewRange = ai.ViewRange;
-        this.attackResultCallback = ai.AttackDone;
-        this.anim = ai.Anim;
-        this.timeBetweenAttacks = ai.TimeBetweenAttacks;
-        this.enemyStats = ai.EnemyStats;
+        this.navMeshAgent = meleeEnemy.NavMeshAgent;
+        this.ownerGO = meleeEnemy.transform;
+        this.playerGO = meleeEnemy.Player;
+        this.attackRangeMin = meleeEnemy.AttackRangeMin;
+        this.attackRangeMax = meleeEnemy.AttackRangeMax;
+        this.viewRange = meleeEnemy.ViewRange;
+        this.attackResultCallback = meleeEnemy.AttackDone;
+        this.anim = meleeEnemy.Anim;
+        this.timeBetweenAttacks = meleeEnemy.TimeBetweenAttacks;
+        this.enemyStats = meleeEnemy.EnemyStats;
     }
 
     void IState.Enter()
     {
+        Debug.Log("Entered attackstate");
         this.startPos = ownerGO.position;
         moving = true;
         waitAttack = Time.time + timeBetweenAttacks;
@@ -59,31 +58,33 @@ public class AttackState : IState {
         if (!attackComplete)
         {
             var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
-            direction = (this.ownerGO.position + this.playerGO.position);
+            var direction = (this.ownerGO.position - this.playerGO.position);
             RotateTowards();
             //move towards the enemy if its too far away
-            if (distanceBetween < attackRangeMin)
-            {
-
-               
-            }
-            if (distanceBetween <= attackRangeMax && distanceBetween >= attackRangeMin)
+            //if (distanceBetween < attackRangeMin)
+            //{
+            //    //ANIMATION FOR IDLE
+            //    if (!rotating)
+            //    {
+            //        RotateTowards();
+            //        rotating = true;
+            //    }
+            //    ownerGO.transform.Translate((-this.ownerGO.forward) * (this.navMeshAgent.speed+4.0f) * Time.deltaTime);
+            //}
+            if (distanceBetween > attackRangeMin && distanceBetween <= attackRangeMax)
             {
                 Debug.Log("attacking");
 
+                moving = false;
 
                 if (!attacking)
                 {
-
-                    moving = false;
-                    attacking = true;
-                    this.navMeshAgent.isStopped = true;
+                    this.navMeshAgent.enabled = false;
+                    anim.SetTrigger("attack");
                 }
 
-                //fixa ännu en wait så den gör skada mitt i slaget.
                 if (Time.time > waitAttack)
                 {
-                    anim.SetTrigger("attack");
                     waitAttack = Time.time + timeBetweenAttacks;
                     enemyStats.DealDamage();
                 }
@@ -93,24 +94,20 @@ public class AttackState : IState {
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
             {
                 Debug.Log("moving towards");
-
+                this.navMeshAgent.enabled = true;
 
                 if (!moving)
                 {
-                    this.navMeshAgent.enabled = true;
                     attacking = false;
                     moving = true;
                     anim.SetBool("isWalking", true);
-                    this.navMeshAgent.isStopped = false;
                 }
                 waitMove = Time.time + timeBetweenMoves;
                 this.navMeshAgent.SetDestination(this.playerGO.position);
             }
 
-            else if  (distanceBetween >= viewRange && Time.time > waitMove)
+            else if (Time.time > waitMove)
             {
-               
-                anim.SetBool("isWalking", false);
                 var attackResults = new AttackResult(true);
                 this.attackResultCallback(attackResults);
                 this.attackComplete = false;
@@ -122,15 +119,17 @@ public class AttackState : IState {
     {
 
     }
+    
 
-
+    //FIXIT
     private void RotateTowards()
     {
-        float rotationspeed = 10;
-        Vector3 direction = (this.playerGO.position - this.ownerGO.position).normalized;
+        float rotationspeed = 2 * Time.deltaTime;
+        Vector3 direction = (this.playerGO.position - this.ownerGO.position);
         direction.y = 0;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        this.ownerGO.transform.rotation = Quaternion.Slerp(this.ownerGO.rotation, lookRotation, Time.deltaTime * rotationspeed);
+        Vector3 newDir = Vector3.RotateTowards(this.playerGO.transform.forward, direction, rotationspeed, 0f);
+        Debug.DrawRay(playerGO.transform.position, direction, Color.blue);
+        this.ownerGO.transform.rotation = Quaternion.LookRotation(direction);
     }
 }
 public class AttackResult
