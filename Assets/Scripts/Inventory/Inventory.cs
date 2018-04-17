@@ -6,14 +6,8 @@ using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
-    //array of items in the inventory
     public List<Item> inventoryItems = new List<Item>();
-
-    //public Item[] inventoryItems = new Item[12];
-
     public Item[] equippedItems = new Item[5];
-
-
     private Image[] equippedButton = new Image[5];
     private Button[] inventoryButton = new Button[12];
 
@@ -23,6 +17,7 @@ public class Inventory : MonoBehaviour
     private Canvas inventoryCanvas;  
     private Button inventorySlot;
     private Image equippedSlot;
+    
 
     private Image background;
     private Canvas canvas;
@@ -33,16 +28,18 @@ public class Inventory : MonoBehaviour
     //sounds open/close inventory
     //private AudioClip invOpenSound, invCloseSound;
 
-    //reference to database
+    //references to scripts
     private PlayerManager playerManager;
     private ItemDatabase database;
     private InventorySlot inventorySlotScript;
     private EquippedSlot equippedSlotScript;
+    private Attacker attacker;
 
     //slot for weaponitem.
     private Transform playerHand;
     private GameObject meleeWeapon;
     private GameObject rangedWeapon;
+    private GameObject rangeWepHUD;
 
     bool showInventory;
     
@@ -60,18 +57,22 @@ public class Inventory : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+
+        database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
+        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        playerHand = GameObject.FindGameObjectWithTag("Player").transform.Find("asset_char_mc_fixed_final/root_JNT/spine_1_JNT/spine_2_JNT/chest_JNT/torso_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_JNT/R_hand_JNT");
+        rangeWepHUD = GameObject.Find("CurrentItem");
+        attacker = GameObject.FindGameObjectWithTag("Player").GetComponent<Attacker>();
+
     }
 
     void Start()
     {
-
-        database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
-        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
         equippedSlot = Resources.Load<Image>("Prefabs/UI/EquippedSlot");
         inventoryBackground = Resources.Load<Image>("Prefabs/UI/InventoryBackground");
-        playerHand = GameObject.FindGameObjectWithTag("Player").transform.Find("asset_char_mc_fixed_final/root_JNT/spine_1_JNT/spine_2_JNT/chest_JNT/torso_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_JNT/R_hand_JNT");
+
         //invOpenSound = Resources.Load<AudioClip>("Audio/Inventory/openInv");
         //invCloseSound = Resources.Load<AudioClip>("Audio/Inventory/closeInv");
 
@@ -115,10 +116,12 @@ public class Inventory : MonoBehaviour
         canvas.transform.name = "InventoryCanvas2";
         canvas.transform.SetParent(GameObject.Find("InventoryCanvas").transform, false);
 
+
         int eqdegrees = 360 / 5;
         int offset = -(eqdegrees / 2);
         int eqslotRotation;
 
+        //create equipped slots.
         for (int i = 0; i < 5; i++)
         {
             eqslotRotation = i * eqdegrees + offset;
@@ -130,6 +133,7 @@ public class Inventory : MonoBehaviour
             image.GetComponent<EquippedSlot>().IndexInList = i;
         }
 
+        //create inventory slots.
         for (int i = 0; i < 12; i++)
         {
             Button button = Instantiate(inventorySlot);
@@ -138,12 +142,12 @@ public class Inventory : MonoBehaviour
             button.transform.SetParent(canvas.transform, false);
         }
 
-        //close inventory
+        //closes inventory
         eqCanvas.gameObject.SetActive(false);
         showInventory = false;
     }
 
-    //Updates inventryUI after changes.
+    //Updates inventryUI, to be used after changes.
     public void UpdateInventory()
     {
         int itemsInInventory = inventoryItems.Count;
@@ -183,7 +187,8 @@ public class Inventory : MonoBehaviour
         {
             if (slot == 1)
             {
-                rangedWeapon = inventoryItems[index].Go;
+                attacker.currentEquipped = inventoryItems[index].Go;
+                rangeWepHUD.GetComponent<Image>().sprite = inventoryItems[index].Icon;
             }
 
             else

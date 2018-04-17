@@ -31,7 +31,8 @@ public class PlayerManager : MonoBehaviour {
     private float armor;
     private float drainingStamina;
 
-    private int ammoCount = 2;
+    private int ammoCount = 5;
+    public float AmmoCount { get { return this.ammoCount; } }
     //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
     private int rangeDamage;
     public int RangeDamage { get { return this.rangeDamage; } }
@@ -44,6 +45,24 @@ public class PlayerManager : MonoBehaviour {
 
     private float staminaRecharge;
     public float StaminaRecharge { get { return this.staminaRecharge; } set { this.staminaRecharge = value; } }
+
+    private float meleeStaminaCost;
+    public float MeleeStaminaCost { get { return this.meleeStaminaCost; } }
+
+    private float meleeSpecStaminaCost;
+    public float MeleeSpecStaminaCost { get { return this.meleeSpecStaminaCost; } }
+
+    private float rangeStaminaCost;
+    public float RangeStaminaCost { get { return this.rangeStaminaCost; } }
+
+    public Stats Stamina
+    {
+        get
+        {
+            return stamina;
+        }
+    }
+
     //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
 
@@ -108,6 +127,7 @@ public class PlayerManager : MonoBehaviour {
         armor += itemAdd.Armor;
 
         staminaRecharge += itemAdd.StaminaRecovery;
+
         ammoCount += itemAdd.AmmoCount;
 
         meleeDamage = itemAdd.DamageMelee;
@@ -115,6 +135,17 @@ public class PlayerManager : MonoBehaviour {
         meleeSpecDamage = itemAdd.DamageSpec;
 
         rangeDamage = itemAdd.DamageRange;
+
+        if (itemAdd.ItemType == Item.TypeOfItem.Weapon)
+        {
+            meleeStaminaCost += itemAdd.StaminaCost;
+            meleeSpecStaminaCost += itemAdd.StaminaCostSpec;
+        }
+
+        if (itemAdd.ItemType == Item.TypeOfItem.Ranged)
+        {
+            rangeStaminaCost += itemAdd.StaminaCost;
+        }
 
         //knockBackForce += itemAdd.knockBackForce;
 
@@ -191,44 +222,21 @@ public class PlayerManager : MonoBehaviour {
     {
         ammoCount -= AmmoDrain;
 
-        if (ammoCount <= 0)
-        {
-            hasAmmo = false;
-        }
-        else
-        {
-            hasAmmo = true;
-        }
-
+        // Uppdatera ammocounter i hud
         Debug.Log("Current ammo count: " + ammoCount);
     }
 
     public void LooseStamina(float sta)
     {
-        //____________________NEW CODE________________
-        drainingStamina = sta;
 
-        if (stamina.CurrentValue < drainingStamina)
-        {
-            outOfstamina = true; 
-        }
-        else
-        {
-            stamina.CurrentValue -= drainingStamina;
-            outOfstamina = false;
-        }
-
-
-        //______________________OLD CODE______________
-
-        /*
         if (stamina.CurrentValue >= sta)
         {
             stamina.CurrentValue -= sta;
         }
+
         else
             stamina.CurrentValue = 0;
-            */
+            
     }
 
 
