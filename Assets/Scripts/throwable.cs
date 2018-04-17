@@ -2,37 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class throwable : MonoBehaviour {
 
-    int damageNum;
-    Attacker attacker;
-    PlayerManager playermanager;
+    int damage;
+
+    Rigidbody rb;
+
+    public int Damage
+    {
+        set
+        {
+            damage = value;
+        }
+    }
 
     void Start()
     {
-        attacker = GameObject.Find("Player").GetComponent<Attacker>();
-        playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        rb = this.transform.GetComponent<Rigidbody>();
 
-        switch (gameObject.name) //Deals diffrent damage depending on what object that was thrown.
-        {
-            case "IcaBasicChoklad" + "(Clone)": //Name Of thrown object. Make work for clone...
-                damageNum = 2;
-                //Do damage
-                break;
-            case "2" + "(Clone)": //Name Of thrown object.
-                damageNum = 3;
-                //Do damage
-                break;
-        }
+        rb.AddForce(this.transform.forward * 20, ForceMode.Impulse);
     }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<BasicAI>().TakeDMG(playermanager.RangeDamage);
+            collision.gameObject.GetComponent<EnemyStats>().TakeDamange(damage);
 
-            attacker.hit = true;
             Destroy(gameObject);
+        }
+
+        else
+        {
+            Destroy(gameObject, 3f);
         }
     }
 }

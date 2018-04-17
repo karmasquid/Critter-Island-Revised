@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Attacker : MonoBehaviour {
 
-    public bool hit = false;
-
     [SerializeField]
     float atkSpeed;
     [SerializeField]
@@ -16,7 +14,8 @@ public class Attacker : MonoBehaviour {
     GameObject[] projectiles; //Set size once we know amount of consumables.
 
     GameObject names;
-    GameObject Currentequipped;
+    public GameObject currentEquipped;
+
 
     bool chargingAttack;
     bool throwing = false;
@@ -26,6 +25,8 @@ public class Attacker : MonoBehaviour {
     bool canAtk = true;
 
     PlayerManager playermanager;
+    throwable throwableScript;
+    Inventory inventory;
     IEnumerator Reload;
 
     Animator anim;
@@ -33,11 +34,14 @@ public class Attacker : MonoBehaviour {
     GameObject[] enemies;
     List<GameObject> listOfEffect = new List<GameObject>();
 
-    void Start ()
+    private void Awake()
     {
         playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         anim = GetComponent<Animator>();
-        Currentequipped = projectiles[0];
+    }
+
+    void Start ()
+    {
         
     }
     void AtkControl()
@@ -67,15 +71,14 @@ public class Attacker : MonoBehaviour {
         //-------------------------------------Main Attacks & Controls------------------------------------------------
         AtkControl();
 
-        if (playermanager.hasAmmo && Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) 
+        if (playermanager.AmmoCount > 0 && Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) 
         {
-            if (!throwing && playermanager.hasAmmo)
+            if (!throwing)
             {
                 anim.SetTrigger("throw");
-                GameObject preo = Instantiate(Currentequipped) as GameObject; //Change index deppending on item equipped.
-                preo.transform.position = transform.position + attackHitBoxes[2].transform.up;
-                Rigidbody rb = preo.GetComponent<Rigidbody>();
-                rb.velocity = attackHitBoxes[2].transform.forward * 20;
+                GameObject preo = Instantiate(currentEquipped,attackHitBoxes[2].transform,false) as GameObject; //Change index deppending on item equipped.
+                preo.transform.GetComponent<throwable>().Damage = playermanager.RangeDamage;
+
                 throwing = true;
 
                 playermanager.AmmoCounter(1); //-1 ammo
@@ -130,12 +133,6 @@ public class Attacker : MonoBehaviour {
         {
             InvokeRepeating("DetectedThrow", 0f, 4f);
         }
-
-        if (hit)
-        {
-            Invoke("Throwdamage", 0f); //Metod for hits.
-        }
-
     }
 
     void LaunchAttack(Collider col)
@@ -168,24 +165,18 @@ public class Attacker : MonoBehaviour {
             getcomponent, attack script. Assign other colliders fitting the weapon.
             */
     }
-    void Throwdamage()
-    {
-        hit = false;
-    }
     void Attacking() //Checking Basic or special attack:
     {
-        playermanager.LooseStamina(0);
-        if (!playermanager.outOfstamina)
-        {
+
             //---------Check if charging up an attack or not------------
-            if (chargingAttack)
+            if (chargingAttack && playermanager.Stamina.CurrentValue >= playermanager.MeleeSpecStaminaCost)
             {
                 anim.SetTrigger("chargeAttack");
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[1]);
                 chargingAttack = false;
                 anim.SetBool("isCharging", false);
-                playermanager.LooseStamina(20); //Stamina drain
+                playermanager.LooseStamina(playermanager.MeleeSpecStaminaCost); //Stamina drain
 
                 if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
                 {
@@ -199,7 +190,7 @@ public class Attacker : MonoBehaviour {
 
                         enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
 
-                        enemy.GetComponent<BasicAI>().TakeDMG(playermanager.MeleeSpecDamage); //Takes basic melee damage + potetial special attack damage.
+                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeSpecDamage); //Takes basic melee damage + potetial special attack damage.
 
                         //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
                     }
@@ -211,7 +202,7 @@ public class Attacker : MonoBehaviour {
                 anim.SetTrigger("attack");
                 //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[0]);
-                playermanager.LooseStamina(2); //Stamina drain
+                playermanager.LooseStamina(playermanager.MeleeStaminaCost); //Stamina drain
 
                 if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
                 {
@@ -225,7 +216,7 @@ public class Attacker : MonoBehaviour {
 
                         enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
 
-                        enemy.GetComponent<BasicAI>().TakeDMG(playermanager.MeleeDamage); //Takes basic melee damage + potetial special attack damage.
+                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeDamage); //Takes basic melee damage + potetial special attack damage.
 
                         //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
                     }
@@ -243,7 +234,7 @@ public class Attacker : MonoBehaviour {
 
             Reload = AttackCD(atkSpeed);
             StartCoroutine(Reload);
-        }
+        
     }
     void DetectedThrow() //Failsafe throw:
     {

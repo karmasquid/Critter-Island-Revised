@@ -167,7 +167,7 @@ public class Character : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey("joystick button 5"))
         {
-            if (!playermanager.outOfstamina && running == true) //Om du inte står stilla, drain.
+            if (playermanager.Stamina.CurrentValue > 0 && running == true) //Om du inte står stilla, drain.
             {
                 Speed = rawSpeed * speedMultiplier;
             }
@@ -217,7 +217,7 @@ public class Character : MonoBehaviour
         {
             playermanager.LooseStamina(dodgeCost); //TODO Change value 40 to variable whose value change depending on equipment.
 
-            if (!dodging && !playermanager.outOfstamina) //If there is stamina:
+            if (!dodging && playermanager.Stamina.CurrentValue >= dodgeCost ) //If there is stamina:
             {
                 dodging = true;
                 if (inHole && blockerHole != null && pitHole.tag == "Hole") //Inside hole coll. && Jumping Shoes...
