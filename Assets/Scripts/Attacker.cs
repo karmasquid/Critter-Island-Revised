@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Attacker : MonoBehaviour {
 
+    public bool hit = false;
+
+    [SerializeField]
+    float atkSpeed;
+    [SerializeField]
+    float reloadSpeed;
     [SerializeField]
     Collider[] attackHitBoxes;
     [SerializeField]
@@ -14,9 +20,10 @@ public class Attacker : MonoBehaviour {
 
     bool chargingAttack;
     bool throwing = false;
-    public bool hit = false;
+    
     float chargeTimer;
     string CurrentName;
+    bool canAtk = true;
 
     PlayerManager playermanager;
     IEnumerator Reload;
@@ -33,25 +40,32 @@ public class Attacker : MonoBehaviour {
         Currentequipped = projectiles[0];
         
     }
-
-    void Update ()
+    void AtkControl()
     {
-        //-------------------------------------Main Attacks & Controlls------------------------------------------------
-        if (Input.GetKey(KeyCode.H) || Input.GetKey("joystick button 2"))
+        if (canAtk)
         {
-
-            chargeTimer += Time.deltaTime;
-            if (chargeTimer > 1.0f)
+            if (Input.GetKey(KeyCode.H) || Input.GetKey("joystick button 2"))
             {
-                chargingAttack = true;
-                anim.SetBool("isCharging", true);
+
+                chargeTimer += Time.deltaTime;
+                if (chargeTimer > 1.0f)
+                {
+                    chargingAttack = true;
+                    anim.SetBool("isCharging", true);
+                }
+            }
+            if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2"))
+            {
+                CheckWeapon();
+                Attacking();
+                canAtk = false;
             }
         }
-        if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2"))
-        {
-            CheckWeapon();
-            Attacking();
-        }
+    }
+    void Update ()
+    {
+        //-------------------------------------Main Attacks & Controls------------------------------------------------
+        AtkControl();
 
         if (playermanager.hasAmmo && Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) 
         {
@@ -65,7 +79,7 @@ public class Attacker : MonoBehaviour {
                 throwing = true;
 
                 playermanager.AmmoCounter(1); //-1 ammo
-                Reload = ThrowCD(2.0f);
+                Reload = ThrowCD(reloadSpeed);
                 StartCoroutine(Reload);
 
             if (preo != null)
@@ -226,10 +240,9 @@ public class Attacker : MonoBehaviour {
                 enemies = null;
             }
             chargeTimer = 0;
-        }
-        else
-        {
-            Debug.Log("Attack is unavailable!");
+
+            Reload = AttackCD(atkSpeed);
+            StartCoroutine(Reload);
         }
     }
     void DetectedThrow() //Failsafe throw:
@@ -243,5 +256,10 @@ public class Attacker : MonoBehaviour {
     {
         yield return new WaitForSeconds(CDTime);
         throwing = false;
+    }
+    IEnumerator AttackCD(float AtkCDTime)
+    {
+        yield return new WaitForSeconds(AtkCDTime);
+        canAtk = true;
     }
 }
