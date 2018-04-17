@@ -1,16 +1,23 @@
 fileFormatVersion: 2
-guid: e49920e76686ba943a7f3d93f60a6e40
-timeCreated: 1520880040
+guid: 23c4271c7c4335a49be285db3af77be8
+timeCreated: 1523961610
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: asset_env_hou_ext_1_mat
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: asset_env_hou_ext_main_wall_1
+    100000: asset_level_cave_fill1
+    100002: asset_level_cave_fill_2
+    100004: //RootNode
+    400000: asset_level_cave_fill1
+    400002: asset_level_cave_fill_2
+    400004: //RootNode
+    2100000: asset_env_cave_main_mat
+    2300000: asset_level_cave_fill1
+    2300002: asset_level_cave_fill_2
+    3300000: asset_level_cave_fill1
+    3300002: asset_level_cave_fill_2
+    4300000: asset_level_cave_fill_2
+    4300002: asset_level_cave_fill1
     9500000: //RootNode
   externalObjects: {}
   materials:

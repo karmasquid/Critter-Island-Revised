@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4f185a51c50a0ae408df62dddac12396
-timeCreated: 1523536234
+guid: b71b76790e5f0f54380775cf3e0f0a8c
+timeCreated: 1523964605
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -19,11 +19,10 @@ ModelImporter:
     400008: asset_level_house_4
     400010: asset_level_house_5
     400012: asset_level_house_6
-    2100000: asset_env_house_mat
-    2100002: asset_env_house_import_asset_env_hou_ext_1_mat
-    2100004: asset_env_house_import_asset_env_hou_ext_main_roof_2_mat
-    2100006: asset_env_house_import_asset_env_hou_ext_main_roof_1_mat
-    2100008: asset_env_house_import_asset_env_hou_ext_2_mat
+    2100000: asset_env_house_import_asset_env_hou_ext_1_mat
+    2100002: asset_env_house_import_asset_env_hou_ext_2_mat
+    2100004: asset_env_house_mat
+    2100006: asset_env_house_import_asset_env_hou_ext_main_roof_2_mat
     2300000: asset_level_house_1
     2300002: asset_level_house_2
     2300004: asset_level_house_3
@@ -36,16 +35,16 @@ ModelImporter:
     3300006: asset_level_house_4
     3300008: asset_level_house_5
     3300010: asset_level_house_6
-    4300000: asset_level_house_6
-    4300002: asset_level_house_5
-    4300004: asset_level_house_4
-    4300006: asset_level_house_3
-    4300008: asset_level_house_2
-    4300010: asset_level_house_1
+    4300000: asset_level_house_3
+    4300002: asset_level_house_6
+    4300004: asset_level_house_2
+    4300006: asset_level_house_1
+    4300008: asset_level_house_4
+    4300010: asset_level_house_5
     9500000: //RootNode
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
