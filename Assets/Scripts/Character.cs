@@ -42,22 +42,24 @@ public class Character : MonoBehaviour
     private Transform _groundChecker;
 
     //Movement and stamina:
-    private bool dodging;
+    public bool dodging;
     private Vector3 curPos;
     private Vector3 pastPos;
     private bool moving;
     private float rawStamRe;
 
     //Hole dodge:
-    private bool dodgeronies = false;
-    private bool inHole = false;
-    private GameObject pitHole;
+    public bool inHole = false;
+    GameObject pitHole;
     IEnumerator DelayGravity;
-    Vector3 PosBeforeDodge;
+    GameObject blockerHole;
     float overHole;
     float normalDash;
 
-    public bool lockMove = false;
+    bool lockMove = false;
+    public bool getOverIt = false;
+    GameObject target;
+
     void Start()
     {
         //Modular variables. Saves start values set in inspector:
@@ -85,6 +87,7 @@ public class Character : MonoBehaviour
         runner(); //Handles Running.
         dodger(); //Handles Dodge.
         RestricMove(); //Restricts Movement when attacking.
+        Jump();
         playermanager.StaminaRecharge = stamReCharge;
 
     }
@@ -198,6 +201,16 @@ public class Character : MonoBehaviour
             stamReCharge = rawStamRe;
         }
     }
+    void Jump()
+    {
+        if (getOverIt)
+        {
+
+            blockerHole.GetComponent<Collider>().isTrigger = true;
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Speed * speedMultiplier * 2 * Time.deltaTime);
+            this.transform.forward = -target.transform.forward;
+        }
+    }
     void dodger()
     {
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
@@ -207,21 +220,29 @@ public class Character : MonoBehaviour
             if (!dodging && !playermanager.outOfstamina) //If there is stamina:
             {
                 dodging = true;
-                anim.SetTrigger("fDodge");
-                PosBeforeDodge = this.curPos;
-                if (inHole) //Inside hole coll.
+                if (inHole && blockerHole != null && pitHole.tag == "Hole") //Inside hole coll. && Jumping Shoes...
                 {
-                    pitHole.GetComponent<Collider>().isTrigger = true;
-                    _body.isKinematic = false;
-                    lockMove = true;
+                    target = pitHole.GetComponent<GoOver>().target;
+                    if (this.transform.forward != pitHole.GetComponent<GoOver>().target.transform.forward)
+                    {
+                        getOverIt = true;
+                        lockMove = true;
+                    }
                 }
-                //Dodge move on player:
-                _body.drag = 3;
-                Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
-                _body.AddForce(dashVelocity, ForceMode.VelocityChange);
+                else
+                {
+                    dodging = true;
+                    anim.SetTrigger("fDodge");
 
+                    //Dodge move on player:
+                    Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
+                    _body.AddForce(dashVelocity, ForceMode.VelocityChange);
+                }
+
+                //Recover:
                 DelayGravity = DodgeDown(DashDistance / (DashDistance * 2));
                 StartCoroutine(DelayGravity);
+                
                 
             }
         }
@@ -244,6 +265,7 @@ public class Character : MonoBehaviour
         if (inputRaw != Vector3.zero)
             targetRotation = Quaternion.LookRotation(input).eulerAngles;
 
+
         this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation.x, Mathf.Round(targetRotation.y / 45) * 45, targetRotation.z), Time.deltaTime * rotationSpeed);
 
         _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
@@ -261,29 +283,15 @@ public class Character : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "NotGround")
+        {
+            blockerHole = other.gameObject;
+            overHole = (other.bounds.size.x * other.bounds.size.x) + (other.bounds.size.z * other.bounds.size.z);
+        }
         if (other.tag == "Hole") //&& Right jumping shoes...
         {
-            dodgeronies = true;
-            _body.useGravity = false;
-            pitHole = other.gameObject;
             inHole = true;
-            float holeSize;
-
-            if (other.bounds.size.x < other.bounds.size.z) //Works alright for cube formed holes, not so much for other forms...
-            {
-                holeSize = other.bounds.size.z;
-            }
-            else
-            {
-                holeSize = other.bounds.size.x;
-            }
-
-            overHole = (holeSize / DashDistance) + holeSize * speedMultiplier;
-            if (dodgeronies)
-            {
-                DashDistance = overHole;
-                dodgeronies = false;
-            }
+            pitHole = other.gameObject;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -291,52 +299,24 @@ public class Character : MonoBehaviour
         if (other.tag == "Hole")
         {
             inHole = false;
-            pitHole.GetComponent<Collider>().isTrigger = false;
-            _body.isKinematic = false;
-            DashDistance = normalDash;
-            _body.useGravity = true;
-            this.GetComponent<CapsuleCollider>().isTrigger = false;
         }
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Hole")
+            if (other.tag == "NotGround")
         {
-            if (other.isTrigger == true)
-            {
-                DelayGravity = Down(DashDistance / 6);
-                StartCoroutine(DelayGravity);
-                DashDistance = normalDash;
-                this.GetComponent<CapsuleCollider>().isTrigger = true;
-            }
-            else
-            {
-                if (curPos.y >= other.bounds.max.y)
-                {
-                    other.isTrigger = true;
-                }
-            }
+            getOverIt = false;
+            blockerHole.GetComponent<Collider>().isTrigger = false;
+            target = null;
         }
     }
     IEnumerator DodgeDown(float delay)
     {
         yield return new WaitForSeconds(delay);
+        lockMove = false;
         dodging = false;
-        _body.drag = 0;
-        lockMove = false;
-    }
-    IEnumerator Down(float CDTime) //Coroutine for Dodge:
-    {
-        yield return new WaitForSeconds(CDTime);
-        _body.useGravity = true;
-        if (curPos.y < pastPos.y - 4 || this.GetComponent<CapsuleCollider>().isTrigger == true)
+
+        if (getOverIt)
         {
-            _body.drag = 0;
-            this.transform.position =  PosBeforeDodge;
-            DashDistance = overHole;
-            this.GetComponent<CapsuleCollider>().isTrigger = false;
+            yield return new WaitForSeconds(delay);
+            getOverIt = false;
         }
-        lockMove = false;
-        inHole = true;
     }
 }
