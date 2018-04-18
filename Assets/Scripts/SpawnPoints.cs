@@ -20,6 +20,7 @@ public class SpawnPoints : MonoBehaviour {
         {
             Player.transform.position = gameObject.transform.GetChild(0).transform.position;
             Player.transform.rotation = gameObject.transform.GetChild(0).transform.rotation;
+
         }
         else
         {
