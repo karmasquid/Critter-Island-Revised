@@ -10,7 +10,7 @@ public class SpeechBubble : MonoBehaviour {
 
     public float secWaitBetween;
 
-    public Image image;
+    public Sprite sprite;
     public Text text;
     public Canvas canvas;
     private int index = 0;

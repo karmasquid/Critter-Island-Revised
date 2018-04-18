@@ -26,25 +26,28 @@ public class LevelLoader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-        public void Loadlevel(int sceneIndex)
+
+    public void Loadlevel(int sceneIndex)
     {
-        StartCoroutine(LoadAsynch(sceneIndex));
+        SceneManager.LoadScene(sceneIndex);
+        //StartCoroutine(LoadAsynch(sceneIndex));
     }
 
-    IEnumerator LoadAsynch (int sceneIndex)
-    {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-        loadingScreen.SetActive(true);
+    //IEnumerator LoadAsynch(int sceneIndex)
+    //{
 
-        while (!operation.isDone)
-        {
-            //Gör om Unitys laddningsprocent till ett tal mellan 0 - 1 istället för Unitys 0 - 0.9
-            float progress = Mathf.Clamp01(operation.progress) / 0.9f;
-            slider.value = progress;
+    //    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+    //    loadingScreen.SetActive(true);
 
-            yield return null;
-        }
-    }
+    //    while (!operation.isDone)
+    //    {
+    //        //Gör om Unitys laddningsprocent till ett tal mellan 0 - 1 istället för Unitys 0 - 0.9
+    //        float progress = Mathf.Clamp01(operation.progress) / 0.9f;
+    //        slider.value = progress;
+
+    //        yield return null;
+    //    }
+    //}
 
 
     public void ChooseNextScene(bool SceneAfterThis)
