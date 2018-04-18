@@ -56,8 +56,9 @@ public class AttackState : IState {
 
     void IState.Execute()
     {
-        if (!attackComplete)
+        if (!attackComplete && ownerGO != null)
         {
+
             var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
             direction = (this.ownerGO.position + this.playerGO.position);
             RotateTowards();
@@ -89,7 +90,6 @@ public class AttackState : IState {
             }
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
             {
-                Debug.Log("moving towards");
 
 
                 if (!moving)

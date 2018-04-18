@@ -93,14 +93,18 @@ public class MeleeEnemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (!EnemyStats.Dead)
+
+        if (!EnemyStats.Dead && !playerManager.dead)
         {
             this.stateMachine.ExecuteStateUpdate();
         }
 
         else
         {
-            Destroy(this.gameObject);
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("isWalking"))
+            {
+                anim.SetBool("isWalking", false);
+            }
         }
 
     }

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4763348203311464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_ThumbClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4217439847313778}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: head_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4389458569419894}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_hand_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4207835643392480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_middleClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4623346845318016}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: torso_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4530436624203856}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_ThumbClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4997939698035222}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: chest_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4985366685691952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_elbow_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4074553322732738}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_handTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4695077036011174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: headTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4678487558628648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_ankle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4726535935107132}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_shoulder_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4904609733857486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_elbow_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4730044095908670}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_ankle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +229,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4955239424020926}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_knee_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4193520557939864}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_PinkieClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4161143199738814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_toe_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4168725278865694}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: neck_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -289,7 +289,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4771956594749192}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spine_2_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4447227154477162}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_middleClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4992926677252716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: pelvis_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4134049214504966}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_ball_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4641623095632902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_handTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4450865734066348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spine_1_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4032456899038280}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_indexClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4722288013342160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_clavicle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 54254983859117672}
   - component: {fileID: 195319258321282286}
   - component: {fileID: 136975314702532718}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: asset_prfb_char_eny_medium
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4198699409130362}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_indexClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +445,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4456019710425140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_knee_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4196380071500996}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_PinkieClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,7 +475,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4148225520707276}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_hip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4062371168651048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_indexClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,7 +505,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4854931248274400}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_ThumbClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -520,7 +520,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4264954453976252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_middleClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +535,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4663153123582976}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_forearm_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +550,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4272677770034614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_clavicle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +565,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4035825187308816}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_indexClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,7 +580,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4625124564113534}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_toe_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +595,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4314987582693424}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_ball_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,7 +610,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4930505308211314}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_shoulder_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,7 +625,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4136254159932582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_hip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4774516876653416}
   - component: {fileID: 137981256251687532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MediumEnemyCharacter_POLY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,7 +656,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4390956398667218}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_PinkieClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4263526387995186}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_PinkieClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4175541956188076}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_ThumbClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +701,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4968781175782914}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -716,7 +716,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4731999805639732}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_forearm_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +731,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4012578655498344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: L_middleClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4298095808428664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: R_hand_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1445,7 +1445,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500153686650690}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 30
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1481,6 +1481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff4ddf830599bd4686d5957381ecbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  willDrop: 0
+  itemToDrop: 
 --- !u!114 &114495225414512154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1498,14 +1500,11 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 1024
-  health:
-    bar: {fileID: 0}
-    maxValue: 100
-    currentValue: 100
-  damage: 10
+  health: 80
+  damage: 12
   attackRangeMin: 0.5
   attackRangeMax: 2.5
-  timeBetweenAttacks: 1.5
+  timeBetweenAttacks: 1
   viewRange: 4
   viewDeg: 180
   roamRange: 4

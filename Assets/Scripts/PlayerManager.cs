@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
-    public bool outOfstamina;
-    public bool hasAmmo = true;
+    public bool dead;
 
     //Skapar stats från stats-scriptet.
     [SerializeField]
@@ -27,6 +26,7 @@ public class PlayerManager : MonoBehaviour {
     private Inventory inventoryScript;
     private AmmoCounterHUD ammoCounterScript;
     private Character characterScript;
+    
 
 
     private float armor;
@@ -107,18 +107,11 @@ public class PlayerManager : MonoBehaviour {
             //+= staminaRecharge
             stamina.CurrentValue += staminaRecharge;
         }
-
-        if (ammoCount > 0)
-        {
-            hasAmmo = true;
-        }
         //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
     }
 
     public void AddPlayerstats(Item itemAdd)
     {
-        health.MaxValue += itemAdd.Health;
-
         armor += itemAdd.Armor;
 
         staminaRecharge += itemAdd.StaminaRecovery;
@@ -148,7 +141,6 @@ public class PlayerManager : MonoBehaviour {
 
     public void Removestats(Item itemrem)
     {
-        health.MaxValue -= itemrem.Health;
 
         armor -= itemrem.Armor;
 
@@ -222,6 +214,12 @@ public class PlayerManager : MonoBehaviour {
     public void TakeDamage(float Damage)
     {
         health.CurrentValue -= Damage;
+
+        if (health.CurrentValue <= 0)
+        {
+            GameObject.Find("Player").GetComponent<Attacker>().Dead = true;
+            dead = true;
+        }
     }
     public void AmmoCounter(int AmmoDrain)
     {

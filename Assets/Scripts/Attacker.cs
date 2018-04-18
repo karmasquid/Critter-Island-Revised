@@ -13,6 +13,10 @@ public class Attacker : MonoBehaviour {
 
     public GameObject currentEquipped;
 
+    bool dead;
+    bool dying;
+
+    float waitUntillRestart;
 
     bool chargingAttack;
     bool throwing = false;
@@ -30,8 +34,30 @@ public class Attacker : MonoBehaviour {
     GameObject[] enemies;
     List<GameObject> listOfEffect = new List<GameObject>();
 
+    public static Attacker instance;
+
+    public bool Dead
+    {
+        set
+        {
+            dead = value;
+        }
+    }
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+
         playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         anim = GetComponent<Animator>();
     }
@@ -61,53 +87,72 @@ public class Attacker : MonoBehaviour {
             }
         }
     }
-    void Update ()
+    void Update()
     {
-        //-------------------------------------Main Attacks & Controls------------------------------------------------
-        AtkControl();
+        if (!dead)
+        { 
+            //-------------------------------------Main Attacks & Controls------------------------------------------------
+            AtkControl();
 
-        if (playermanager.AmmoCount > 0 && Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1")) 
-        {
-            if (!throwing)
+            if (playermanager.AmmoCount > 0 && Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1"))
             {
-                anim.SetTrigger("throw");
-                GameObject preo = Instantiate(currentEquipped, attackHitBoxes[2].transform, false) as GameObject; 
-                preo.GetComponent<Throwable>().Damage = playermanager.RangeDamage;
-                Debug.Log(playermanager.RangeDamage);
-
-                attackHitBoxes[2].transform.DetachChildren(); //Release the children!
-                throwing = true;
-
-                playermanager.AmmoCounter(1); //-1 ammo
-                Reload = ThrowCD(reloadSpeed);
-                StartCoroutine(Reload);
-
-                if (preo != null)
+                if (!throwing)
                 {
-                    attackHitBoxes[3] = preo.GetComponent<Collider>();
+                    anim.SetTrigger("throw");
+                    GameObject preo = Instantiate(currentEquipped, attackHitBoxes[2].transform, false) as GameObject;
+                    preo.GetComponent<Throwable>().Damage = playermanager.RangeDamage;
+                    Debug.Log(playermanager.RangeDamage);
 
+                    attackHitBoxes[2].transform.DetachChildren(); //Release the children!
+                    throwing = true;
+
+                    playermanager.AmmoCounter(1); //-1 ammo
+                    Reload = ThrowCD(reloadSpeed);
+                    StartCoroutine(Reload);
+
+                    if (preo != null)
+                    {
+                        attackHitBoxes[3] = preo.GetComponent<Collider>();
+
+                    }
+                    else
+                    {
+                        attackHitBoxes[3] = null;
+                    }
+
+
+                    Destroy(preo, Time.deltaTime + 2f);
                 }
-                else
-                {
-                    attackHitBoxes[3] = null;
-                }
+            }
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
+            {
+                chargingAttack = false;
+                chargeTimer = 0;
+                anim.SetBool("isCharging", false);
+            }
 
 
-            Destroy(preo, Time.deltaTime + 2f);
+            //----------------------------------------Throwing invoke------------------------------------------------------
+            if (throwing)
+            {
+                InvokeRepeating("DetectedThrow", 0f, 4f);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
+        else
         {
-            chargingAttack = false;
-            chargeTimer = 0;
-            anim.SetBool("isCharging", false);
-        }
+            if (!dying)
+            {
+                anim.SetTrigger("isDead");
+                waitUntillRestart = Time.time + 5f;
+                this.gameObject.layer = 0;
+                dying = true;
+            }
+            else if (Time.time >= waitUntillRestart)
+            {
+                
+                GameObject.Find("LevelLoader").GetComponent<LevelLoader>().Loadlevel(0);
 
-
-        //----------------------------------------Throwing invoke------------------------------------------------------
-        if (throwing)
-        {
-            InvokeRepeating("DetectedThrow", 0f, 4f);
+            }
         }
     }
 
