@@ -13,10 +13,13 @@ public class SpawnPoints : MonoBehaviour {
     {
         levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
         Player = GameObject.Find("Player");
+
+
     }
 
     void Start () {
-		if (levelLoader.CameFromPrevLvl)
+
+        if (levelLoader.CameFromPrevLvl)
         {
             Player.transform.position = gameObject.transform.GetChild(0).transform.position;
             Player.transform.rotation = gameObject.transform.GetChild(0).transform.rotation;
@@ -27,10 +30,24 @@ public class SpawnPoints : MonoBehaviour {
             Player.transform.position = gameObject.transform.GetChild(1).transform.position;
             Player.transform.rotation = gameObject.transform.GetChild(1).transform.rotation;
         }
+        StartCoroutine(FixStinasProblems());
+
 	}
+    IEnumerator FixStinasProblems()
+    {
+        yield return new WaitForEndOfFrame();
+        if (levelLoader.CameFromPrevLvl)
+        {
+            Player.transform.position = gameObject.transform.GetChild(0).transform.position;
+            Player.transform.rotation = gameObject.transform.GetChild(0).transform.rotation;
+
+        }
+        else
+        {
+            Player.transform.position = gameObject.transform.GetChild(1).transform.position;
+            Player.transform.rotation = gameObject.transform.GetChild(1).transform.rotation;
+        }
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-}
+} // STina Hedman
+

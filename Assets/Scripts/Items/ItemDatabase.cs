@@ -86,6 +86,6 @@ public class ItemDatabase : MonoBehaviour
 
         }
     }
-
-}
+    
+}// STina Hedman
 

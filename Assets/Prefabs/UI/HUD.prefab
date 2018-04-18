@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 222894352874595974}
   - component: {fileID: 114546651570591770}
   m_Layer: 5
-  m_Name: AmmoCounter
+  m_Name: AmmoCounterBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,10 +209,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224950849332466476}
+  - component: {fileID: 114916792194981190}
   - component: {fileID: 222466158356461430}
   - component: {fileID: 114316355255203768}
   m_Layer: 5
-  m_Name: Text
+  m_Name: AmmoCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -708,6 +709,17 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 'Stamina:'
+--- !u!114 &114916792194981190
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817208794447830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86910390fbbbfe0459b20e068abeebd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &222074587270597086
 CanvasRenderer:
   m_ObjectHideFlags: 1

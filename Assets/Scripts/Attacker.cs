@@ -59,6 +59,7 @@ public class Attacker : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+
         anim = GetComponent<Animator>();
     }
 

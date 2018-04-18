@@ -69,4 +69,4 @@ public class SpeechBubble : MonoBehaviour {
         //    index = 0;
         //}
     }
-}
+}// STina Hedman

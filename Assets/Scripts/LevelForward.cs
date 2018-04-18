@@ -8,6 +8,13 @@ public class LevelForward : MonoBehaviour {
     [SerializeField]
     bool nextLevel;
 
+    // Use this for initialization
+    void Awake () {
+
+        Level_Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+
+	}
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -17,17 +24,4 @@ public class LevelForward : MonoBehaviour {
         
     }
 
-    // Use this for initialization
-    void Start () {
-
-        GetComponent<LevelLoader>();
-        Level_Loader = Level_Loader.GetComponent<LevelLoader>();
-
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

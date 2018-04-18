@@ -186,4 +186,4 @@ public class RangeEnemy : MonoBehaviour
     {   //attack     
         this.stateMachine.ChangeState(new RangeAttackState(this));
     }
-}
+}// STina Hedman
