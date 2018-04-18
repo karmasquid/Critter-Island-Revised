@@ -11,14 +11,12 @@ public class Inventory : MonoBehaviour
     private Image[] equippedButton = new Image[5];
     private Button[] inventoryButton = new Button[12];
 
-
     //prefabs
     private Image inventoryBackground;
     private Canvas inventoryCanvas;  
     private Button inventorySlot;
     private Image equippedSlot;
     
-
     private Image background;
     private Canvas canvas;
     private Canvas eqCanvas;

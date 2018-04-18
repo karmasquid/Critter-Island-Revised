@@ -71,10 +71,8 @@ public class ItemDatabase : MonoBehaviour
         {
             inventory.inventoryItems.Add(allItems[0]);
             inventory.inventoryItems.Add(allItems[3]);
-            inventory.inventoryItems.Add(allItems[11]);
             inventory.inventoryItems.Add(allItems[12]);
 
-            inventory.EquipItem(2, 2);
             inventory.EquipItem(1, 1);
             inventory.EquipItem(0, 0);
         }

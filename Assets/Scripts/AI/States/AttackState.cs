@@ -69,9 +69,6 @@ public class AttackState : IState {
             }
             if (distanceBetween <= attackRangeMax && distanceBetween >= attackRangeMin)
             {
-                Debug.Log("attacking");
-
-
                 if (!attacking)
                 {
 
