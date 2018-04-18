@@ -26,7 +26,7 @@ public class Inventory : MonoBehaviour
     private Image equipped;
 
     //sounds open/close inventory
-    //private AudioClip invOpenSound, invCloseSound;
+    //AudioClip invOpenSound, invCloseSound;
 
     //references to scripts
     private PlayerManager playerManager;
@@ -310,6 +310,7 @@ public class Inventory : MonoBehaviour
     
     public void HoldWeapon(Item weapon)
     {
+
         if (meleeWeapon != null)
         {
             Destroy(meleeWeapon.gameObject);

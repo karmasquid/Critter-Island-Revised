@@ -62,8 +62,9 @@ public class ItemDatabase : MonoBehaviour
         allItems.Add(new Item(13, "Ember Root", "Ember Root!", Item.TypeOfItem.Consumables, 0, 0, 0, 10f, 10, 0, 0, 1.2f, 0, 0, 0, 0, 0, 6));
 
         //Miscellaneous
-        allItems.Add(new Item(14, "Key", "unlocks secret door!", Item.TypeOfItem.Miscellaneous, 0, 0, 0, 0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0f, 0, 3));
-        allItems.Add(new Item(15, "Sphere of Renewal", "Sphere of Renewal!", Item.TypeOfItem.Miscellaneous, 10, 0, 5, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
+        allItems.Add(new Item(14, "Silver Key", "unlocks secret door!", Item.TypeOfItem.Miscellaneous, 0, 0, 0, 0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0f, 0, 3));
+        allItems.Add(new Item(15, "Gold Key", "unlocks secret door!", Item.TypeOfItem.Miscellaneous, 0, 0, 0, 0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0f, 0, 3));
+        allItems.Add(new Item(16, "Sphere of Renewal", "Sphere of Renewal!", Item.TypeOfItem.Miscellaneous, 10, 0, 5, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
 
         //add the startitems in game.
         if (inventory != null)
@@ -72,7 +73,6 @@ public class ItemDatabase : MonoBehaviour
             inventory.inventoryItems.Add(allItems[3]);
             inventory.inventoryItems.Add(allItems[11]);
             inventory.inventoryItems.Add(allItems[12]);
-            inventory.inventoryItems.Add(allItems[14]);
 
             inventory.EquipItem(2, 2);
             inventory.EquipItem(1, 1);
