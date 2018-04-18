@@ -8,17 +8,12 @@ public class LevelLoader : MonoBehaviour
     public GameObject loadingScreen;
     public Slider slider;
     private bool cameFromPrevLvl = true;
-    
+    public bool CameFromPrevLvl
+    { get { return cameFromPrevLvl; } }    
 
     public static LevelLoader instance;
 
-    public bool CameFromPrevLvl
-    {
-        get
-        {
-            return cameFromPrevLvl;
-        }
-    }
+
 
     private void Awake()
     {
