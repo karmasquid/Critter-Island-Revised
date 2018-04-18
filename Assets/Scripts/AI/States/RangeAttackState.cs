@@ -56,7 +56,7 @@ public class RangeAttackState : IState {
     void IState.Enter()
     {
         this.startPos = ownerGO.position;
-        waitAttack = Time.time;
+        waitAttack = Time.time + 0.5f;
         this.navMeshAgent.enabled = false;
     }
 
@@ -81,8 +81,6 @@ public class RangeAttackState : IState {
                 rangeEnemyScript.ShootProjectile();
 
                 this.waitAttack = Time.time + timeBetweenAttacks;
-
-                //Instantiate(projectile, ownerGO, false);
                 
             }
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)

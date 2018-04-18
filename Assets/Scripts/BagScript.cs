@@ -6,54 +6,42 @@ public class BagScript : MonoBehaviour {
 
     private List<string> itemsInBag = new List<string>();
 
-    private Item itemInBag;
-
-    [Header("Possible Drops")]
-    [SerializeField]
-    private bool bronzeKey;
-    [SerializeField]
-    private bool silverKey;
-    [SerializeField]
-    private bool goldKey;
-
+    private string itemInBag;
+    
     Inventory inventory;
 
     ItemDatabase itemDatabase;
 
-    // Use this for initialization
-    void Start () {
+    public string ItemInBag
+    {
+        set
+        {
+            itemInBag = value;
+        }
+    }
+
+    private void Awake()
+    {
 
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         itemDatabase = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
 
-        if (bronzeKey)
-        {
-            itemsInBag.Add("Bronze Key");
-        }
-        if (silverKey)
-        {
-            itemsInBag.Add("Silver Key");
-        }
-        if (goldKey)
-        {
-            itemsInBag.Add("Gold Key");
-        }
-        
     }
+
 
     private void OnTriggerEnter(Collider col)
     {
                 Debug.Log("iteminbox = " + itemDatabase.allItems[11].Name);
 
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && inventory.inventoryItems.Count < 12)
         {
-            inventory.inventoryItems.Add(itemDatabase.allItems[11]);
+            inventory.AddItem(itemInBag);
             inventory.UpdateInventory();
 
-            Destroy(gameObject);
+            Destroy(gameObject, 1f);
         }
         
     }
    
-}
+} // Stina Hedman

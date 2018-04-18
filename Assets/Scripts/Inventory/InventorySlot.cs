@@ -31,13 +31,14 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
     }
 
     private Inventory inventory;
-
     private Image Imageslot;
 
-    void Start()
+    private void Awake()
     {
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-
+    }
+    void Start()
+    {
         button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(TaskOnClick);
         descText = this.transform.GetChild(2);

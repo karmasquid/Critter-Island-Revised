@@ -14,7 +14,7 @@ public class MeleeEnemy : MonoBehaviour {
 
     [Header("Health and Damage")]
     [SerializeField]
-    private Stats health;
+    private float health;
     [SerializeField]
     private float damage;
     [Header("AttackSettings")]
@@ -56,7 +56,7 @@ public class MeleeEnemy : MonoBehaviour {
     public float ViewDeg { get { return viewDeg; } }
     public LayerMask PlayerLayer { get { return playerLayer; } }
     public LayerMask ObstacleLayer { get { return obstacleLayer; } }
-    public Stats Health { get { return health; } }
+    public float Health { get { return health; } }
     public float Damage { get { return damage; } }
     public float TimeBetweenAttacks { get { return timeBetweenAttacks; } }
     public float RoamRange { get { return roamRange; } }

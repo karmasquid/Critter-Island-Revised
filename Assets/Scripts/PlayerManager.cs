@@ -27,14 +27,14 @@ public class PlayerManager : MonoBehaviour {
     private Inventory inventoryScript;
     private AmmoCounterHUD ammoCounterScript;
     private Character characterScript;
-    private BasicAI basicAI;
+
 
     private float armor;
     private float drainingStamina;
 
     private int ammoCount = 0;
-    public float AmmoCount { get { return this.ammoCount; } }
-    //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
+    public int AmmoCount { get { return this.ammoCount; } }
+
     private int rangeDamage;
     public int RangeDamage { get { return this.rangeDamage; } }
 

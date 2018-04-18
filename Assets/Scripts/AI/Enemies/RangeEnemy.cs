@@ -10,7 +10,7 @@ public class RangeEnemy : MonoBehaviour
 {
     List<GameObject> projectiles = new List<GameObject>();
     int index = 0;
-
+    bool dying;
 
     [SerializeField]
     private GameObject projectile;
@@ -21,7 +21,7 @@ public class RangeEnemy : MonoBehaviour
 
     [Header("Health and Damage")]
     [SerializeField]
-    private Stats health;
+    private float health;
     [SerializeField]
     private float damage;
     [Header("AttackSettings")]
@@ -68,7 +68,7 @@ public class RangeEnemy : MonoBehaviour
     public float ViewDeg { get { return viewDeg; } }
     public LayerMask PlayerLayer { get { return playerLayer; } }
     public LayerMask ObstacleLayer { get { return obstacleLayer; } }
-    public Stats Health { get { return health; } }
+    public float Health { get { return health; } }
     public float Damage { get { return damage; } }
     public float TimeBetweenAttacks { get { return timeBetweenAttacks; } }
     public float RoamRange { get { return roamRange; } }
@@ -117,7 +117,7 @@ public class RangeEnemy : MonoBehaviour
 
         else
         {
-            Destroy(this.gameObject);
+
         }
 
 
@@ -145,12 +145,13 @@ public class RangeEnemy : MonoBehaviour
         if (projectiles.Count < 5)
         {
             tempProj = Instantiate(projectile,new Vector3(this.transform.position.x,this.transform.position.y+0.7f,this.transform.position.z)+transform.forward,this.transform.rotation,null) as GameObject;
-            tempProj.GetComponent<Rigidbody>().AddForce(tempProj.transform.forward * projectileForce, ForceMode.Impulse);
             projectileScript = tempProj.GetComponent<EnemyProjectile>();
             projectileScript.Damage = damage;
             projectileScript.EnemyStats = enemyStats;
+            tempProj.GetComponent<Rigidbody>().AddForce(tempProj.transform.forward * projectileForce, ForceMode.Impulse);
             projectiles.Add(tempProj);
         }
+
         else
         {
             tempProj = projectiles[index];
