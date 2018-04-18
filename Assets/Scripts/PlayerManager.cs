@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour {
     private float drainingStamina;
 
     private int ammoCount = 0;
-    public int AmmoCount { get { return this.ammoCount; } }
+    public int AmmoCount { get { return this.ammoCount; } set { this.ammoCount = value; } }
 
     private int rangeDamage;
     public int RangeDamage { get { return this.rangeDamage; } }
@@ -118,28 +118,24 @@ public class PlayerManager : MonoBehaviour {
     public void AddPlayerstats(Item itemAdd)
     {
         health.MaxValue += itemAdd.Health;
+
         armor += itemAdd.Armor;
 
         staminaRecharge += itemAdd.StaminaRecovery;
 
         ammoCount += itemAdd.AmmoCount;
 
-        meleeDamage = itemAdd.DamageMelee;
+        meleeDamage += itemAdd.DamageMelee;
 
-        meleeSpecDamage = itemAdd.DamageSpec;
+        meleeSpecDamage += itemAdd.DamageSpec;
 
-        rangeDamage = itemAdd.DamageRange;
+        rangeDamage += itemAdd.DamageRange;
 
-        if (itemAdd.ItemType == Item.TypeOfItem.Weapon)
-        {
-            meleeStaminaCost += itemAdd.StaminaCost;
-            meleeSpecStaminaCost += itemAdd.StaminaCostSpec;
-        }
+        meleeStaminaCost += itemAdd.StaminaCost;
 
-        if (itemAdd.ItemType == Item.TypeOfItem.Ranged)
-        {
-            rangeStaminaCost += itemAdd.StaminaCost;
-        }
+        meleeSpecStaminaCost += itemAdd.StaminaCostSpec;
+
+        rangeStaminaCost += itemAdd.StaminaCost;
 
         ammoCounterScript.UpdateAmmoCounter(ammoCount);
 
@@ -153,13 +149,24 @@ public class PlayerManager : MonoBehaviour {
     public void Removestats(Item itemrem)
     {
         health.MaxValue -= itemrem.Health;
+
         armor -= itemrem.Armor;
+
         staminaRecharge -= itemrem.StaminaRecovery;
+
         ammoCount -= itemrem.AmmoCount;
+
         meleeDamage -= itemrem.DamageMelee;
+
         meleeSpecDamage -= itemrem.DamageSpec;
+
         rangeDamage -= itemrem.DamageRange;
 
+        meleeStaminaCost -= itemrem.StaminaCostSpec;
+
+        meleeSpecStaminaCost -= itemrem.StaminaCostSpec;
+
+        rangeStaminaCost -= itemrem.StaminaCost;
 
         //knockBackForce -= itemAdd.knockBackForce;
 

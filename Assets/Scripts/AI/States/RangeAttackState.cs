@@ -4,8 +4,6 @@ using UnityEngine.AI;
 
 public class RangeAttackState : IState {
 
-    private EnemyStats enemyStats;
-
     private PlayerManager playerManager;
     private Animator anim;
     private NavMeshAgent navMeshAgent;
@@ -49,7 +47,6 @@ public class RangeAttackState : IState {
         this.rangeAttackResultCallback = ai.RangeAttackDone;
         this.anim = ai.Anim;
         this.timeBetweenAttacks = ai.TimeBetweenAttacks;
-        this.enemyStats = ai.EnemyStats;
         this.startRotation = ai.StartRot;
     }
 

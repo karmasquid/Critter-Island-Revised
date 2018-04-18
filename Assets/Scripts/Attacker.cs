@@ -72,7 +72,8 @@ public class Attacker : MonoBehaviour {
             {
                 anim.SetTrigger("throw");
                 GameObject preo = Instantiate(currentEquipped, attackHitBoxes[2].transform, false) as GameObject; 
-                preo.transform.GetComponent<Throwable>().Damage = playermanager.RangeDamage;
+                preo.GetComponent<Throwable>().Damage = playermanager.RangeDamage;
+                Debug.Log(playermanager.RangeDamage);
 
                 attackHitBoxes[2].transform.DetachChildren(); //Release the children!
                 throwing = true;

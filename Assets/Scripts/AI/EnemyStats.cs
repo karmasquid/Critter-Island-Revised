@@ -6,14 +6,15 @@ public class EnemyStats : MonoBehaviour {
 
     PlayerManager playermanager;
 
-    Animator anim;
+    [SerializeField]
+    private bool willDrop;
 
-    private float health;
+    [SerializeField]
+    private string itemToDrop;
 
+    Animator anim;private float health;
     private float damage;
-
     private bool dead;
-    private bool dying;
 
     public bool Dead
     {
@@ -65,7 +66,9 @@ public class EnemyStats : MonoBehaviour {
             dead = true;
             anim = gameObject.GetComponent<Animator>();
             anim.SetTrigger("isDead");
-            Destroy(this.gameObject, 3f);
+            GameObject lootBag = Instantiate(Resources.Load("Prefabs/Loot Bag"), new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity) as GameObject;
+            lootBag.GetComponent<LootBag>().ItemInBag = itemToDrop;
+            Destroy(this.gameObject, 5f);
         }
 
         health -= damageDealt;

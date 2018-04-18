@@ -7,8 +7,26 @@ public class LevelLoader : MonoBehaviour
 {
     public GameObject loadingScreen;
     public Slider slider;
+    private bool cameFromPrevLvl = true;
 
-    public void Loadlevel(int sceneIndex)
+    public static LevelLoader instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+        public void Loadlevel(int sceneIndex)
     {
         StartCoroutine(LoadAsynch(sceneIndex));
     }
@@ -36,11 +54,13 @@ public class LevelLoader : MonoBehaviour
         if (SceneAfterThis)
         {
             Loadlevel(currentIndex + 1);
+            cameFromPrevLvl = true;
         }
 
         else
         {
             Loadlevel(currentIndex - 1);
+            cameFromPrevLvl = false;
         }
     }
 

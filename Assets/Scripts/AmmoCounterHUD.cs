@@ -14,7 +14,7 @@ public class AmmoCounterHUD : MonoBehaviour {
     }
 
     void Start () {
-        ammoCounter.text = "hi";
+        ammoCounter.text = "25";
 	}
 	
 	// Update is called once per frame
