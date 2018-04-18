@@ -5,12 +5,14 @@ using UnityEngine;
 public class LevelForward : MonoBehaviour {
 
     LevelLoader Level_Loader;
+    [SerializeField]
+    bool nextLevel;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Level_Loader.Loadlevel(+1);
+            Level_Loader.ChooseNextScene(nextLevel);
         }
         
     }

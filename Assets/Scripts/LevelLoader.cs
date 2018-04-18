@@ -28,4 +28,20 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
+
+    public void ChooseNextScene(bool SceneAfterThis)
+    {
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (SceneAfterThis)
+        {
+            Loadlevel(currentIndex + 1);
+        }
+
+        else
+        {
+            Loadlevel(currentIndex - 1);
+        }
+    }
+
 }

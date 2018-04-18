@@ -7197,6 +7197,7 @@ GameObject:
   - component: {fileID: 1109771914}
   - component: {fileID: 1109771913}
   - component: {fileID: 1109771912}
+  - component: {fileID: 1109771916}
   m_Layer: 0
   m_Name: SceneChange-ToCaves
   m_TagString: Untagged
@@ -7270,6 +7271,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 7.5, z: 0}
+--- !u!114 &1109771916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109771911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5763de572de5f4496650df60cd44cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevel: 1
 --- !u!1001 &1128659763
 Prefab:
   m_ObjectHideFlags: 0
@@ -10632,6 +10645,7 @@ GameObject:
   - component: {fileID: 1808040318}
   - component: {fileID: 1808040317}
   - component: {fileID: 1808040316}
+  - component: {fileID: 1808040320}
   m_Layer: 0
   m_Name: SceneChange-ToDocks
   m_TagString: Untagged
@@ -10705,6 +10719,18 @@ Transform:
   m_Father: {fileID: 36756931}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -27, z: 0}
+--- !u!114 &1808040320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808040315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5763de572de5f4496650df60cd44cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevel: 0
 --- !u!1 &1812437840
 GameObject:
   m_ObjectHideFlags: 0
