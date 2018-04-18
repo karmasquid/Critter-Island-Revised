@@ -91,7 +91,7 @@ public class Character : MonoBehaviour
     }
     void RestricMove()
     {
-        if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown("joystick button 2"))
+        if (InputManager.AttackDown())
         {
             atckn = true;
             if (running)
@@ -104,7 +104,7 @@ public class Character : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2")) // Om slag attack.
+        if (InputManager.AttackUp()) // Om slag attack.
         {
             atckn = false;
             if (running)
@@ -143,7 +143,7 @@ public class Character : MonoBehaviour
     }
     void runner()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown("joystick button 5"))
+        if (InputManager.Run())
         {
             if (running)
             {
@@ -163,7 +163,7 @@ public class Character : MonoBehaviour
                 running = true;
             }
         }
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey("joystick button 5"))
+        if (InputManager.Running())
         {
             if (playermanager.Stamina.CurrentValue > 0 && running == true) //Om du inte står stilla, drain.
             {
@@ -185,7 +185,7 @@ public class Character : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp("joystick button 5"))
+        if (InputManager.Ran())
         {
             Speed = Speed / speedMultiplier; running = false;
             if (Speed < 1)
@@ -215,7 +215,7 @@ public class Character : MonoBehaviour
     }
     void dodger()
     {
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
+        if (InputManager.Dodge())
         { 
 
             if (!dodging && playermanager.Stamina.CurrentValue >= dodgeCost ) //If there is stamina:
@@ -253,10 +253,10 @@ public class Character : MonoBehaviour
 
     void mover()
     {
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
-        Vector3 inputRaw = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical"));
+        Vector3 input = new Vector3(InputManager.Horizontal(), 0.0f, InputManager.Vertical()); //InputManager.VerticalAxis
+        Vector3 inputRaw = new Vector3(InputManager.RawHorizontal(), 0.0f, InputManager.RawVertical());
 
-        float nowMoving = Input.GetAxis("Horizontal") + Input.GetAxis("Vertical") / 2;
+        float nowMoving = InputManager.Horizontal() + InputManager.Vertical() / 2;
         anim.SetFloat("Speed", nowMoving);
 
 
@@ -274,8 +274,8 @@ public class Character : MonoBehaviour
         _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
 
         _inputs = Vector3.zero;
-        _inputs.x = Input.GetAxis("Horizontal");
-        _inputs.z = Input.GetAxis("Vertical");
+        _inputs.x = InputManager.Horizontal();
+        _inputs.z = InputManager.Vertical();
         if (_inputs != Vector3.zero)
             transform.forward = _inputs;
     }
