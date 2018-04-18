@@ -24,35 +24,45 @@ public class IdleState : IState {
 
     private System.Action<IdleResult> idleResultsCallback;
 
-    public IdleState(Transform ownerGo, Transform playerGo, LayerMask obstacleLayer, LayerMask playerLayer, float viewRange, float viewDeg, float attackRange, float idleTime, Action<IdleResult> idleResultsCallback, Animator anim)
+    public IdleState(MeleeEnemy ai)
     {
-        this.ownerGo = ownerGo;
-        this.playerGo = playerGo;
-        this.obstacleLayer = obstacleLayer;
-        this.searchLayer = playerLayer;
-        this.viewRange = viewRange;
-        this.viewDeg = viewDeg;
-        this.attackRange = attackRange;
-        this.idleResultsCallback = idleResultsCallback;
-        this.idleTime = idleTime;
-        this.anim = anim;
+        this.ownerGo = ai.Aitransform;
+        this.playerGo = ai.Player;
+        this.obstacleLayer = ai.ObstacleLayer;
+        this.searchLayer = ai.PlayerLayer;
+        this.viewRange = ai.ViewRange;
+        this.viewDeg = ai.ViewDeg;
+        this.attackRange = ai.AttackRangeMax;
+        this.idleResultsCallback = ai.IdleDone;
+        this.idleTime = ai.IdleTimeBetweenMoves;
+        this.anim = ai.Anim;
+    }
+    public IdleState(RangeEnemy ai)
+    {
+        this.ownerGo = ai.Aitransform;
+        this.playerGo = ai.Player;
+        this.obstacleLayer = ai.ObstacleLayer;
+        this.searchLayer = ai.PlayerLayer;
+        this.viewRange = ai.ViewRange;
+        this.viewDeg = ai.ViewDeg;
+        this.attackRange = ai.AttackRangeMax;
+        this.idleResultsCallback = ai.IdleDone;
+        this.idleTime = ai.IdleTimeBetweenMoves;
+        this.anim = ai.Anim;
     }
 
     public void Enter()
     {
+        Debug.Log("Entered idlestate");
+
     }
 
     public void Execute()
     {
-        Debug.Log("idle running");
 
         if (!idleCompleted)
         {
-            Debug.Log("idletotallyrunning");
-
             LookForEnemy();
-
-            Wait();
         }
     }
 
@@ -95,21 +105,14 @@ public class IdleState : IState {
         }
     }
 
-    public void Wait()
-    {
-        if (!idleWait)
-        {
-            time = Time.time + idleTime;
-            idleWait = true;
-        }
-
-        if (Time.time > idleTime)
-        {
-            var idleResult = new IdleResult(false);
-            this.idleResultsCallback(idleResult);
-            this.idleCompleted = true;
-        }
-    }
+    //private void RotateTowards()
+    //{
+    //    float rotationspeed = 10;
+    //    Vector3 direction = (this.startPos - this.ownerGo.position).normalized;
+    //    direction.y = 0;
+    //    Quaternion lookRotation = Quaternion.LookRotation(direction);
+    //    this.ownerGo.transform.rotation = Quaternion.Slerp(this.ownerGo.rotation, lookRotation, Time.deltaTime * rotationspeed);
+    //}
 }
 public class IdleResult
 {
