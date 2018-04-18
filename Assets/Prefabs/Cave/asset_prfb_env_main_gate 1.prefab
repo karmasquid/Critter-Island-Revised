@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4995979951664784}
   - component: {fileID: 95745648220646162}
   m_Layer: 0
-  m_Name: asset_prfb_env_main_gate
+  m_Name: asset_prfb_env_main_gate 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
