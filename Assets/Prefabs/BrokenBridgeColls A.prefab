@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4861316246733242}
   m_Layer: 0
-  m_Name: BrokenBridgeColls
+  m_Name: BrokenBridgeColls A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
