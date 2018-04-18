@@ -695,11 +695,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4298696131734444}
+  - component: {fileID: 114446455528302312}
   - component: {fileID: 95213555328172866}
   - component: {fileID: 136652135418989714}
   - component: {fileID: 195132279294435468}
   - component: {fileID: 114913827887248922}
   - component: {fileID: 54209195731320522}
+  - component: {fileID: 114780945763604212}
   m_Layer: 0
   m_Name: asset_char_eny_medium
   m_TagString: Enemy
@@ -1469,6 +1471,46 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114446455528302312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873496371920604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262e3ab40c41d00459275a807b91f44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  health:
+    bar: {fileID: 0}
+    maxValue: 100
+    currentValue: 100
+  damage: 10
+  attackRangeMin: 0
+  attackRangeMax: 0
+  timeBetweenAttacks: 0
+  viewRange: 0
+  viewDeg: 0
+  roamRange: 0
+  idleTimeBetweenMoves: 0
+--- !u!114 &114780945763604212
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873496371920604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff4ddf830599bd4686d5957381ecbfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114913827887248922
 MonoBehaviour:
   m_ObjectHideFlags: 1
