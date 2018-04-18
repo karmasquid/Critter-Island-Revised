@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4734198540173780}
   - component: {fileID: 33298004804229902}
   - component: {fileID: 23402162638905122}
+  - component: {fileID: 64784846311190810}
   m_Layer: 0
   m_Name: asset_level_house_3
   m_TagString: Untagged
@@ -34,8 +35,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196797352840704}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -938.48, y: 604.1153, z: -541.224}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -336.7, y: -9.97, z: 101.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,4 +84,18 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1196797352840704}
+  m_Mesh: {fileID: 4300000, guid: b71b76790e5f0f54380775cf3e0f0a8c, type: 3}
+--- !u!64 &64784846311190810
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196797352840704}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: b71b76790e5f0f54380775cf3e0f0a8c, type: 3}
