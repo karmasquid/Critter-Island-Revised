@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 114916792194981190}
   - component: {fileID: 222466158356461430}
   - component: {fileID: 114316355255203768}
+  - component: {fileID: 114655185513524914}
   m_Layer: 5
   m_Name: AmmoCounter
   m_TagString: Untagged
@@ -605,6 +606,17 @@ MonoBehaviour:
   m_EffectColor: {r: 0.2352941, g: 0.12802768, b: 0.12802768, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &114655185513524914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817208794447830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86910390fbbbfe0459b20e068abeebd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114734603574916586
 MonoBehaviour:
   m_ObjectHideFlags: 1

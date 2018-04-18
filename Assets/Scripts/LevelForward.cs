@@ -20,7 +20,7 @@ public class LevelForward : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             Level_Loader.ChooseNextScene(nextLevel);
-        }
+        } 
         
     }
 
