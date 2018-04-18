@@ -10,10 +10,7 @@ public class Attacker : MonoBehaviour {
     float reloadSpeed;
     [SerializeField]
     Collider[] attackHitBoxes;
-    [SerializeField]
-    GameObject[] projectiles; //Set size once we know amount of consumables.
 
-    GameObject names;
     public GameObject currentEquipped;
 
 
@@ -21,11 +18,10 @@ public class Attacker : MonoBehaviour {
     bool throwing = false;
     
     float chargeTimer;
-    string CurrentName;
     bool canAtk = true;
 
     PlayerManager playermanager;
-    throwable throwableScript;
+    Throwable throwableScript;
     Inventory inventory;
     IEnumerator Reload;
 
@@ -60,7 +56,6 @@ public class Attacker : MonoBehaviour {
             }
             if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2"))
             {
-                CheckWeapon();
                 Attacking();
                 canAtk = false;
             }
@@ -76,49 +71,29 @@ public class Attacker : MonoBehaviour {
             if (!throwing)
             {
                 anim.SetTrigger("throw");
-                GameObject preo = Instantiate(currentEquipped,attackHitBoxes[2].transform,false) as GameObject; //Change index deppending on item equipped.
-                preo.transform.GetComponent<throwable>().Damage = playermanager.RangeDamage;
+                GameObject preo = Instantiate(currentEquipped, attackHitBoxes[2].transform, false) as GameObject; 
+                preo.transform.GetComponent<Throwable>().Damage = playermanager.RangeDamage;
 
+                attackHitBoxes[2].transform.DetachChildren(); //Release the children!
                 throwing = true;
 
                 playermanager.AmmoCounter(1); //-1 ammo
                 Reload = ThrowCD(reloadSpeed);
                 StartCoroutine(Reload);
 
-            if (preo != null)
-            {
-                attackHitBoxes[3] = preo.GetComponent<Collider>();
+                if (preo != null)
+                {
+                    attackHitBoxes[3] = preo.GetComponent<Collider>();
 
-            }
-            else
-            {
-                attackHitBoxes[3] = null;
-            }
+                }
+                else
+                {
+                    attackHitBoxes[3] = null;
+                }
 
 
             Destroy(preo, Time.deltaTime + 2f);
             }
-
-            
-            /*
-            switch (Currentequipped.tag)
-            {
-                case "Throwable":
-                    GameObject preo = Instantiate(Currentequipped) as GameObject; //Change index deppending on item equipped.
-                    preo.transform.position = transform.position + attackHitBoxes[2].transform.up;
-                    Rigidbody rb = preo.GetComponent<Rigidbody>();
-                    rb.velocity = attackHitBoxes[2].transform.forward * 20;
-
-                    break;
-                case "Eatable":
-                    Debug.Log(CurrentName);
-                    //Check what type of eatable (Recover hp)
-
-                    break;
-                default:
-                    debug.log("Nothing equipped");
-            }
-            */
         }
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
         {
@@ -128,7 +103,7 @@ public class Attacker : MonoBehaviour {
         }
 
 
-        //----------------------------------------Invokes for throw------------------------------------------------------
+        //----------------------------------------Throwing invoke------------------------------------------------------
         if (throwing)
         {
             InvokeRepeating("DetectedThrow", 0f, 4f);
@@ -140,30 +115,12 @@ public class Attacker : MonoBehaviour {
         Collider[] cols = Physics.OverlapBox(col.bounds.center, col.bounds.extents, col.transform.rotation, LayerMask.GetMask("HitBox"));
         foreach (Collider c in cols)
         {
-            if (c.transform.root == gameObject.transform) // Slå inte dig själv...
+            if (c.transform.root == gameObject.transform) // Don't hit yourself...
             {
                 continue;
             }
             listOfEffect.Add(c.gameObject);
         }
-    }
-
-    //------------------------------------Handles damage------------------------------------------------------------
-    void CheckWeapon()
-    {
-            /*
-            float dmg = 0;
-            switch (Weapon[])
-            {
-                case "Hammer" :
-                    dmg = 20;
-                    break;
-                case "Rusty Sword" :
-                    dmg = 10;
-                    break;
-            }
-            getcomponent, attack script. Assign other colliders fitting the weapon.
-            */
     }
     void Attacking() //Checking Basic or special attack:
     {
@@ -172,14 +129,13 @@ public class Attacker : MonoBehaviour {
             if (chargingAttack && playermanager.Stamina.CurrentValue >= playermanager.MeleeSpecStaminaCost)
             {
                 anim.SetTrigger("chargeAttack");
-                //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[1]);
                 chargingAttack = false;
                 anim.SetBool("isCharging", false);
                 playermanager.LooseStamina(playermanager.MeleeSpecStaminaCost); //Stamina drain
 
-                if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
-                {
+                if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
+            {
                     enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
                 }
                 if (enemies != null)
@@ -190,21 +146,18 @@ public class Attacker : MonoBehaviour {
 
                         enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
 
-                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeSpecDamage); //Takes basic melee damage + potetial special attack damage.
-
-                        //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
+                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeSpecDamage); //Takes special melee damage
                     }
-                    //playermanager.MeleeAttack(enemies); //Added special attack damage.
+
                 }
             }
             else
             {
                 anim.SetTrigger("attack");
-                //TODO: Add check for weapon and them assign correct animation.
                 LaunchAttack(attackHitBoxes[0]);
                 playermanager.LooseStamina(playermanager.MeleeStaminaCost); //Stamina drain
 
-                if (!listOfEffect.Count.Equals(0)) //Om listan inte tom...
+                if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
                 {
                     enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
                 }
@@ -216,9 +169,7 @@ public class Attacker : MonoBehaviour {
 
                         enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
 
-                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeDamage); //Takes basic melee damage + potetial special attack damage.
-
-                        //enemy.GetComponent<ElderBrute>().TakeDMG(meleeDamage);
+                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeDamage); //Takes basic melee damage
                     }
                 }
 
@@ -248,7 +199,7 @@ public class Attacker : MonoBehaviour {
         yield return new WaitForSeconds(CDTime);
         throwing = false;
     }
-    IEnumerator AttackCD(float AtkCDTime)
+    IEnumerator AttackCD(float AtkCDTime) //Coroutine for attack cooldown.
     {
         yield return new WaitForSeconds(AtkCDTime);
         canAtk = true;
