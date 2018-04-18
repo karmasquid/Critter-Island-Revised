@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Character : MonoBehaviour
 {
     [SerializeField]
     float Speed = 4f;
-    float rawSpeed;
-    bool atckn = false;
     [SerializeField]
     float speedMultiplier = 1.5f;
     [SerializeField]
@@ -42,30 +41,29 @@ public class Character : MonoBehaviour
     private Transform _groundChecker;
 
     //Movement and stamina:
-    public bool dodging;
     private Vector3 curPos;
     private Vector3 pastPos;
     private bool moving;
     private float rawStamRe;
+    private float rawSpeed;
+
+    //Restraints:
+    private bool dodging;
+    bool atckn = false;
+    private bool lockMove = false;
 
     //Hole dodge:
-    public bool inHole = false;
-    GameObject pitHole;
-    IEnumerator DelayGravity;
-    GameObject blockerHole;
-    float overHole;
-    float normalDash;
-
-    bool lockMove = false;
-    public bool getOverIt = false;
-    GameObject target;
+    private bool inHole = false;
+    private GameObject pitHole;
+    private IEnumerator DelayGravity;
+    private bool getOverIt = false;
+    private GameObject target;
 
     void Start()
     {
         //Modular variables. Saves start values set in inspector:
         rawStamRe = stamReCharge;
         rawSpeed = Speed;
-        normalDash = DashDistance;
 
         _body = GetComponent<Rigidbody>();
         _groundChecker = transform.GetChild(0); //Both
@@ -206,35 +204,40 @@ public class Character : MonoBehaviour
         if (getOverIt)
         {
 
-            blockerHole.GetComponent<Collider>().isTrigger = true;
+            this.GetComponent<NavMeshAgent>().enabled = false;
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Speed * speedMultiplier * 2 * Time.deltaTime);
             this.transform.forward = -target.transform.forward;
+        }
+        else
+        {
+            this.GetComponent<NavMeshAgent>().enabled = true;
         }
     }
     void dodger()
     {
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4"))
-        {
-            playermanager.LooseStamina(dodgeCost); //TODO Change value 40 to variable whose value change depending on equipment.
+        { 
 
             if (!dodging && playermanager.Stamina.CurrentValue >= dodgeCost ) //If there is stamina:
             {
                 dodging = true;
-                if (inHole && blockerHole != null && pitHole.tag == "Hole") //Inside hole coll. && Jumping Shoes...
+                if (inHole && pitHole.tag == "Hole") //Inside hole coll. && Jumping Shoes...
                 {
                     target = pitHole.GetComponent<GoOver>().target;
                     if (this.transform.forward != pitHole.GetComponent<GoOver>().target.transform.forward)
                     {
                         getOverIt = true;
                         lockMove = true;
+                        playermanager.LooseStamina(dodgeCost);
                     }
                 }
                 else
                 {
                     dodging = true;
                     anim.SetTrigger("fDodge");
+                    playermanager.LooseStamina(dodgeCost);
 
-                    //Dodge move on player:
+                    //Normal Dodge move on player:
                     Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
                     _body.AddForce(dashVelocity, ForceMode.VelocityChange);
                 }
@@ -279,19 +282,25 @@ public class Character : MonoBehaviour
     void FixedUpdate()
     {
         _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
-        _body.AddForce(Physics.gravity, ForceMode.Acceleration);
+
+        if (!getOverIt)
+        {
+            _body.AddForce(Physics.gravity, ForceMode.Acceleration);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "NotGround")
+        if (other.tag == "Hole") //&& Right jumping shoes...
         {
-            blockerHole = other.gameObject;
-            overHole = (other.bounds.size.x * other.bounds.size.x) + (other.bounds.size.z * other.bounds.size.z);
+            
+            pitHole = other.gameObject;
         }
+    }
+    private void OnTriggerStay(Collider other)
+    {
         if (other.tag == "Hole") //&& Right jumping shoes...
         {
             inHole = true;
-            pitHole = other.gameObject;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -303,7 +312,6 @@ public class Character : MonoBehaviour
             if (other.tag == "NotGround")
         {
             getOverIt = false;
-            blockerHole.GetComponent<Collider>().isTrigger = false;
             target = null;
         }
     }
@@ -315,7 +323,6 @@ public class Character : MonoBehaviour
 
         if (getOverIt)
         {
-            yield return new WaitForSeconds(delay);
             getOverIt = false;
         }
     }

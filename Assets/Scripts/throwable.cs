@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class throwable : MonoBehaviour {
+public class Throwable : MonoBehaviour {
 
     int damage;
 
@@ -30,12 +30,8 @@ public class throwable : MonoBehaviour {
         {
             collision.gameObject.GetComponent<EnemyStats>().TakeDamange(damage);
 
-            Destroy(gameObject);
         }
+            Destroy(gameObject); // Destroy if collison.
 
-        else
-        {
-            Destroy(gameObject, 3f);
-        }
     }
 }
