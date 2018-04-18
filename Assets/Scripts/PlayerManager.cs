@@ -25,13 +25,14 @@ public class PlayerManager : MonoBehaviour {
 
     //relevanta script
     private Inventory inventoryScript;
+    private AmmoCounterHUD ammoCounterScript;
     private Character characterScript;
     private BasicAI basicAI;
 
     private float armor;
     private float drainingStamina;
 
-    private int ammoCount = 5;
+    private int ammoCount = 0;
     public float AmmoCount { get { return this.ammoCount; } }
     //--------------------------------------------------------------------------------------------FIXIT---------------------------------------------------------------------------------------
     private int rangeDamage;
@@ -85,13 +86,11 @@ public class PlayerManager : MonoBehaviour {
         stamina.Initialize();
 
         DontDestroyOnLoad(gameObject);
+
+        inventoryScript = GameObject.Find("Inventory").GetComponent<Inventory>();
+        ammoCounterScript = GameObject.Find("AmmoCounter").GetComponent<AmmoCounterHUD>();
     }
     #endregion
-
-    private void Start()
-    {
-        inventoryScript = GameObject.Find("Inventory").GetComponent<Inventory>();
-    }
 
     private void Update()
     { 
@@ -114,11 +113,6 @@ public class PlayerManager : MonoBehaviour {
             hasAmmo = true;
         }
         //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
-    }
-
-    public void RechargeStamina(float recharge)
-    {
-
     }
 
     public void AddPlayerstats(Item itemAdd)
@@ -147,6 +141,8 @@ public class PlayerManager : MonoBehaviour {
             rangeStaminaCost += itemAdd.StaminaCost;
         }
 
+        ammoCounterScript.UpdateAmmoCounter(ammoCount);
+
         //knockBackForce += itemAdd.knockBackForce;
 
         //characterScript.SpeedMultiplier += itemAdd.MovementDiff;
@@ -170,6 +166,8 @@ public class PlayerManager : MonoBehaviour {
         //characterScript.SpeedMultiplier -= itemrem.MovementDiff;
 
         //movementscriptstuff += itemrem.AttackSpeed;
+
+        ammoCounterScript.UpdateAmmoCounter(ammoCount);
     }
     public void RangeAttack(GameObject enemy)
     {
@@ -224,6 +222,8 @@ public class PlayerManager : MonoBehaviour {
 
         // Uppdatera ammocounter i hud
         Debug.Log("Current ammo count: " + ammoCount);
+
+        ammoCounterScript.UpdateAmmoCounter(ammoCount);
     }
 
     public void LooseStamina(float sta)

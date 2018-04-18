@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -112,11 +112,6 @@ public class Inventory : MonoBehaviour
         background = Instantiate(inventoryBackground) as Image;
         background.transform.SetParent(GameObject.Find("InventoryCanvas").transform, false);
 
-        canvas = Instantiate(inventoryCanvas) as Canvas;
-        canvas.transform.name = "InventoryCanvas2";
-        canvas.transform.SetParent(GameObject.Find("InventoryCanvas").transform, false);
-
-
         int eqdegrees = 360 / 5;
         int offset = -(eqdegrees / 2);
         int eqslotRotation;
@@ -139,7 +134,7 @@ public class Inventory : MonoBehaviour
             Button button = Instantiate(inventorySlot);
             button.name = "slot" + i.ToString();
             inventoryButton[i] = button;
-            button.transform.SetParent(canvas.transform, false);
+            button.transform.SetParent(background.transform, false);
         }
 
         //closes inventory
@@ -217,7 +212,7 @@ public class Inventory : MonoBehaviour
         }
     }
     
-    //method called when unequipping item
+    //method called when unequipping item.
     public void UnEquipItem(int index)
     {
         if (inventoryItems.Count <= 12 && equippedItems[index] != null)
@@ -228,16 +223,88 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // used to add item to inventory by name. ----------------------------------------------------Trydisshit----------------------------------
+    // used to add item to inventory by name.
     public void AddItem(string nameOfItem)
     {
+        int ammoToAdd = 0;
+
         int databaseIndex = -1;
+        
+        //find item in database.
         databaseIndex = database.allItems.FindIndex(i => i.Name == nameOfItem);
 
         if (databaseIndex != -1 && inventoryItems.Count <= 12)
         {
-            inventoryItems.Add(database.allItems[databaseIndex]);
+            int eqslotIndex = -1;
+
+            int invSlotIndex = -1;
+
+            //check if item is in inventory and try to add ammo to that item.
+            if (database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Ranged || database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Consumables || database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Miscellaneous )
+            {
+                int ammoFull = 99;
+
+                ammoToAdd = database.allItems[databaseIndex].AmmoCount;
+
+                //check if same item is equipped.
+                eqslotIndex = Array.FindIndex(equippedItems, i => i.Name == nameOfItem);
+
+                //check if same item is in inventory.
+                invSlotIndex = inventoryItems.FindIndex(i => i.Name == nameOfItem);
+
+                if (eqslotIndex != -1)
+                {
+                    //if room for the ammo add all ammo.
+                    if ((equippedItems[eqslotIndex].AmmoCount + ammoToAdd) < ammoFull)
+                    {
+                        equippedItems[eqslotIndex].AmmoCount += ammoToAdd;
+                    }
+
+                    //if not room for all of the ammo, save the add to full ammo and but save the remaining ammo.
+                    else
+                    {
+
+                        ammoToAdd = (equippedItems[eqslotIndex].AmmoCount + ammoToAdd - ammoFull);
+
+                        equippedItems[eqslotIndex].AmmoCount = 99;
+                        
+                    }
+                }
+
+                if (invSlotIndex != -1 && ammoToAdd > 0)
+                {
+                    //if room for the ammo add all ammo.
+                    if ((inventoryItems[invSlotIndex].AmmoCount + ammoToAdd) < ammoFull)
+                    {
+                        inventoryItems[invSlotIndex].AmmoCount += ammoToAdd;
+                    }
+
+                    else
+                    {
+
+                        ammoToAdd = (inventoryItems[invSlotIndex].AmmoCount + ammoToAdd - ammoFull);
+
+                        inventoryItems[invSlotIndex].AmmoCount = 99;
+
+                    }
+                }
+                
+                else if (ammoToAdd > 0)
+                {
+                    inventoryItems.Add(database.allItems[databaseIndex]);
+                    int item = inventoryItems.Count - 1;
+                    inventoryItems[item].AmmoCount = ammoToAdd;
+                    
+                }
+            }
+
+            else 
+            {
+                    inventoryItems.Add(database.allItems[databaseIndex]);
+            }
+            
         }
+
         UpdateInventory();
     }
     
@@ -247,6 +314,7 @@ public class Inventory : MonoBehaviour
         {
             Destroy(meleeWeapon.gameObject);
         }
+
         meleeWeapon = Instantiate(weapon.Go, playerHand, false);
     }
 }
