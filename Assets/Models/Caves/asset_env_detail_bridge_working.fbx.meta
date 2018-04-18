@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: b1cad212b9990cc4c9c9b4e0beef61b6
-timeCreated: 1523882217
+guid: 2675b5b8f9b8a0d478f03e0fed1f8f96
+timeCreated: 1524052050
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert1
+    2100000: lambert2
     2300000: //RootNode
     3300000: //RootNode
     4300000: asset_env_detail_bridge_working
     9500000: //RootNode
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
