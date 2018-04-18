@@ -41,7 +41,7 @@ public class ItemDatabase : MonoBehaviour
 
         //Ranged
         allItems.Add(new Item(2, "Pebble", "Pebble!", Item.TypeOfItem.Ranged, 0, 6, 5, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
-        allItems.Add(new Item(3, "Knife", "Knife!", Item.TypeOfItem.Ranged, 0, 8, 0, 0f, 0f,0f,0f,0f,1f,10000,0,0,0,0));
+        allItems.Add(new Item(3, "Knife", "Knife!", Item.TypeOfItem.Ranged, 0, 8, 0, 0f, 0f,0f,0f,0f,1f,25,0,0,0,0));
         allItems.Add(new Item(4, "Black Powder Bombs", "Black Powder Bombs!", Item.TypeOfItem.Ranged, 0, 22, 0, 30f, 0f,15f,0f,0f,0.75f,5,0,0,0,0));
 
         //Helmets

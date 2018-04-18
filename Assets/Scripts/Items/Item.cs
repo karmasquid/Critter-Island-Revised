@@ -86,7 +86,7 @@ public class Item
     public float StaminaRecovery { get { return this.staminaRecovery; } }
 
     public float Range { get { return this.range; } }
-    public int AmmoCount { get { return this.ammoCount; } }
+    public int AmmoCount { get { return this.ammoCount; }  set { this.ammoCount = value; } }
     public float MovementDiff { get { return movementDiff; } }
 
     public float AttackSpeed { get { return this.attackSpeed; } }
