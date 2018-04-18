@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101766832708990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 1.2}
+  m_LocalPosition: {x: -0.6500004, y: -1.46, z: -0.8400011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4861316246733242}
@@ -80,7 +80,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1995813438942940}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 6.5}
+  m_LocalPosition: {x: -0.65, y: -1.46, z: 4.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4861316246733242}
@@ -93,7 +93,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1027940072540322}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 97.14, y: -5.1, z: -14.84}
+  m_LocalPosition: {x: 59.03, y: -3.236, z: -43.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4449243248021972}
@@ -111,7 +111,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 1.5, z: 2}
+  m_Size: {x: 3, y: 0.9, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65533250758060882
 BoxCollider:
@@ -123,7 +123,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 1.5, z: 2}
+  m_Size: {x: 3, y: 0.9, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114781301004229302
 MonoBehaviour:
@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43679180f93b48646971a46fbee30654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: {fileID: 0}
-  target: {fileID: 0}
+  current: {fileID: 1995813438942940}
+  target: {fileID: 1101766832708990}
 --- !u!114 &114842028941233728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,5 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43679180f93b48646971a46fbee30654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: {fileID: 0}
-  target: {fileID: 0}
+  current: {fileID: 1101766832708990}
+  target: {fileID: 1995813438942940}

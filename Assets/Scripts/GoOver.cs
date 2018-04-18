@@ -15,9 +15,17 @@ public class GoOver : MonoBehaviour
         {
             target = GameObject.Find("HolePoint A");
         }
-        else
-        {
+        else if (current.name == "HolePoint A")
+            {
             target = GameObject.Find("HolePoint B");
+        }
+        else if (current.name == "HolePoint D")
+        {
+            target = GameObject.Find("HolePoint C");
+        }
+        else if (current.name == "HolePoint C")
+        {
+            target = GameObject.Find("HolePoint D");
         }
 
     }
