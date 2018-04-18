@@ -66,8 +66,13 @@ public class EnemyStats : MonoBehaviour {
             dead = true;
             anim = gameObject.GetComponent<Animator>();
             anim.SetTrigger("isDead");
-            GameObject lootBag = Instantiate(Resources.Load("Prefabs/Loot Bag"), new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity) as GameObject;
-            lootBag.GetComponent<LootBag>().ItemInBag = itemToDrop;
+
+            if (willDrop)
+            {
+                GameObject lootBag = Instantiate(Resources.Load("Prefabs/Loot Bag"), new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity) as GameObject;
+                lootBag.GetComponent<LootBag>().ItemInBag = itemToDrop;
+            }
+
             Destroy(this.gameObject, 5f);
         }
 

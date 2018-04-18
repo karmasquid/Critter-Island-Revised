@@ -19,16 +19,18 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
 
     private Transform descText;
 
-    public int IndexInList
-    {
+    private PlayerManager playerManager;
+
+    public int IndexInList {
         get { return this.indexInList; }
-        set { indexInList = value; }
-    }
+        set { indexInList = value; } }
 
     public Item ItemOnSlot {
         get{ return this.itemOnSlot; }
-        set { itemOnSlot = value; }
-    }
+        set { itemOnSlot = value; } }
+
+    public PlayerManager PlayerManagerScript
+    { set { playerManager = value; } }
 
     private Inventory inventory;
     private Image Imageslot;
@@ -96,7 +98,10 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
                 break;
 
             case Item.TypeOfItem.Consumables:
-                //USE CONSUMABLE (playermanager.UseItem());
+                playerManager.UseConsumable(itemOnSlot);
+                inventory.inventoryItems.RemoveAt(indexInList);
+                inventory.UpdateInventory();
+                
                 break;
         }
     }

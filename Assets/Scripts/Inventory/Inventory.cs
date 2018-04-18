@@ -160,6 +160,7 @@ public class Inventory : MonoBehaviour
 
                 inventoryButton[i].gameObject.SetActive(true);
                 inventorySlotScript = inventoryButton[i].gameObject.GetComponent<InventorySlot>();
+                inventorySlotScript.PlayerManagerScript = playerManager;
                 inventoryButton[i].gameObject.transform.SetPositionAndRotation(inventoryButton[i].gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, -slotRotation)));
                 inventorySlotScript.ItemOnSlot = inventoryItems[i];
                 inventorySlotScript.UpdateImage();

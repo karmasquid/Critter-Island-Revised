@@ -29,13 +29,11 @@ public class SpeechBubble : MonoBehaviour {
 
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && !talking)
+        if (other.gameObject.tag == "Player" && !talking && InputManager.Interact())
         {
-
             CreateTextBubble();
-
         }
     }
 

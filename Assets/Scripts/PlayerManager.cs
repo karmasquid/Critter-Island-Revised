@@ -192,6 +192,12 @@ public class PlayerManager : MonoBehaviour {
         */
     }
 
+    public void UseConsumable(Item consumable)
+    {
+        health.CurrentValue += consumable.Health;
+
+    }
+
     public void SpecAttack(GameObject[] enemys)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCostSpec;
