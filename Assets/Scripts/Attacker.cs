@@ -70,7 +70,7 @@ public class Attacker : MonoBehaviour {
     {
         if (canAtk)
         {
-            if (Input.GetKey(KeyCode.H) || Input.GetKey("joystick button 2"))
+            if (InputManager.Attack())
             {
 
                 chargeTimer += Time.deltaTime;
@@ -80,7 +80,7 @@ public class Attacker : MonoBehaviour {
                     anim.SetBool("isCharging", true);
                 }
             }
-            if (Input.GetKeyUp(KeyCode.H) || Input.GetKeyUp("joystick button 2"))
+            if (InputManager.AttackUp())
             {
                 Attacking();
                 canAtk = false;
@@ -94,7 +94,7 @@ public class Attacker : MonoBehaviour {
             //-------------------------------------Main Attacks & Controls------------------------------------------------
             AtkControl();
 
-            if (playermanager.AmmoCount > 0 && Input.GetKeyUp(KeyCode.G) || Input.GetKeyUp("joystick button 1"))
+            if (playermanager.AmmoCount > 0 && InputManager.ThrowAttack())
             {
                 if (!throwing)
                 {
@@ -124,7 +124,7 @@ public class Attacker : MonoBehaviour {
                     Destroy(preo, Time.deltaTime + 2f);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown("joystick button 4") && chargingAttack == true)
+            if (InputManager.Dodge() && chargingAttack == true)
             {
                 chargingAttack = false;
                 chargeTimer = 0;
