@@ -6,18 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(EnemyStats))]
 
 public class MeleeEnemy : MonoBehaviour {
-    /// make this an AI class.
-    private Transform player;
-
-    [SerializeField]
-    private StateMachine stateMachine = new StateMachine();
-
-    PlayerManager playerManager;
-    EnemyStats enemyStats;
-
-    Animator anim;
-
-    //AI variables
+    
     [SerializeField]
     private LayerMask playerLayer;
     [SerializeField]
@@ -46,160 +35,38 @@ public class MeleeEnemy : MonoBehaviour {
     [SerializeField]
     private float idleTimeBetweenMoves;
 
+    private Transform player;
+    private Transform aitransform;
+
+    private bool dead;
+    private NavMeshAgent navMeshAgent;
+    private StateMachine stateMachine = new StateMachine();
+
+    PlayerManager playerManager;
+    EnemyStats enemyStats;
+
+    Animator anim;
+
     private Vector3 startPos;
 
-    protected bool dead;
-
-    private NavMeshAgent navMeshAgent;
-
-
-    //for unityeditor to make the spaces visable
+    //used by editorscript to make the ranges visual & used by the different aistates
     public float AttackRangeMin { get { return attackRangeMin; } }
     public float AttackRangeMax { get { return attackRangeMax; } }
     public float ViewRange { get { return viewRange; } }
     public float ViewDeg { get { return viewDeg; } }
-
-    public LayerMask PlayerLayer
-    {
-        get
-        {
-            return playerLayer;
-        }
-
-    }
-
-    public LayerMask ObstacleLayer
-    {
-        get
-        {
-            return obstacleLayer;
-        }
-
-    }
-
-    public Stats Health
-    {
-        get
-        {
-            return health;
-        }
-
-    }
-
-    public float Damage
-    {
-        get
-        {
-            return damage;
-        }
-
-    }
-
-    public float AttackRangeMin1
-    {
-        get
-        {
-            return attackRangeMin;
-        }
-
-    }
-
-    public float AttackRangeMax1
-    {
-        get
-        {
-            return attackRangeMax;
-        }
-
-    }
-
-    public float TimeBetweenAttacks
-    {
-        get
-        {
-            return timeBetweenAttacks;
-        }
-
-    }
-
-    public float ViewRange1
-    {
-        get
-        {
-            return viewRange;
-        }
-
-    }
-
-    public float ViewDeg1
-    {
-        get
-        {
-            return viewDeg;
-        }
-
-    }
-
-    public float RoamRange
-    {
-        get
-        {
-            return roamRange;
-        }
-    }
-
-    public float IdleTimeBetweenMoves
-    {
-        get
-        {
-            return idleTimeBetweenMoves;
-        }
-    }
-
-    public PlayerManager PlayerManager
-    {
-        get
-        {
-            return playerManager;
-        }
-
-    }
-
-    public EnemyStats EnemyStats
-    {
-        get
-        {
-            return enemyStats;
-        }
-
-    }
-
-    public Animator Anim
-    {
-        get
-        {
-            return anim;
-        }
-
-    }
-
-    public NavMeshAgent NavMeshAgent
-    {
-        get
-        {
-            return navMeshAgent;
-        }
-
-    }
-
-    public Transform Player
-    {
-        get
-        {
-            return player;
-        }
-
-    }
+    public LayerMask PlayerLayer { get { return playerLayer; } }
+    public LayerMask ObstacleLayer { get { return obstacleLayer; } }
+    public Stats Health { get { return health; } }
+    public float Damage { get { return damage; } }
+    public float TimeBetweenAttacks { get { return timeBetweenAttacks; } }
+    public float RoamRange { get { return roamRange; } }
+    public float IdleTimeBetweenMoves { get { return idleTimeBetweenMoves; } }
+    public PlayerManager PlayerManager { get { return playerManager; } }
+    public EnemyStats EnemyStats { get { return enemyStats; } }
+    public Animator Anim { get { return anim; } }
+    public NavMeshAgent NavMeshAgent { get { return navMeshAgent; } }
+    public Transform Player { get { return player; } }
+    public Transform Aitransform { get { return aitransform; } }
 
     public Vector3 DirectionsFromDegrees(float angleInDegrees, bool angleIsGlobal)
     {
@@ -212,22 +79,19 @@ public class MeleeEnemy : MonoBehaviour {
 
     private void Start()
     {
+        aitransform = this.gameObject.transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         enemyStats = GetComponent<EnemyStats>();
-        if (EnemyStats == null)
-        {
-            Debug.Log("wuddaheck");
-        }
         EnemyStats.Health = health;
         EnemyStats.Damage = damage;
 
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.anim = this.GetComponent<Animator>();
-        this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.Anim));
+        this.stateMachine.ChangeState(new SearchFor(this));
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!EnemyStats.Dead)
         {
@@ -241,21 +105,7 @@ public class MeleeEnemy : MonoBehaviour {
 
     }
 
-
-    //public void TakeDamange(int damageDealt)
-    //{
-    //    health -= damageDealt;
-
-    //    if (health <= 0)
-    //    {
-    //        dead = true;
-
-    //        //this.gameObject.transform.rotate(new Vector3())
-    //    }
-    //}
-
-    //-------------------------------------------------------------- could be made into only one method with enum? -------------------------------------------------------------------
-    //Next state after Searchstate
+    //change to attack or idle after searchstate
     public void SearchDone(SearchResult searchResult)
     {
         if (searchResult.trueForAttackFalseForIdle)
@@ -265,35 +115,34 @@ public class MeleeEnemy : MonoBehaviour {
 
         else
         {
-            //go to idle
-            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.Anim));
-            //currently going to roaming.
+            this.stateMachine.ChangeState(new IdleState(this));
         }
 
     }
-    //Next state after AttackState
+    //change to search or idle after attackstate
     public void AttackDone(AttackResult attackResults)
-    {   //attack     
+    {    
         if (attackResults.trueForSearchFalseForIdle)
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.Anim));
+            this.stateMachine.ChangeState(new SearchFor(this));
         }
-        //idle
+        
         else
         {
-            this.stateMachine.ChangeState(new IdleState(this.gameObject.transform, this.player, this.obstacleLayer, this.playerLayer, this.viewRange, this.ViewDeg, this.attackRangeMax, this.idleTimeBetweenMoves, this.IdleDone, this.Anim));
+            this.stateMachine.ChangeState(new IdleState(this));
         }
     }
+    //change to attack or search after idlestate
     public void IdleDone(IdleResult idleResult)
-    {   //attack     
+    {     
         if (idleResult.trueForAttackFalseForSearch)
         {
             this.stateMachine.ChangeState(new AttackState(this));
         }
-        //idle
+        
         else
         {
-            this.stateMachine.ChangeState(new SearchFor(this.playerLayer, this.obstacleLayer, this.gameObject.transform, this.startPos, this.viewRange, this.viewDeg, this.attackRangeMax, this.roamRange, this.navMeshAgent, this.SearchDone, this.Anim));
+            this.stateMachine.ChangeState(new SearchFor(this));
         }
-    }//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    }
 } // Stina Hedman

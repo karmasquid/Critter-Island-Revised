@@ -31,13 +31,15 @@ public class EnemyStats : MonoBehaviour {
         {
             damage = value;
         }
+
+        get
+        {
+            return this.damage;
+        }
     }
 
     private void Start()
     {
-
-
-
         dead = false;
 
         playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
@@ -45,14 +47,14 @@ public class EnemyStats : MonoBehaviour {
 
     public void TakeDamange(int damageDealt)
     {
-        //health.CurrentValue -= damageDealt;
+        health.CurrentValue -= damageDealt;
 
-        //if (health.CurrentValue <= 0)
-        //{
-        //    dead = true;
+        if (health.CurrentValue <= 0)
+        {
+            dead = true;
 
-        //    //this.gameObject.transform.rotate(new Vector3())
-        //}
+            //this.gameObject.transform.rotate(new Vector3())
+        }
 
         health.CurrentValue -= damageDealt;
     }
