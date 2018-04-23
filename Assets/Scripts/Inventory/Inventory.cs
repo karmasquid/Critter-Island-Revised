@@ -23,6 +23,9 @@ public class Inventory : MonoBehaviour
     private Button slot;
     private Image equipped;
 
+    private float waitOpenClose = 0.5f;
+    private float wait;
+
     //sounds open/close inventory
     //AudioClip invOpenSound, invCloseSound;
 
@@ -66,6 +69,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
         equippedSlot = Resources.Load<Image>("Prefabs/UI/EquippedSlot");
@@ -74,6 +78,7 @@ public class Inventory : MonoBehaviour
         //invOpenSound = Resources.Load<AudioClip>("Audio/Inventory/openInv");
         //invCloseSound = Resources.Load<AudioClip>("Audio/Inventory/closeInv");
 
+        wait = Time.time + waitOpenClose;
         CreateInventory();
     }
 
@@ -81,10 +86,11 @@ public class Inventory : MonoBehaviour
     {
 
         //open and close inventory.
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetAxis("Inventory") > 0.1f)
         {
-            if (!showInventory)
+            if (!showInventory && Time.time > wait)
             {
+                wait = Time.time + waitOpenClose;
                 //SoundManager.instance.PlaySingle(invOpenSound);
                 UpdateInventory();
                 showInventory = true;
@@ -92,8 +98,9 @@ public class Inventory : MonoBehaviour
 
             }
 
-            else
+            else if (Time.time > wait)
             {
+                wait = Time.time + waitOpenClose;
                 //SoundManager.instance.PlaySingle(invCloseSound);
                 eqCanvas.gameObject.SetActive(false);
                 showInventory = false;

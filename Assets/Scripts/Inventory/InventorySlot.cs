@@ -21,6 +21,8 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
 
     private PlayerManager playerManager;
 
+    private bool isSelected;
+
     public int IndexInList {
         get { return this.indexInList; }
         set { indexInList = value; } }
@@ -64,6 +66,19 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         Debug.Log("selected : " + gameObject.name);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        Debug.Log("Deselected : " + gameObject.name);
+    }
+
+    private void Update()
+    {
+        if (isSelected && Input.GetAxis("Interact") > 0.1)
+        {
+            TaskOnClick();
+        }
     }
 
     private void DropItem()
