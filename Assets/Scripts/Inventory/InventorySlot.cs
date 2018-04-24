@@ -19,8 +19,6 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
 
     private Transform descText;
 
-    private PlayerManager playerManager;
-
     private bool isSelected;
 
     public int IndexInList {
@@ -31,16 +29,8 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         get{ return this.itemOnSlot; }
         set { itemOnSlot = value; } }
 
-    public PlayerManager PlayerManagerScript
-    { set { playerManager = value; } }
-
-    private Inventory inventory;
     private Image Imageslot;
 
-    private void Awake()
-    {
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-    }
     void Start()
     {
         button = gameObject.GetComponent<Button>();
@@ -83,8 +73,8 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
 
     private void DropItem()
     {
-        inventory.inventoryItems.RemoveAt(IndexInList);
-        inventory.UpdateInventory();
+        Inventory.instance.inventoryItems.RemoveAt(IndexInList);
+        Inventory.instance.UpdateInventory();
 
     }
 
@@ -93,29 +83,29 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         switch (itemOnSlot.ItemType)
         {
             case Item.TypeOfItem.Headgear:
-                inventory.EquipItem(indexInList, 3);
+                Inventory.instance.EquipItem(indexInList, 3);
                 break;
 
             case Item.TypeOfItem.Armor:
-                inventory.EquipItem(indexInList, 4);
+                Inventory.instance.EquipItem(indexInList, 4);
                 break;
 
             case Item.TypeOfItem.Boots:
-                inventory.EquipItem(indexInList, 2);
+                Inventory.instance.EquipItem(indexInList, 2);
                 break;
 
             case Item.TypeOfItem.Weapon:
-                inventory.EquipItem(indexInList, 0);
+                Inventory.instance.EquipItem(indexInList, 0);
                 break;
 
             case Item.TypeOfItem.Ranged:
-                inventory.EquipItem(indexInList, 1);
+                Inventory.instance.EquipItem(indexInList, 1);
                 break;
 
             case Item.TypeOfItem.Consumables:
-                playerManager.UseConsumable(itemOnSlot);
-                inventory.inventoryItems.RemoveAt(indexInList);
-                inventory.UpdateInventory();
+                PlayerManager.instance.UseConsumable(itemOnSlot);
+                Inventory.instance.inventoryItems.RemoveAt(indexInList);
+                Inventory.instance.UpdateInventory();
                 
                 break;
         }

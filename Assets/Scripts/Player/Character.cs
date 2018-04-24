@@ -25,7 +25,6 @@ public class Character : MonoBehaviour
     float rotationSpeed;
 
     Animator anim;
-    PlayerManager playermanager;
 
     public float SpeedMultiplier
     {
@@ -68,25 +67,26 @@ public class Character : MonoBehaviour
         _body = GetComponent<Rigidbody>();
         _groundChecker = transform.GetChild(0); //Both
 
-
-
         InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
 
         anim = GetComponent<Animator>();
-        playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
     }
 
     void Update()
     {
-        if (!lockMove)
+        if (!PlayerManager.instance.dead)
         {
-            mover(); //Handles Movement and Rotation.
+            if (!lockMove)
+            {
+                mover(); //Handles Movement and Rotation.
+            }
+            runner(); //Handles Running.
+            dodger(); //Handles Dodge.
+            RestricMove(); //Restricts Movement when attacking.
+            Jump();
+            PlayerManager.instance.StaminaRecharge = stamReCharge;
         }
-        runner(); //Handles Running.
-        dodger(); //Handles Dodge.
-        RestricMove(); //Restricts Movement when attacking.
-        Jump();
-        playermanager.StaminaRecharge = stamReCharge;
+
 
     }
     void RestricMove()
@@ -165,7 +165,7 @@ public class Character : MonoBehaviour
         }
         if (InputManager.Running())
         {
-            if (playermanager.Stamina.CurrentValue > 0 && running == true) //Om du inte står stilla, drain.
+            if (PlayerManager.instance.Stamina.CurrentValue > 0 && running == true) //Om du inte står stilla, drain.
             {
                 Speed = rawSpeed * speedMultiplier;
             }
@@ -180,7 +180,7 @@ public class Character : MonoBehaviour
             }
             else //Moving and running.
             {
-                playermanager.LooseStamina(20 * Time.deltaTime); //Stamina drain.
+                PlayerManager.instance.LooseStamina(20 * Time.deltaTime); //Stamina drain.
                 stamReCharge = 0f;
             }
         }
@@ -218,7 +218,7 @@ public class Character : MonoBehaviour
         if (InputManager.Dodge())
         { 
 
-            if (!dodging && playermanager.Stamina.CurrentValue >= dodgeCost ) //If there is stamina:
+            if (!dodging && PlayerManager.instance.Stamina.CurrentValue >= dodgeCost ) //If there is stamina:
             {
                 dodging = true;
                 if (inHole && pitHole.tag == "Hole") //Inside hole coll. && Jumping Shoes...
@@ -228,14 +228,14 @@ public class Character : MonoBehaviour
                     {
                         getOverIt = true;
                         lockMove = true;
-                        playermanager.LooseStamina(dodgeCost);
+                        PlayerManager.instance.LooseStamina(dodgeCost);
                     }
                 }
                 else
                 {
                     dodging = true;
                     anim.SetTrigger("fDodge");
-                    playermanager.LooseStamina(dodgeCost);
+                    PlayerManager.instance.LooseStamina(dodgeCost);
 
                     //Normal Dodge move on player:
                     Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
@@ -281,16 +281,20 @@ public class Character : MonoBehaviour
     }
     void FixedUpdate()
     {
-        _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
-
-        if (!getOverIt)
+        if (!PlayerManager.instance.dead)
         {
-            _body.AddForce(Physics.gravity, ForceMode.Acceleration);
+            _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
+
+            if (!getOverIt)
+            {
+                _body.AddForce(Physics.gravity, ForceMode.Acceleration);
+            }
         }
+
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Hole") //&& Right jumping shoes...
+        if (other.tag == "Hole" && Inventory.instance.equippedItems[2].Name == "Feather Stride Boots") //&& Right jumping shoes...
         {
             
             pitHole = other.gameObject;

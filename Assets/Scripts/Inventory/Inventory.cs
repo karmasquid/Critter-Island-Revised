@@ -30,7 +30,6 @@ public class Inventory : MonoBehaviour
     //AudioClip invOpenSound, invCloseSound;
 
     //references to scripts
-    private PlayerManager playerManager;
     private ItemDatabase database;
     private InventorySlot inventorySlotScript;
     private EquippedSlot equippedSlotScript;
@@ -60,7 +59,6 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
-        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         playerHand = GameObject.FindGameObjectWithTag("Player").transform.Find("asset_char_mc_fixed_final/root_JNT/spine_1_JNT/spine_2_JNT/chest_JNT/torso_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_JNT/R_hand_JNT");
         rangeWepHUD = GameObject.Find("CurrentItem");
         attacker = GameObject.FindGameObjectWithTag("Player").GetComponent<Attacker>();
@@ -167,7 +165,6 @@ public class Inventory : MonoBehaviour
 
                 inventoryButton[i].gameObject.SetActive(true);
                 inventorySlotScript = inventoryButton[i].gameObject.GetComponent<InventorySlot>();
-                inventorySlotScript.PlayerManagerScript = playerManager;
                 inventoryButton[i].gameObject.transform.SetPositionAndRotation(inventoryButton[i].gameObject.transform.position, Quaternion.Euler(new Vector3(0, 0, -slotRotation)));
                 inventorySlotScript.ItemOnSlot = inventoryItems[i];
                 inventorySlotScript.UpdateImage();
@@ -182,7 +179,7 @@ public class Inventory : MonoBehaviour
     //method for moving item to equippeditem.
     public void EquipItem(int index, int slot)
     {
-        playerManager.AddPlayerstats(inventoryItems[index]);
+        PlayerManager.instance.AddPlayerstats(inventoryItems[index]);
 
         if (slot == 1 || slot == 0)
         {
@@ -209,7 +206,7 @@ public class Inventory : MonoBehaviour
         else
             {
             Item storedItem = equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot;
-            playerManager.Removestats(storedItem);
+            PlayerManager.instance.Removestats(storedItem);
             equippedItems[slot] = inventoryItems[index];
             equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
             equippedButton[slot].GetComponent<EquippedSlot>().ChangeSprite();

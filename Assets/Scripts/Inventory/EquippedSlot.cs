@@ -26,19 +26,14 @@ public class EquippedSlot : MonoBehaviour {
         set { itemOnSlot = value; }
     }
 
-    private Inventory inventory;
-
     private Image Imageslot;
 
     void Start()
     {
-
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-
+        // om vi vill kunna unequippa items från equippedslots.
         //button = gameObject.GetComponent<Button>();
         //button.onClick.AddListener(TaskOnClick);
     }
-
     public void UpdateSlot(int rotation)
     {
         foreach (Transform child in transform)
@@ -47,17 +42,16 @@ public class EquippedSlot : MonoBehaviour {
         }
     }
 
-
     public void ChangeSprite()
     {
         this.transform.GetChild(0).GetComponent<Image>().overrideSprite = itemOnSlot.Icon;
     }
     void TaskOnClick()
     {
-       if (inventory.inventoryItems.Count < 12)
+       if (Inventory.instance.inventoryItems.Count < 12)
         {
             this.transform.GetChild(0).GetComponent<Image>().overrideSprite = null;
-            inventory.UnEquipItem(indexInList);
+            Inventory.instance.UnEquipItem(indexInList);
         }
     }
 }

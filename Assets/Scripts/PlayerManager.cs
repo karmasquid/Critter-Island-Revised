@@ -183,20 +183,6 @@ public class PlayerManager : MonoBehaviour {
     public void SpecAttack(GameObject[] enemys)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCostSpec;
-
-        foreach (GameObject enemy in enemys)
-        {
-            // ---------------------------------------------------------------------------------------- Make enemy move away from player instead of player forward.------------------------------------------------------------------------
-            Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
-            enemyRB.AddForce(-enemy.transform.forward * knockBackForce * 10f, ForceMode.Impulse);
-            // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        }
-        //if (staminaRecharging == true)
-        //{
-        //    //kör corutine!
-        //}
-
-        //Deal damage.
     }
 
     public void TakeDamage(float Damage)
@@ -228,9 +214,13 @@ public class PlayerManager : MonoBehaviour {
         }
 
         else
-            stamina.CurrentValue = 0;
-            
+            stamina.CurrentValue = 0;       
     }
 
-
+    public void ConnectToBarsInHUD()
+    {
+        health.Bar = GameObject.Find("HealthBar").GetComponent<BarScript>();
+        stamina.Bar = GameObject.Find("StaminaBar").GetComponent<BarScript>();
+        player = GameObject.Find("Player");
+    }
 } // Stina Hedman

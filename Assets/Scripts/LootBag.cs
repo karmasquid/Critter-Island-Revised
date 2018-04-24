@@ -23,14 +23,27 @@ public class LootBag : MonoBehaviour {
     //    inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
     //}
 
-    private void OnCollisionStay(Collision collision)
+    private void Start()
     {
-        if (collision.transform.tag == "Player" && Input.GetAxis("Interact") > 0.1 && !pickedUp && Inventory.instance.inventoryItems.Count < 12)
+        WaitRemoveRigidbody();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //if (collision.transform.tag == "Player" && Input.GetAxis("Interact") > 0.1 && !pickedUp && Inventory.instance.inventoryItems.Count < 12)
+        if (other.transform.tag == "Player" && Input.GetAxis("Interact") > 0.1 && !pickedUp)
         {
             Inventory.instance.AddItem(itemInBag);
             pickedUp = true;
             Destroy(gameObject, 0.5f);
-        }
+            Debug.Log("picked up" + itemInBag);
+        }        
+    }
+
+    IEnumerator WaitRemoveRigidbody()
+    {
+        yield return new  WaitForSeconds(1f);
+        GetComponent<Rigidbody>().detectCollisions = false;
     }
 }
 //stina hedman
