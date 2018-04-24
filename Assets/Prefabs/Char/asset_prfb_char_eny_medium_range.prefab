@@ -1481,7 +1481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee820006b31f814db8fa3d4a7c3d252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1834591480035648, guid: 02708be4ee2693441ae90cadfce39ce0, type: 2}
+  projectile: {fileID: 1371063362476898, guid: 176e10c209e6fa048bf0b18d1558de89, type: 2}
   playerLayer:
     serializedVersion: 2
     m_Bits: 512

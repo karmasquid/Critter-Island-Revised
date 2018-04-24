@@ -171,31 +171,13 @@ public class PlayerManager : MonoBehaviour {
     public void RangeAttack(GameObject enemy)
     {
         stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
-
-        /*
-        if (ammoCount > 0)
-        {
-
-            ammoCount -= 1;
-            stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
-
-            enemy.GetComponent<BasicAI>().TakeDMG(throwDMG);
-
-            //if (staminaRecharging == true)
-            //{
-            //    //kör corutine!
-            //}
-
-            //basicAI = enemy.GetComponent<BasicAI>();
-            //aiScript.currentHP  <----------fixa en set.
-        }
-        */
     }
 
     public void UseConsumable(Item consumable)
     {
         health.CurrentValue += consumable.Health;
 
+        stamina.CurrentValue += consumable.StaminaRecovery;
     }
 
     public void SpecAttack(GameObject[] enemys)

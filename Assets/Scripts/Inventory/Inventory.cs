@@ -246,17 +246,25 @@ public class Inventory : MonoBehaviour
             int invSlotIndex = -1;
 
             //check if item is in inventory and try to add ammo to that item.
-            if (database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Ranged || database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Consumables || database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Miscellaneous )
+            if (database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Ranged || database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Miscellaneous)
             {
                 int ammoFull = 99;
 
                 ammoToAdd = database.allItems[databaseIndex].AmmoCount;
 
                 //check if same item is equipped.
-                eqslotIndex = Array.FindIndex(equippedItems, i => i.Name == nameOfItem);
+               // eqslotIndex = Array.FindIndex(equippedItems, i => i.Name == database.allItems[databaseIndex].Name);
+
+                for (int i = 0; 1 > equippedItems.Length; i++)
+                {
+                    if (nameOfItem == equippedItems[i].Name)
+                    {
+                        eqslotIndex = i;
+                    }
+                }
 
                 //check if same item is in inventory.
-                invSlotIndex = inventoryItems.FindIndex(i => i.Name == nameOfItem);
+                invSlotIndex = inventoryItems.FindIndex(i => i.Name == database.allItems[databaseIndex].Name);
 
                 if (eqslotIndex != -1)
                 {
