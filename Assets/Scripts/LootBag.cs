@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class LootBag : MonoBehaviour {
 
-    Inventory inventory;
+    //Inventory inventory;
 
     private string itemInBag;
+
+    private bool pickedUp;
 
     public string ItemInBag
     {
@@ -16,16 +18,18 @@ public class LootBag : MonoBehaviour {
         }
     }
 
-    private void Awake()
-    {
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-    }
+    //private void Awake()
+    //{
+    //    inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+    //}
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.transform.tag == "Player" && Input.GetAxis("Interact") > 0.1)
+        if (collision.transform.tag == "Player" && Input.GetAxis("Interact") > 0.1 && !pickedUp && Inventory.instance.inventoryItems.Count < 12)
         {
-            inventory.AddItem(itemInBag);
+            Inventory.instance.AddItem(itemInBag);
+            pickedUp = true;
+            Destroy(gameObject, 0.5f);
         }
     }
 }
