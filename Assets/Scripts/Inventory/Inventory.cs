@@ -38,8 +38,8 @@ public class Inventory : MonoBehaviour
     //slot for weaponitem.
     private Transform playerHand;
     private GameObject meleeWeapon;
+    private GameObject newMeleeWeapon;
     private GameObject rangedWeapon;
-    private GameObject rangeWepHUD;
 
     bool showInventory;
     
@@ -60,24 +60,25 @@ public class Inventory : MonoBehaviour
 
         database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
         playerHand = GameObject.FindGameObjectWithTag("Player").transform.Find("asset_char_mc_fixed_final/root_JNT/spine_1_JNT/spine_2_JNT/chest_JNT/torso_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_JNT/R_hand_JNT");
-        rangeWepHUD = GameObject.Find("CurrentItem");
+
         attacker = GameObject.FindGameObjectWithTag("Player").GetComponent<Attacker>();
-
-    }
-
-    void Start()
-    {
 
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
         equippedSlot = Resources.Load<Image>("Prefabs/UI/EquippedSlot");
         inventoryBackground = Resources.Load<Image>("Prefabs/UI/InventoryBackground");
 
+        CreateInventory();
+
+    }
+
+    void Start()
+    {
         //invOpenSound = Resources.Load<AudioClip>("Audio/Inventory/openInv");
         //invCloseSound = Resources.Load<AudioClip>("Audio/Inventory/closeInv");
 
         wait = Time.time + waitOpenClose;
-        CreateInventory();
+
     }
 
     void FixedUpdate()
@@ -181,19 +182,7 @@ public class Inventory : MonoBehaviour
     {
         PlayerManager.instance.AddPlayerstats(inventoryItems[index]);
 
-        if (slot == 1 || slot == 0)
-        {
-            if (slot == 1)
-            {
-                attacker.currentEquipped = inventoryItems[index].Go;
-                rangeWepHUD.GetComponent<Image>().sprite = inventoryItems[index].Icon;
-            }
 
-            else
-            {
-                HoldWeapon(inventoryItems[index]);              
-            }
-        }
 
         if (equippedItems[slot] == null)
             {
@@ -201,7 +190,7 @@ public class Inventory : MonoBehaviour
             equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
             equippedButton[slot].GetComponent<EquippedSlot>().ChangeSprite();
             inventoryItems.RemoveAt(index);
-            UpdateInventory();
+
             }
         else
             {
@@ -211,8 +200,25 @@ public class Inventory : MonoBehaviour
             equippedButton[slot].GetComponent<EquippedSlot>().ItemOnSlot = inventoryItems[index];
             equippedButton[slot].GetComponent<EquippedSlot>().ChangeSprite();
             inventoryItems[index] = storedItem;
-            UpdateInventory();
+            }
+
+        if (slot == 1 || slot == 0)
+        {
+            if (slot == 1)
+            {
+                attacker.currentEquipped = equippedItems[1].Go;
+                newMeleeWeapon = equippedItems[1].Go;
+                ChangeRangeSpriteInHUD();
+            }
+
+            else
+            {
+                newMeleeWeapon = equippedItems[0].Go;
+                HoldWeapon();
+            }
         }
+
+        UpdateInventory();
     }
     
     //method called when unequipping item.
@@ -236,32 +242,26 @@ public class Inventory : MonoBehaviour
         //find item in database.
         databaseIndex = database.allItems.FindIndex(i => i.Name == nameOfItem);
 
-        if (databaseIndex != -1 && inventoryItems.Count <= 12)
+        if (databaseIndex != -1 && inventoryItems.Count < 12)
         {
+            new Item itemToAdd = database.allItems[databaseIndex];
+
             int eqslotIndex = -1;
 
             int invSlotIndex = -1;
 
             //check if item is in inventory and try to add ammo to that item.
-            if (database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Ranged || database.allItems[databaseIndex].ItemType == Item.TypeOfItem.Miscellaneous)
+            if (itemToAdd.ItemType == Item.TypeOfItem.Ranged || itemToAdd.ItemType == Item.TypeOfItem.Miscellaneous)
             {
                 int ammoFull = 99;
 
-                ammoToAdd = database.allItems[databaseIndex].AmmoCount;
+                ammoToAdd = itemToAdd.AmmoCount;
 
                 //check if same item is equipped.
-               // eqslotIndex = Array.FindIndex(equippedItems, i => i.Name == database.allItems[databaseIndex].Name);
-
-                for (int i = 0; 1 > equippedItems.Length; i++)
-                {
-                    if (nameOfItem == equippedItems[i].Name)
-                    {
-                        eqslotIndex = i;
-                    }
-                }
+                eqslotIndex = Array.FindIndex(equippedItems, i => i.Name == nameOfItem);
 
                 //check if same item is in inventory.
-                invSlotIndex = inventoryItems.FindIndex(i => i.Name == database.allItems[databaseIndex].Name);
+                invSlotIndex = inventoryItems.FindIndex(i => i.Name == itemToAdd.Name);
 
                 if (eqslotIndex != -1)
                 {
@@ -269,17 +269,22 @@ public class Inventory : MonoBehaviour
                     if ((equippedItems[eqslotIndex].AmmoCount + ammoToAdd) < ammoFull)
                     {
                         equippedItems[eqslotIndex].AmmoCount += ammoToAdd;
+
+                        ammoToAdd = 0;
                     }
 
                     //if not room for all of the ammo, save the add to full ammo and but save the remaining ammo.
-                    else
+                    else 
                     {
 
-                        ammoToAdd = (equippedItems[eqslotIndex].AmmoCount + ammoToAdd - ammoFull);
+                        ammoToAdd = equippedItems[eqslotIndex].AmmoCount + ammoToAdd - ammoFull;
 
                         equippedItems[eqslotIndex].AmmoCount = 99;
                         
                     }
+
+                    PlayerManager.instance.SetAmmo(equippedItems[eqslotIndex].AmmoCount);
+                    
                 }
 
                 if (invSlotIndex != -1 && ammoToAdd > 0)
@@ -302,7 +307,7 @@ public class Inventory : MonoBehaviour
                 
                 else if (ammoToAdd > 0)
                 {
-                    inventoryItems.Add(database.allItems[databaseIndex]);
+                    inventoryItems.Add(itemToAdd);
                     int item = inventoryItems.Count - 1;
                     inventoryItems[item].AmmoCount = ammoToAdd;
                     
@@ -311,7 +316,7 @@ public class Inventory : MonoBehaviour
 
             else 
             {
-                    inventoryItems.Add(database.allItems[databaseIndex]);
+                    inventoryItems.Add(itemToAdd);
             }
             
         }
@@ -319,7 +324,7 @@ public class Inventory : MonoBehaviour
         UpdateInventory();
     }
     
-    public void HoldWeapon(Item weapon)
+    public void HoldWeapon()
     {
 
         if (meleeWeapon != null)
@@ -327,7 +332,17 @@ public class Inventory : MonoBehaviour
             Destroy(meleeWeapon.gameObject);
         }
 
-        meleeWeapon = Instantiate(weapon.Go, playerHand, false);
+        meleeWeapon = Instantiate(equippedItems[0].Go, playerHand, false);
+
+    }
+
+    public void ChangeRangeSpriteInHUD()
+    {
+        if (equippedItems[1] != null)
+        {
+            GameObject.Find("CurrentItem").GetComponent<Image>().sprite = equippedItems[1].Icon;
+        }
+
     }
 }
 

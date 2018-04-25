@@ -70,6 +70,11 @@ public class Item
 
     }
 
+    public void Clone(Item itemToClone)
+    {
+        //klona skiten och fixa i inventory;
+    }
+
     public int ID { get { return this.id; } }
     public string Name { get { return this.name; } }
     public string Desc { get { return this.desc; } }

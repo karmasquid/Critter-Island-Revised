@@ -10,8 +10,6 @@ public class ItemDatabase : MonoBehaviour
     //list of all items in game
     public List<Item> allItems = new List<Item>();
 
-    private Inventory inventory;
-
     private int index;
 
     private void Awake()
@@ -33,15 +31,13 @@ public class ItemDatabase : MonoBehaviour
 
         //public Item(int Id, string Name, string Desc, TypeOfItem KindOfGear, float MeleeDamage, float RangeDamage, float SpecDamage, float Health, float Armor, float StaminaCost, float StaminaCostSpec, float StaminaRecovery, float Range, int AmmoCount, float MovementDiff, float Attackspeed, int Ability, int Cost)
 
-        inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-
         //Weapons
         allItems.Add(new Item(0, "Traveller's Sword", "Traveller's Sword!", Item.TypeOfItem.Weapon, 15, 0, 25, 0f, 0f, 10f,40f,0f,0f,0,0f,1f,0,0));
         allItems.Add(new Item(1, "Judicators Hammer", "Judicator’s Hammer!", Item.TypeOfItem.Weapon, 20, 0, 5, 25f,0f,15f,50f,0f,0f,0,0,0f,0,0));
 
         //Ranged
         allItems.Add(new Item(2, "Pebble", "Pebble!", Item.TypeOfItem.Ranged, 0, 6, 5, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
-        allItems.Add(new Item(3, "Knife", "Knife!", Item.TypeOfItem.Ranged, 0, 8, 0, 0f, 0f,0f,0f,0f,1f,25,0,0,0,0));
+        allItems.Add(new Item(3, "Knife", "Knife!", Item.TypeOfItem.Ranged, 0, 8, 0, 0f, 0f,0f,0f,0f,1f,15,0,0,0,0));
         allItems.Add(new Item(4, "Black Powder Bombs", "Black Powder Bombs!", Item.TypeOfItem.Ranged, 0, 22, 0, 30f, 0f,15f,0f,0f,0.75f,5,0,0,0,0));
 
         //Helmets
@@ -67,23 +63,14 @@ public class ItemDatabase : MonoBehaviour
         allItems.Add(new Item(16, "Sphere of Renewal", "Sphere of Renewal!", Item.TypeOfItem.Miscellaneous, 10, 0, 5, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
 
         //add the startitems in game.
-        if (inventory != null)
+        if (Inventory.instance != null)
         {
-            inventory.inventoryItems.Add(allItems[0]);
-            inventory.inventoryItems.Add(allItems[3]);
-            inventory.inventoryItems.Add(allItems[12]);
+            Inventory.instance.inventoryItems.Add(allItems[0]);
+            Inventory.instance.inventoryItems.Add(allItems[3]);
+            Inventory.instance.inventoryItems.Add(allItems[12]);
 
-            inventory.EquipItem(1, 1);
-            inventory.EquipItem(0, 0);
-        }
-    }
-
-
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-
+            Inventory.instance.EquipItem(1, 1);
+            Inventory.instance.EquipItem(0, 0);
         }
     }
     

@@ -58,6 +58,24 @@ public class Character : MonoBehaviour
     private bool getOverIt = false;
     private GameObject target;
 
+    public static Character instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         //Modular variables. Saves start values set in inspector:
@@ -70,6 +88,7 @@ public class Character : MonoBehaviour
         InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
 
         anim = GetComponent<Animator>();
+
     }
 
     void Update()
@@ -85,6 +104,7 @@ public class Character : MonoBehaviour
             RestricMove(); //Restricts Movement when attacking.
             Jump();
             PlayerManager.instance.StaminaRecharge = stamReCharge;
+
         }
 
 

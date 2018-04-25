@@ -5,7 +5,7 @@ using UnityEngine;
 public class LootBag : MonoBehaviour {
 
     //Inventory inventory;
-
+    [SerializeField]
     private string itemInBag;
 
     private bool pickedUp;

@@ -22,13 +22,6 @@ public class PlayerManager : MonoBehaviour {
     //Daniel Laggar del
     private float knockBackForce = 2f;
 
-    //relevanta script
-    private Inventory inventoryScript;
-    private AmmoCounterHUD ammoCounterScript;
-    private Character characterScript;
-    
-
-
     private float armor;
     private float drainingStamina;
 
@@ -70,6 +63,7 @@ public class PlayerManager : MonoBehaviour {
     #region Singleton
 
     public static PlayerManager instance;
+
     void Awake()
     {
         if (instance == null)
@@ -82,13 +76,15 @@ public class PlayerManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        health.Initialize();
-        stamina.Initialize();
 
         DontDestroyOnLoad(gameObject);
 
-        inventoryScript = GameObject.Find("Inventory").GetComponent<Inventory>();
-        ammoCounterScript = GameObject.Find("AmmoCounter").GetComponent<AmmoCounterHUD>();
+        health.Bar = GameObject.Find("HealthBar").GetComponent<BarScript>();
+        stamina.Bar = GameObject.Find("StaminaBar").GetComponent<BarScript>();
+        player = GameObject.Find("Player");
+
+        health.Initialize();
+        stamina.Initialize();
     }
     #endregion
 
@@ -130,9 +126,7 @@ public class PlayerManager : MonoBehaviour {
 
         rangeStaminaCost += itemAdd.StaminaCost;
 
-        ammoCounterScript.UpdateAmmoCounter(ammoCount);
-
-        //knockBackForce += itemAdd.knockBackForce;
+        GameObject.Find("AmmoCounter").GetComponent<AmmoCounterHUD>().UpdateAmmoCounter(ammoCount);
 
         //characterScript.SpeedMultiplier += itemAdd.MovementDiff;
 
@@ -166,11 +160,18 @@ public class PlayerManager : MonoBehaviour {
 
         //movementscriptstuff += itemrem.AttackSpeed;
 
-        ammoCounterScript.UpdateAmmoCounter(ammoCount);
+        GameObject.Find("AmmoCounter").GetComponent<AmmoCounterHUD>().UpdateAmmoCounter(ammoCount);
     }
+
+    public void SetAmmo(int ammo)
+    {
+        ammoCount = ammo;
+        AmmoCounter(0);
+    }
+
     public void RangeAttack(GameObject enemy)
     {
-        stamina.CurrentValue -= inventoryScript.equippedItems[1].StaminaCost;
+        stamina.CurrentValue -= Inventory.instance.equippedItems[1].StaminaCost;
     }
 
     public void UseConsumable(Item consumable)
@@ -182,7 +183,7 @@ public class PlayerManager : MonoBehaviour {
 
     public void SpecAttack(GameObject[] enemys)
     {
-        stamina.CurrentValue -= inventoryScript.equippedItems[0].StaminaCostSpec;
+        stamina.CurrentValue -= Inventory.instance.equippedItems[0].StaminaCostSpec;
     }
 
     public void TakeDamage(float Damage)
@@ -202,7 +203,7 @@ public class PlayerManager : MonoBehaviour {
         // Uppdatera ammocounter i hud
         Debug.Log("Current ammo count: " + ammoCount);
 
-        ammoCounterScript.UpdateAmmoCounter(ammoCount);
+        GameObject.Find("AmmoCounter").GetComponent<AmmoCounterHUD>().UpdateAmmoCounter(ammoCount);
     }
 
     public void LooseStamina(float sta)
@@ -217,10 +218,4 @@ public class PlayerManager : MonoBehaviour {
             stamina.CurrentValue = 0;       
     }
 
-    public void ConnectToBarsInHUD()
-    {
-        health.Bar = GameObject.Find("HealthBar").GetComponent<BarScript>();
-        stamina.Bar = GameObject.Find("StaminaBar").GetComponent<BarScript>();
-        player = GameObject.Find("Player");
-    }
 } // Stina Hedman

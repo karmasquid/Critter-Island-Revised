@@ -24,7 +24,6 @@ public class Attacker : MonoBehaviour {
     float chargeTimer;
     bool canAtk = true;
 
-    PlayerManager playermanager;
     Throwable throwableScript;
     Inventory inventory;
     IEnumerator Reload;
@@ -34,7 +33,6 @@ public class Attacker : MonoBehaviour {
     GameObject[] enemies;
     List<GameObject> listOfEffect = new List<GameObject>();
 
-    public static Attacker instance;
 
     public bool Dead
     {
@@ -46,19 +44,6 @@ public class Attacker : MonoBehaviour {
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-
-        playermanager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
 
         anim = GetComponent<Animator>();
     }
@@ -95,19 +80,19 @@ public class Attacker : MonoBehaviour {
             //-------------------------------------Main Attacks & Controls------------------------------------------------
             AtkControl();
 
-            if (playermanager.AmmoCount > 0 && InputManager.ThrowAttack())
+            if (PlayerManager.instance.AmmoCount > 0 && InputManager.ThrowAttack())
             {
                 if (!throwing)
                 {
                     anim.SetTrigger("throw");
                     GameObject preo = Instantiate(currentEquipped, attackHitBoxes[2].transform, false) as GameObject;
-                    preo.GetComponent<Throwable>().Damage = playermanager.RangeDamage;
-                    Debug.Log(playermanager.RangeDamage);
+                    preo.GetComponent<Throwable>().Damage = PlayerManager.instance.RangeDamage;
+                    Debug.Log(PlayerManager.instance.RangeDamage);
 
                     attackHitBoxes[2].transform.DetachChildren(); //Release the children!
                     throwing = true;
 
-                    playermanager.AmmoCounter(1); //-1 ammo
+                    PlayerManager.instance.AmmoCounter(1); //-1 ammo
                     Reload = ThrowCD(reloadSpeed);
                     StartCoroutine(Reload);
 
@@ -173,13 +158,13 @@ public class Attacker : MonoBehaviour {
     {
 
             //---------Check if charging up an attack or not------------
-            if (chargingAttack && playermanager.Stamina.CurrentValue >= playermanager.MeleeSpecStaminaCost)
+            if (chargingAttack && PlayerManager.instance.Stamina.CurrentValue >= PlayerManager.instance.MeleeSpecStaminaCost)
             {
                 anim.SetTrigger("chargeAttack");
                 LaunchAttack(attackHitBoxes[1]);
                 chargingAttack = false;
                 anim.SetBool("isCharging", false);
-                playermanager.LooseStamina(playermanager.MeleeSpecStaminaCost); //Stamina drain
+            PlayerManager.instance.LooseStamina(PlayerManager.instance.MeleeSpecStaminaCost); //Stamina drain
 
                 if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
             {
@@ -193,7 +178,7 @@ public class Attacker : MonoBehaviour {
 
                         enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
 
-                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeSpecDamage); //Takes special melee damage
+                        enemy.GetComponent<EnemyStats>().TakeDamange(PlayerManager.instance.MeleeSpecDamage); //Takes special melee damage
                     }
 
                 }
@@ -202,7 +187,7 @@ public class Attacker : MonoBehaviour {
             {
                 anim.SetTrigger("attack");
                 LaunchAttack(attackHitBoxes[0]);
-                playermanager.LooseStamina(playermanager.MeleeStaminaCost); //Stamina drain
+            PlayerManager.instance.LooseStamina(PlayerManager.instance.MeleeStaminaCost); //Stamina drain ---------------------------------------------- FIXA DETTA  ---------------------------------
 
                 if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
                 {
@@ -216,7 +201,7 @@ public class Attacker : MonoBehaviour {
 
                         enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
 
-                        enemy.GetComponent<EnemyStats>().TakeDamange(playermanager.MeleeDamage); //Takes basic melee damage
+                        enemy.GetComponent<EnemyStats>().TakeDamange(PlayerManager.instance.MeleeDamage); //Takes basic melee damage
                     }
                 }
 

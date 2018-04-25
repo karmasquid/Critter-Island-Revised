@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpawnPoints : MonoBehaviour {
 
@@ -14,40 +15,22 @@ public class SpawnPoints : MonoBehaviour {
         levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
         Player = GameObject.Find("Player");
 
-
     }
 
     void Start () {
 
         if (levelLoader.CameFromPrevLvl)
         {
-            Player.transform.position = gameObject.transform.GetChild(0).transform.position;
+            Player.GetComponent<NavMeshAgent>().Warp(gameObject.transform.GetChild(0).transform.position);
             Player.transform.rotation = gameObject.transform.GetChild(0).transform.rotation;
-
         }
         else
         {
-            Player.transform.position = gameObject.transform.GetChild(1).transform.position;
+            Player.GetComponent<NavMeshAgent>().Warp(gameObject.transform.GetChild(1).transform.position);
             Player.transform.rotation = gameObject.transform.GetChild(1).transform.rotation;
         }
-        StartCoroutine(FixStinasProblems());
 
 	}
-    IEnumerator FixStinasProblems()
-    {
-        yield return new WaitForEndOfFrame();
-        if (levelLoader.CameFromPrevLvl)
-        {
-            Player.transform.position = gameObject.transform.GetChild(0).transform.position;
-            Player.transform.rotation = gameObject.transform.GetChild(0).transform.rotation;
 
-        }
-        else
-        {
-            Player.transform.position = gameObject.transform.GetChild(1).transform.position;
-            Player.transform.rotation = gameObject.transform.GetChild(1).transform.rotation;
-        }
-    }
-	
 } // STina Hedman
 
