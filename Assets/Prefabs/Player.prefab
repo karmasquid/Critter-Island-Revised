@@ -1111,7 +1111,7 @@ GameObject:
   - component: {fileID: 114813102590434330}
   - component: {fileID: 114997951715501660}
   - component: {fileID: 136383156548925860}
-  - component: {fileID: 195614975729539616}
+  - component: {fileID: 195940175066673758}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -3319,7 +3319,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1063893745570306}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 1}
+  m_LocalPosition: {x: -0.325, y: 1.335, z: 0.813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4232617134760468}
@@ -3962,7 +3962,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0760093, y: 0.13143593, z: 0.00089231133}
     m_Extent: {x: 0.88360834, y: 0.4994912, z: 0.7080976}
   m_DirtyAABB: 0
---- !u!195 &195614975729539616
+--- !u!195 &195940175066673758
 NavMeshAgent:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
