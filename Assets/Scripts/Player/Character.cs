@@ -31,6 +31,20 @@ public class Character : MonoBehaviour
         get { return this.speedMultiplier; }
         set { this.speedMultiplier = value; }
     }
+
+    public bool Attacking
+    {
+        set { atckn = value; }
+    }
+
+    public bool IsDead
+    {
+        set
+        {
+            isDead = value;
+        }
+    }
+
     //Controls and rotation.
     private bool running;
     private Rigidbody _body;
@@ -50,6 +64,7 @@ public class Character : MonoBehaviour
     private bool dodging;
     bool atckn = false;
     private bool lockMove = false;
+    bool isDead;
 
     //Hole dodge:
     private bool inHole = false;
@@ -57,6 +72,21 @@ public class Character : MonoBehaviour
     private IEnumerator DelayGravity;
     private bool getOverIt = false;
     private GameObject target;
+
+    public static Character instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -75,14 +105,14 @@ public class Character : MonoBehaviour
 
     void Update()
     {
-        if (!PlayerManager.instance.dead)
+        if (!isDead)
         {
             if (!lockMove)
             {
                 mover(); //Handles Movement and Rotation.
             }
-            runner(); //Handles Running.
-            dodger(); //Handles Dodge.
+            Runner(); //Handles Running.
+            Dodger(); //Handles Dodge.
             RestricMove(); //Restricts Movement when attacking.
             Jump();
             PlayerManager.instance.StaminaRecharge = stamReCharge;
@@ -143,7 +173,7 @@ public class Character : MonoBehaviour
 
         pastPos = curPos;
     }
-    void runner()
+    void Runner()
     {
         if (InputManager.Run())
         {
@@ -215,7 +245,7 @@ public class Character : MonoBehaviour
             this.GetComponent<NavMeshAgent>().enabled = true;
         }
     }
-    void dodger()
+    void Dodger()
     {
         if (InputManager.Dodge())
         { 

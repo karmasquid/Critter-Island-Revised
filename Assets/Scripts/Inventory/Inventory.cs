@@ -195,14 +195,14 @@ public class Inventory : MonoBehaviour
         {
             if (slot == 1)
             {
-                Attacker.instance.currentEquipped = equippedItems[1].Go;
-                newMeleeWeapon = equippedItems[1].Go;
+                Attacker.instance.currentRange = equippedItems[1];
                 ChangeRangeSpriteInHUD();
             }
             else
             {
                 newMeleeWeapon = equippedItems[0].Go;
                 HoldWeapon();
+                Attacker.instance.currentMelee = equippedItems[0];
             }
         }
         UpdateInventory();

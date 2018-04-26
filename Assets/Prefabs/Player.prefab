@@ -3744,7 +3744,6 @@ MonoBehaviour:
   - {fileID: 65955472534634708}
   - {fileID: 65884211144893994}
   - {fileID: 0}
-  currentEquipped: {fileID: 0}
 --- !u!136 &136383156548925860
 CapsuleCollider:
   m_ObjectHideFlags: 1

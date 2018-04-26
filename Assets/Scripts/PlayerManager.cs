@@ -193,7 +193,7 @@ public class PlayerManager : MonoBehaviour {
         if (health.CurrentValue <= 0)
         {
             GameObject.Find("Player").GetComponent<Attacker>().Dead = true;
-            dead = true;
+            Character.instance.IsDead = true;
         }
     }
     public void AmmoCounter(int AmmoDrain)

@@ -13,7 +13,8 @@ public class Attacker : MonoBehaviour {
     [SerializeField]
     Collider[] attackHitBoxes;
 
-    public GameObject currentEquipped;
+    public Item currentRange;
+    public Item currentMelee;
 
     bool dead;
     bool dying;
@@ -28,9 +29,12 @@ public class Attacker : MonoBehaviour {
 
     Throwable throwableScript;
     Inventory inventory;
+    Character characterScript;
     IEnumerator Reload;
 
     Animator anim;
+
+    Rigidbody rb;
 
     GameObject[] enemies;
     List<GameObject> listOfEffect = new List<GameObject>();
@@ -59,6 +63,10 @@ public class Attacker : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         anim = GetComponent<Animator>();
+
+        rb = GetComponent<Rigidbody>();
+
+        characterScript = GetComponent<Character>();
     }
 
     void Start ()
@@ -97,30 +105,11 @@ public class Attacker : MonoBehaviour {
             {
                 if (!throwing)
                 {
-                    anim.SetTrigger("throw");
-                    GameObject preo = Instantiate(currentEquipped, attackHitBoxes[2].transform, false) as GameObject;
-                    preo.GetComponent<Throwable>().Damage = PlayerManager.instance.RangeDamage;
-                    Debug.Log(PlayerManager.instance.RangeDamage);
-
-                    attackHitBoxes[2].transform.DetachChildren(); //Release the children!
                     throwing = true;
 
-                    PlayerManager.instance.AmmoCounter(1); //-1 ammo
-                    Reload = ThrowCD(reloadSpeed);
-                    StartCoroutine(Reload);
+                    Debug.Log(PlayerManager.instance.RangeDamage);
+                    StartCoroutine(ThrowCD());
 
-                    if (preo != null)
-                    {
-                        attackHitBoxes[3] = preo.GetComponent<Collider>();
-
-                    }
-                    else
-                    {
-                        attackHitBoxes[3] = null;
-                    }
-
-
-                    Destroy(preo, Time.deltaTime + 2f);
                 }
             }
             if (InputManager.Dodge() && chargingAttack == true)
@@ -130,12 +119,6 @@ public class Attacker : MonoBehaviour {
                 anim.SetBool("isCharging", false);
             }
 
-
-            //----------------------------------------Throwing invoke------------------------------------------------------
-            if (throwing)
-            {
-                InvokeRepeating("DetectedThrow", 0f, 4f);
-            }
         }
         else
         {
@@ -173,53 +156,11 @@ public class Attacker : MonoBehaviour {
             //---------Check if charging up an attack or not------------
             if (chargingAttack && PlayerManager.instance.Stamina.CurrentValue >= PlayerManager.instance.MeleeSpecStaminaCost)
             {
-                anim.SetTrigger("chargeAttack");
-                LaunchAttack(attackHitBoxes[1]);
-                chargingAttack = false;
-                anim.SetBool("isCharging", false);
-            PlayerManager.instance.LooseStamina(PlayerManager.instance.MeleeSpecStaminaCost); //Stamina drain
-
-                if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
-            {
-                    enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
-                }
-                if (enemies != null)
-                {
-                    foreach (GameObject enemy in enemies)
-                    {
-                        Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
-
-                        enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
-
-                        enemy.GetComponent<EnemyStats>().TakeDamange(PlayerManager.instance.MeleeSpecDamage); //Takes special melee damage
-                    }
-
-                }
+                StartCoroutine(SpecAttackCD());
             }
             else
             {
-                anim.SetTrigger("attack");
-                LaunchAttack(attackHitBoxes[0]);
-            PlayerManager.instance.LooseStamina(PlayerManager.instance.MeleeStaminaCost); //Stamina drain ---------------------------------------------- FIXA DETTA  ---------------------------------
-
-                if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
-                {
-                    enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
-                }
-                if (enemies != null)
-                {
-                    foreach (GameObject enemy in enemies)
-                    {
-                        Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
-
-                        enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
-
-                        enemy.GetComponent<EnemyStats>().TakeDamange(PlayerManager.instance.MeleeDamage); //Takes basic melee damage
-                    }
-                }
-
-                chargingAttack = false;
-                anim.SetBool("isCharging", false);
+                StartCoroutine(AttackCD());
             }
             listOfEffect.Clear();
             if (listOfEffect.Count.Equals(0))
@@ -228,25 +169,100 @@ public class Attacker : MonoBehaviour {
             }
             chargeTimer = 0;
 
-            Reload = AttackCD(atkSpeed);
+            Reload = AttackCD();
             StartCoroutine(Reload);
         
     }
-    void DetectedThrow() //Failsafe throw:
+
+    IEnumerator ThrowCD () //Coroutine for throw:
     {
-        if (attackHitBoxes[3] != null)
-        {
-            LaunchAttack(attackHitBoxes[3]);
-        }
-    }
-    IEnumerator ThrowCD (float CDTime) //Coroutine for throw:
-    {
-        yield return new WaitForSeconds(CDTime);
+        rb.velocity = Vector3.zero;
+
+        characterScript.Attacking = true;
+        throwing = true;
+        anim.SetTrigger("throw");
+        
+        yield return new WaitForSeconds(0.25f);
+
+        GameObject preo = Instantiate(currentRange.Go,attackHitBoxes[2].transform.position,attackHitBoxes[2].transform.rotation);
+
+        preo.GetComponent<Throwable>().Damage = currentRange.DamageRange;
+
+        PlayerManager.instance.AmmoCounter(1);
+
+        Debug.Log("pewpew");
+        yield return new WaitForSeconds(0.75f);
         throwing = false;
+        characterScript.Attacking = false;
     }
-    IEnumerator AttackCD(float AtkCDTime) //Coroutine for attack cooldown.
+    IEnumerator AttackCD() //Coroutine for attack cooldown.
     {
-        yield return new WaitForSeconds(AtkCDTime);
+        characterScript.Attacking = true;
+
+        rb.velocity = Vector3.zero;
+
+        anim.SetTrigger("attack");
+
+        yield return new WaitForSeconds(0.2f);
+
+        LaunchAttack(attackHitBoxes[0]);
+        PlayerManager.instance.LooseStamina(currentMelee.StaminaCost); //Stamina drain ---------------------------------------------- FIXA DETTA  ---------------------------------
+
+        if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
+        {
+            enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
+        }
+        if (enemies != null)
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+
+                enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
+
+                enemy.GetComponent<EnemyStats>().TakeDamange(currentMelee.DamageMelee); //Takes basic melee damage
+            }
+        }
+
+        yield return new WaitForSeconds(0.8f);
+
+        chargingAttack = false;
+        anim.SetBool("isCharging", false);
+
         canAtk = true;
+        characterScript.Attacking = false;
+    }
+
+    IEnumerator SpecAttackCD()
+    {
+       
+
+        characterScript.Attacking = true;
+        anim.SetTrigger("chargeAttack");
+        yield return new WaitForSeconds(0.1f);
+
+        LaunchAttack(attackHitBoxes[1]);
+        chargingAttack = false;
+        anim.SetBool("isCharging", false);
+        PlayerManager.instance.LooseStamina(currentMelee.StaminaCostSpec); //Stamina drain
+
+        if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
+        {
+            enemies = listOfEffect.ToArray(); //Convert the list of gameobject enemies inside the collider into an array.
+        }
+        if (enemies != null)
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
+
+                enemyRB.AddForce(-enemy.transform.forward * 2f * 4f, ForceMode.Impulse);
+
+                enemy.GetComponent<EnemyStats>().TakeDamange(currentMelee.DamageSpec); //Takes special melee damage
+            }
+
+        }
+
+        characterScript.Attacking = false;
     }
 }

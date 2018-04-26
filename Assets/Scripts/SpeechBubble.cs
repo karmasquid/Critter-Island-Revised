@@ -26,47 +26,40 @@ public class SpeechBubble : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        if (canvas.enabled)
+        {
+            canvas.transform.LookAt(-Camera.main.transform.position);
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && !talking && InputManager.Interact())
         {
-            CreateTextBubble();
+            Debug.Log("talking");
+            StartCoroutine(Talk());
         }
     }
 
-    private void CreateTextBubble()
+    private IEnumerator Talk()
     {
         talking = true;
 
-        if (sentences.Count >= index + 1)
+
+        for (int i = 0; i <= sentences.Count; i++)
         {
             canvas.enabled = true;
-            text.text = sentences[index];
-            index++;
-            StartCoroutine(WaitForNextText());
-        }
-        else
-        {
-            canvas.enabled = false;
-        }
-    }
 
-    private IEnumerator WaitForNextText()
-    {
-        yield return new WaitForSeconds(secWaitBetween);
-        CreateTextBubble();
+            text.text = sentences[0];
+
+            yield return new WaitForSeconds(secWaitBetween);
+        }
+
+        canvas.enabled = false;
+        talking = false;
+        index = 0;
+
         yield break;
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        //if (other.tag == "Player")
-        //{
-        //    canvas.enabled = false;
-        //    index = 0;
-        //}
-    }
 }// STina Hedman
