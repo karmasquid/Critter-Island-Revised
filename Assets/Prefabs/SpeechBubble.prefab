@@ -139,10 +139,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sentences:
-  - fuck
-  - this
-  - game.
-  secWaitBetween: 2
+  - We didn't expect a stranger on our small island.
+  - Our village is up these stairs and past the bridge.
+  - Our Elder knows everything about this island.
+  - She's the one standing by the mountain gate.
+  secWaitBetween: 3
   sprite: {fileID: 21300000, guid: 70de0233e400fbf438d874b41d6aa843, type: 3}
   text: {fileID: 114401765916101220}
   canvas: {fileID: 223613386196038896}
@@ -260,18 +261,18 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1019585529389192}
-  m_LocalRotation: {x: 0.1286108, y: -0.014005162, z: -0.0018164833, w: 0.9915946}
-  m_LocalPosition: {x: 0, y: 0, z: -0.010692}
+  m_LocalRotation: {x: 0.06250347, y: 0.9149823, z: -0.28276408, w: 0.28097197}
+  m_LocalPosition: {x: 0, y: 0, z: 0.08000153}
   m_LocalScale: {x: 0.004999999, y: 0.005840583, z: 1}
   m_Children:
   - {fileID: 224951979880735064}
   - {fileID: 224848620027617912}
   m_Father: {fileID: 4447634332202476}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 14.774001, y: -1.674, z: -0.42700002}
+  m_LocalEulerAnglesHint: {x: 33.544003, y: 144.936, z: -3.062}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.49, y: 1.9574}
+  m_AnchoredPosition: {x: 0.51000214, y: 2.46}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224848620027617912

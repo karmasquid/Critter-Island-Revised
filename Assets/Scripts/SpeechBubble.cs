@@ -24,19 +24,18 @@ public class SpeechBubble : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (canvas.enabled)
-        {
-            canvas.transform.LookAt(-Camera.main.transform.position);
-        }
-    }
+    //void Update()
+    //{
+    //    if (canvas.enabled)
+    //    {
+    //        canvas.transform.LookAt(-Camera.main.transform.position);
+    //    }
+    //}
 
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && !talking && InputManager.Interact())
         {
-            Debug.Log("talking");
             StartCoroutine(Talk());
         }
     }
