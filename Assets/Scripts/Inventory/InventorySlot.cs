@@ -36,7 +36,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(TaskOnClick);
         descText = this.transform.GetChild(2);
-        descText.gameObject.SetActive(false);
+        //descText.gameObject.SetActive(false);
     }
 
     public void RotateSlot()
@@ -51,6 +51,11 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
     public void UpdateImage()
     {
         this.transform.GetChild(0).GetComponent<Image>().overrideSprite = itemOnSlot.Icon;
+    }
+
+    public void UpdateCount()
+    {
+        descText.GetComponent<Text>().text = "wat";
     }
 
     public void OnSelect(BaseEventData eventData)

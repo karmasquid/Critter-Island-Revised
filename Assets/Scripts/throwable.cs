@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Throwable : MonoBehaviour {
 
+
     int damage;
 
     Rigidbody rb;
@@ -31,7 +32,7 @@ public class Throwable : MonoBehaviour {
             collision.gameObject.GetComponent<EnemyStats>().TakeDamange(damage);
 
         }
-            Destroy(gameObject); // Destroy if collison.
+        Destroy(gameObject); // Destroy if collison.
 
     }
 }

@@ -35,7 +35,13 @@ public class Item
     protected int ability;
     protected int cost;
 
+    //gör ett tomt item
+    public Item()
+    {
 
+    }
+
+    //skapa grunditem
     public Item(int Id, string Name, string Desc, TypeOfItem KindOfGear, int MeleeDamage, int RangeDamage, int SpecDamage, float Health, float Armor, float StaminaCost, float StaminaCostSpec, float StaminaRecovery, float Range, int AmmoCount, float MovementDiff, float Attackspeed, int Ability, int Cost)
     {
         id = Id;
@@ -65,14 +71,29 @@ public class Item
         go = Resources.Load<GameObject>("Prefabs/Items/" + name);
     }
 
-    public Item() //Gör ett tomt item
+    //klona item
+    public Item(Item itemToCopy) //Gör ett tomt item
     {
-
-    }
-
-    public void Clone(Item itemToClone)
-    {
-        //klona skiten och fixa i inventory;
+        id = itemToCopy.id;
+        name = itemToCopy.name;
+        desc = itemToCopy.desc;
+        itemType = itemToCopy.itemType;
+        damageMelee = itemToCopy.damageMelee;
+        damageRange = itemToCopy.damageRange;
+        damageSpec = itemToCopy.damageSpec;
+        health = itemToCopy.health;
+        armor = itemToCopy.armor;
+        staminaCost = itemToCopy.staminaCost;
+        staminaCostSpec = itemToCopy.staminaCostSpec;
+        staminaRecovery = itemToCopy.staminaRecovery;
+        range = itemToCopy.range;
+        ammoCount = itemToCopy.ammoCount;
+        movementDiff = itemToCopy.movementDiff;
+        attackSpeed = itemToCopy.attackSpeed;
+        ability = itemToCopy.ability;
+        cost = itemToCopy.cost;
+        icon = itemToCopy.icon;
+        go = itemToCopy.go;
     }
 
     public int ID { get { return this.id; } }

@@ -65,9 +65,9 @@ public class ItemDatabase : MonoBehaviour
         //add the startitems in game.
         if (Inventory.instance != null)
         {
-            Inventory.instance.inventoryItems.Add(allItems[0]);
-            Inventory.instance.inventoryItems.Add(allItems[3]);
-            Inventory.instance.inventoryItems.Add(allItems[12]);
+            Inventory.instance.AddItem(allItems[0].Name);
+            Inventory.instance.AddItem(allItems[3].Name);
+            Inventory.instance.AddItem(allItems[12].Name);
 
             Inventory.instance.EquipItem(1, 1);
             Inventory.instance.EquipItem(0, 0);

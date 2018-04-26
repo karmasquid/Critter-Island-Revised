@@ -58,24 +58,6 @@ public class Character : MonoBehaviour
     private bool getOverIt = false;
     private GameObject target;
 
-    public static Character instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-
-        DontDestroyOnLoad(gameObject);
-    }
-
     void Start()
     {
         //Modular variables. Saves start values set in inspector:

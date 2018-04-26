@@ -30,10 +30,8 @@ public class Inventory : MonoBehaviour
     //AudioClip invOpenSound, invCloseSound;
 
     //references to scripts
-    private ItemDatabase database;
     private InventorySlot inventorySlotScript;
     private EquippedSlot equippedSlotScript;
-    private Attacker attacker;
 
     //slot for weaponitem.
     private Transform playerHand;
@@ -58,10 +56,7 @@ public class Inventory : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        database = GameObject.Find("ItemDatabase").GetComponent<ItemDatabase>();
         playerHand = GameObject.FindGameObjectWithTag("Player").transform.Find("asset_char_mc_fixed_final/root_JNT/spine_1_JNT/spine_2_JNT/chest_JNT/torso_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_JNT/R_hand_JNT");
-
-        attacker = GameObject.FindGameObjectWithTag("Player").GetComponent<Attacker>();
 
         inventoryCanvas = Resources.Load<Canvas>("Prefabs/UI/InventoryCanvas");
         inventorySlot = Resources.Load<Button>("Prefabs/UI/InventorySlot");
@@ -131,7 +126,6 @@ public class Inventory : MonoBehaviour
             image.GetComponent<EquippedSlot>().UpdateSlot(-eqslotRotation);
             image.GetComponent<EquippedSlot>().IndexInList = i;
         }
-
         //create inventory slots.
         for (int i = 0; i < 12; i++)
         {
@@ -140,7 +134,6 @@ public class Inventory : MonoBehaviour
             inventoryButton[i] = button;
             button.transform.SetParent(background.transform, false);
         }
-
         //closes inventory
         eqCanvas.gameObject.SetActive(false);
         showInventory = false;
@@ -172,7 +165,6 @@ public class Inventory : MonoBehaviour
                 inventorySlotScript.RotateSlot();
                 inventorySlotScript.IndexInList = i;
             }
-
             EventSystem.current.SetSelectedGameObject(inventoryButton[0].gameObject, null);
         }
     }
@@ -181,9 +173,6 @@ public class Inventory : MonoBehaviour
     public void EquipItem(int index, int slot)
     {
         PlayerManager.instance.AddPlayerstats(inventoryItems[index]);
-
-
-
         if (equippedItems[slot] == null)
             {
             equippedItems[slot] = inventoryItems[index];
@@ -206,18 +195,16 @@ public class Inventory : MonoBehaviour
         {
             if (slot == 1)
             {
-                attacker.currentEquipped = equippedItems[1].Go;
+                Attacker.instance.currentEquipped = equippedItems[1].Go;
                 newMeleeWeapon = equippedItems[1].Go;
                 ChangeRangeSpriteInHUD();
             }
-
             else
             {
                 newMeleeWeapon = equippedItems[0].Go;
                 HoldWeapon();
             }
         }
-
         UpdateInventory();
     }
     
@@ -240,11 +227,11 @@ public class Inventory : MonoBehaviour
         int databaseIndex = -1;
         
         //find item in database.
-        databaseIndex = database.allItems.FindIndex(i => i.Name == nameOfItem);
+        databaseIndex = ItemDatabase.instance.allItems.FindIndex(i => i.Name == nameOfItem);
 
         if (databaseIndex != -1 && inventoryItems.Count < 12)
         {
-            new Item itemToAdd = database.allItems[databaseIndex];
+            Item itemToAdd = new Item(ItemDatabase.instance.allItems[databaseIndex]);
 
             int eqslotIndex = -1;
 
@@ -258,7 +245,19 @@ public class Inventory : MonoBehaviour
                 ammoToAdd = itemToAdd.AmmoCount;
 
                 //check if same item is equipped.
-                eqslotIndex = Array.FindIndex(equippedItems, i => i.Name == nameOfItem);
+                //eqslotIndex = Array.FindIndex(equippedItems, i => i.Name == nameOfItem);
+
+                for (int i = 0 ; i < equippedItems.Length; i++)
+                {
+                    if (equippedItems[i] != null)
+                    {
+                        if (equippedItems[i].Name == nameOfItem)
+                        {
+                            eqslotIndex = i;
+                        }
+                    }
+
+                }
 
                 //check if same item is in inventory.
                 invSlotIndex = inventoryItems.FindIndex(i => i.Name == itemToAdd.Name);
@@ -293,6 +292,11 @@ public class Inventory : MonoBehaviour
                     if ((inventoryItems[invSlotIndex].AmmoCount + ammoToAdd) < ammoFull)
                     {
                         inventoryItems[invSlotIndex].AmmoCount += ammoToAdd;
+
+                        ammoToAdd = 0;
+
+                        inventoryButton[invSlotIndex].GetComponent<InventorySlot>().UpdateCount();
+
                     }
 
                     else
@@ -302,7 +306,11 @@ public class Inventory : MonoBehaviour
 
                         inventoryItems[invSlotIndex].AmmoCount = 99;
 
+                        inventoryButton[invSlotIndex].GetComponent<InventorySlot>().UpdateCount();
+
                     }
+
+
                 }
                 
                 else if (ammoToAdd > 0)
