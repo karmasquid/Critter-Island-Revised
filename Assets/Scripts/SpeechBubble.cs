@@ -46,11 +46,11 @@ public class SpeechBubble : MonoBehaviour {
         talking = true;
 
 
-        for (int i = 0; i <= sentences.Count; i++)
+        for (int i = 0; i < sentences.Count; i++)
         {
             canvas.enabled = true;
 
-            text.text = sentences[0];
+            text.text = sentences[i];
 
             yield return new WaitForSeconds(secWaitBetween);
         }
