@@ -3276,7 +3276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e83298835e493469ea58b8d63ba3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerChar: {fileID: 1857879432}
   offset: {x: 0, y: 8, z: -5}
   smoothspeed: 0.125
 --- !u!114 &1068445132
@@ -4311,12 +4310,17 @@ Prefab:
     - target: {fileID: 114279708995129084, guid: 10fcf72681f60614a83716467356555d,
         type: 2}
       propertyPath: sounds.Array.data[1].volume
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 114279708995129084, guid: 10fcf72681f60614a83716467356555d,
         type: 2}
       propertyPath: sounds.Array.data[1].pitch
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114279708995129084, guid: 10fcf72681f60614a83716467356555d,
+        type: 2}
+      propertyPath: sounds.Array.data[0].volume
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10fcf72681f60614a83716467356555d, type: 2}
@@ -4626,11 +4630,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1857879432 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4485334660835998, guid: 72a2ad6f088cfe34aa585f52770619e8,
-    type: 2}
-  m_PrefabInternal: {fileID: 1629756466}
 --- !u!1 &1877603599
 GameObject:
   m_ObjectHideFlags: 0
