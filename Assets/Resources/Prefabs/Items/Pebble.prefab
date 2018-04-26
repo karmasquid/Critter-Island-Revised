@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23179122430924534}
   - component: {fileID: 54127508651500108}
   - component: {fileID: 135719910397893588}
-  - component: {fileID: 114205020184228720}
+  - component: {fileID: 114894661147958338}
   m_Layer: 0
   m_Name: Pebble
   m_TagString: Untagged
@@ -100,7 +100,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114205020184228720
+--- !u!114 &114894661147958338
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1258279871934506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c518b2a7b3de604890a34a0f40d8390, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cab914b876f9b14d8bc1ea908bdda84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135719910397893588
