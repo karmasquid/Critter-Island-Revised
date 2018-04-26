@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1836111, g: 0.22911204, b: 0.30533397, a: 1}
+  m_IndirectSpecularColor: {r: 0.18361156, g: 0.22911268, b: 0.30533493, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1245,6 +1245,102 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10fcf72681f60614a83716467356555d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &947047302
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1513794909}
+    m_Modifications:
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.4099998
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.11287231
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.8650569
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.22500798
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.43394446
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -22.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 114401765916101220, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 29.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[1]
+      value: Who wouldn't build their home here with this view?
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[2]
+      value: game.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[0]
+      value: I'm not an outcast.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: secWaitBetween
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370072659358858, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_Name
+      value: SpeechBubble (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &967461310
 Prefab:
   m_ObjectHideFlags: 0
@@ -1498,7 +1594,7 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[1]
-      value: And we're okay with that.
+      value: Keep following the road, you'll find her.
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
@@ -1508,7 +1604,7 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[0]
-      value: "There\xB4s not much to do here."
+      value: The Elder?
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
@@ -2152,7 +2248,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4539796983170424, guid: d66e9b1d6fe6097428dc62be0ee22db2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -408.91
+      value: -407.91
       objectReference: {fileID: 0}
     - target: {fileID: 4539796983170424, guid: d66e9b1d6fe6097428dc62be0ee22db2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2160,7 +2256,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4539796983170424, guid: d66e9b1d6fe6097428dc62be0ee22db2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 13.31
+      value: 12.81
       objectReference: {fileID: 0}
     - target: {fileID: 4539796983170424, guid: d66e9b1d6fe6097428dc62be0ee22db2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2193,6 +2289,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d66e9b1d6fe6097428dc62be0ee22db2, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1513794909 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4539796983170424, guid: d66e9b1d6fe6097428dc62be0ee22db2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1513794908}
 --- !u!1001 &1541185264
 Prefab:
   m_ObjectHideFlags: 0
@@ -2392,7 +2493,7 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2442,17 +2543,17 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[1]
-      value: Some have ventured down.
+      value: You must be after IT, no?
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[2]
-      value: and never returned.
+      value: Your solution to all your problems?
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[0]
-      value: You must be after IT, no?
+      value: I'm the Elder. I know your kind.
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
@@ -2478,17 +2579,22 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[3]
-      value: '... We miss them dearly...'
+      value: Know that danger awaits in there.
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[4]
-      value: You shouldn't go down there.
+      value: Some lose their way, even their face.
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[5]
-      value: ' if you know what''s good for you.'
+      value: Best of luck in your quest for...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[6]
+      value: The Phoenix Orb.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}

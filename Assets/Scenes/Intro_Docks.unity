@@ -414,6 +414,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1860918506}
     m_Modifications:
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.01714737
@@ -467,7 +472,7 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[2]
-      value: "I hope you find what you\xB4re looking for."
+      value: Our Elder knows everything about this island.
       objectReference: {fileID: 0}
     - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -496,6 +501,16 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[3]
+      value: She's the one standing by the mountain gate.
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[4]
+      value: "I hope you find what you\xB4re looking for."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
