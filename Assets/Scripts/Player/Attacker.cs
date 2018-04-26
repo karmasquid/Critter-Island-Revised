@@ -129,11 +129,15 @@ public class Attacker : MonoBehaviour {
                 this.gameObject.layer = 0;
                 dying = true;
             }
-            else if (Time.time >= waitUntillRestart)
+            else if (Time.time >= waitUntillRestart && dead)
             {
-                
-                GameObject.Find("LevelLoader").GetComponent<LevelLoader>().Loadlevel(0);
 
+                GameObject.Find("LevelLoader").GetComponent<LevelLoader>().Loadlevel(0);
+                dead = false;
+                Destroy(GameObject.Find("ItemDatabase"));
+                Destroy(GameObject.Find("Inventory"));
+                Destroy(GameObject.Find("PlayerManager"));
+                Destroy(GameObject.Find("Player"));
             }
         }
     }
