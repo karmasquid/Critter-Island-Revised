@@ -1481,8 +1481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff4ddf830599bd4686d5957381ecbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  willDrop: 0
-  itemToDrop: 
+  willDrop: 1
+  itemToDrop: Dusk Leaf
 --- !u!114 &114495225414512154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 1024
-  health: 80
+  health: 40
   damage: 12
   attackRangeMin: 0.5
   attackRangeMax: 2.5
