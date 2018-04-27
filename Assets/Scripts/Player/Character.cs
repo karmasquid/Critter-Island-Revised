@@ -248,19 +248,23 @@ public class Character : MonoBehaviour
     void Dodger()
     {
         if (InputManager.Dodge())
-        { 
+        {
 
-            if (!dodging && PlayerManager.instance.Stamina.CurrentValue >= dodgeCost ) //If there is stamina:
+            if (!dodging && PlayerManager.instance.Stamina.CurrentValue >= dodgeCost) //If there is stamina:
             {
                 dodging = true;
-                if (inHole && pitHole.tag == "Hole") //Inside hole coll. && Jumping Shoes...
+
+                if (inHole && pitHole.tag == "Hole" && Inventory.instance.equippedItems[2] != null) //Inside hole coll. && Jumping Shoes...
                 {
-                    target = pitHole.GetComponent<GoOver>().target;
-                    if (this.transform.forward != pitHole.GetComponent<GoOver>().target.transform.forward)
+                    if (Inventory.instance.equippedItems[2].Name == "Feather Stride Boots")
                     {
-                        getOverIt = true;
-                        lockMove = true;
-                        PlayerManager.instance.LooseStamina(dodgeCost);
+                        target = pitHole.GetComponent<GoOver>().target;
+                        if (this.transform.forward != pitHole.GetComponent<GoOver>().target.transform.forward)
+                        {
+                            getOverIt = true;
+                            lockMove = true;
+                            PlayerManager.instance.LooseStamina(dodgeCost);
+                        }
                     }
                 }
                 else
@@ -274,14 +278,15 @@ public class Character : MonoBehaviour
                     _body.AddForce(dashVelocity, ForceMode.VelocityChange);
                 }
 
-                //Recover:
-                DelayGravity = DodgeDown(DashDistance / (DashDistance * 2));
-                StartCoroutine(DelayGravity);
-                
-                
+                    //Recover:
+                    DelayGravity = DodgeDown(DashDistance / (DashDistance * 2));
+                    StartCoroutine(DelayGravity);
+
+
+                }
             }
-        }
     }
+    
 
     void mover()
     {
@@ -326,13 +331,9 @@ public class Character : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Hole" && Inventory.instance.equippedItems[2].Name != null) //&& Right jumping shoes...
+        if (other.tag == "Hole") //&& Right jumping shoes...
         {
-            if(Inventory.instance.equippedItems[2].Name == "Feather Stride Boots")
-            {
-
                 pitHole = other.gameObject;
-            }
 
         }
     }
