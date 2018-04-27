@@ -54,7 +54,6 @@ public class RangeAttackState : IState {
     {
         this.startPos = ownerGO.position;
         waitAttack = Time.time + 0.5f;
-        this.navMeshAgent.enabled = false;
     }
 
     void IState.Execute()
@@ -100,7 +99,6 @@ public class RangeAttackState : IState {
 
     void IState.Exit()
     {
-        this.navMeshAgent.enabled = true;
     }   
 
     private void Attack()

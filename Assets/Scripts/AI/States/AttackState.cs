@@ -55,7 +55,7 @@ public class AttackState : IState {
         this.startPos = ownerGO.position;
         moving = true;
         waitAttack = Time.time + timeBetweenAttacks;
-
+        anim.SetBool("isWalking", false);
     }
 
     void IState.Execute()
