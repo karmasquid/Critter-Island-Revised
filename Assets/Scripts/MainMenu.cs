@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
+    //Script för att stänga av programmet. Övriga funktioner för huvudmenyn finns på menyns komponenter i inspektorn.
     public void QuitGame()
     {
         Debug.Log("Cya");
@@ -13,3 +13,5 @@ public class MainMenu : MonoBehaviour
     }
 	
 }
+
+//Daniel Laggar

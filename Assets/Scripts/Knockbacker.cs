@@ -4,18 +4,10 @@ using UnityEngine;
 
 public class Knockbacker : MonoBehaviour {
 
-     Rigidbody rb =null;
+    //Script för att spelaren ska kunna knockas tillbaka. Ska senare implementeras på relevant ställe för både fiender och spelare.
+
+    Rigidbody rb =null;
     public float Force;
-
-	// Use this for initialization
-	void Start () {
-
-        //rb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-
-
-
-		
-	}
 
     //Känner efter om spelaren vidrör collidern och hämtar då spelarens RigidBody för att kunna påverka den. Fixad av Kai.
     void OnTriggerEnter(Collider other)
@@ -42,3 +34,5 @@ public class Knockbacker : MonoBehaviour {
     }
 
 }
+
+//Daniel Laggar

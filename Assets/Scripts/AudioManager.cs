@@ -5,6 +5,7 @@ using System;
 public class AudioManager : MonoBehaviour {
 
     //Script taget från Brackey: https://www.youtube.com/watch?v=6OT43pvUyfY
+    //Skapar ljudkällor av klassen Sound
     public Sound[] sounds;
 
     public static AudioManager instance;
@@ -18,7 +19,8 @@ public class AudioManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-
+        //Står här då vi längre fram ska ha en ljudhanterare som följer med mellan senare och tonar ned musik och bakgrundsljud.
+        //Just nu har vi en ny ljudhanterare i varje scen.
         //DontDestroyOnLoad(gameObject);
 
 		foreach (Sound s in sounds)
@@ -56,6 +58,7 @@ public class AudioManager : MonoBehaviour {
             return;
         }
 
+        //Kodrader som senare ska användas för att spela upp och stänga av ljud på relevant plats.
         //Skriv detta för att spela ljud på relevant ställe
         //FindObjectOfType<AudioManager>().Play("SoundName");
         //Skriv detta för att stoppa ljud(musik)
@@ -65,3 +68,4 @@ public class AudioManager : MonoBehaviour {
 
 
 }
+//Daniel Laggar

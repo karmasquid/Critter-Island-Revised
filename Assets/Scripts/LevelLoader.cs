@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
+    //Script för att ladda nivåer. Skulle initialt köra en  laddningsscen mellan nivåer men detta har kommenterats bort eftersom det inte
+    //fungerade tillsammans med ChooseNextScene nedan. Planerar att ordna detta så att vi får en laddningsscen mellan scenarna senare.
     public GameObject loadingScreen;
     public Slider slider;
     private bool cameFromPrevLvl = true;
@@ -12,8 +14,6 @@ public class LevelLoader : MonoBehaviour
     { get { return cameFromPrevLvl; } }    
 
     public static LevelLoader instance;
-
-
 
     private void Awake()
     {
@@ -37,6 +37,7 @@ public class LevelLoader : MonoBehaviour
         //StartCoroutine(LoadAsynch(sceneIndex));
     }
 
+    //Denna del skall användas senare och står därför kvar här. 
     //IEnumerator LoadAsynch(int sceneIndex)
     //{
 
@@ -52,7 +53,6 @@ public class LevelLoader : MonoBehaviour
     //        yield return null;
     //    }
     //}
-
 
     public void ChooseNextScene(bool SceneAfterThis)
     {
@@ -73,3 +73,4 @@ public class LevelLoader : MonoBehaviour
     
 
     }
+//Daniel Laggar & Stina Hedman

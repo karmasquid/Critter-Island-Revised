@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Water_ani : MonoBehaviour
 {
-
+    //Script taget från https://www.youtube.com/watch?v=3MoHJtBnn2U
+    //Styr rörelsen av vattnet.
     public float power = 3;
     public float scale = 1;
     public float timeScale = 1;
@@ -14,14 +15,12 @@ public class Water_ani : MonoBehaviour
     private MeshFilter mf;
 
 
-    // Use this for initialization
     void Start()
     {
         mf = GetComponent<MeshFilter>();
         WaterAni();
     }
 
-    // Update is called once per frame
     void Update()
     {
         WaterAni();
@@ -50,3 +49,4 @@ public class Water_ani : MonoBehaviour
 
     }
 }
+//Ossian Borg Gyllenbäck

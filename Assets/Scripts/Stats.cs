@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//En klass för att hantera spelar- och fiendeattribut. För att skapa stats initialiserar mán ett nytt önskat attribut.
+//Detta görs i scripten EnemyStats och PlayerManager.
 [Serializable]
 public class Stats {
 
@@ -51,9 +54,11 @@ public class Stats {
         }
     }
 
+    //Används för att skapa ett nytt attribut
     public void Initialize()
     {
         this.MaxValue = maxValue;
         this.CurrentValue = currentValue;
     }
 }
+//Daniel Laggar
