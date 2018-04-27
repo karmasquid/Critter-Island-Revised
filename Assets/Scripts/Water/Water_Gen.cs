@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Water_Gen : MonoBehaviour {
 
+    //Script taget från https://www.youtube.com/watch?v=3MoHJtBnn2U
+    //Genererar en mesh för vatten
     public float size = 1;
     public int gridSize = 16;
 
@@ -54,3 +56,5 @@ public class Water_Gen : MonoBehaviour {
         return m;
     }
 }
+
+//Ossian Borg Gyllenbäck

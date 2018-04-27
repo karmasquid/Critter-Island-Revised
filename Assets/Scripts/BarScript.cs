@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class BarScript : MonoBehaviour {
 
+    //Script för att hantera olika sorters mätare. Används för spelarens hälsomätare och uthållighetsmätare.
+
     private float fillAmount;
 
     [SerializeField]
@@ -22,6 +24,7 @@ public class BarScript : MonoBehaviour {
     [SerializeField]
     private Color fullColor;
 
+    //Om mätaren ska ändra färg beroende på dess värde. Hälsomätaren använder t ex två nyanser av rött.
     [SerializeField]
     private bool lerpColor;
 
@@ -44,7 +47,6 @@ public class BarScript : MonoBehaviour {
         }
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 
         HandleBar();
@@ -73,3 +75,4 @@ public class BarScript : MonoBehaviour {
     }
 
 }
+//Daniel Laggar
