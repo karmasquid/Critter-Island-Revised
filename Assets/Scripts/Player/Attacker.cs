@@ -134,6 +134,7 @@ public class Attacker : MonoBehaviour {
 
                 GameObject.Find("LevelLoader").GetComponent<LevelLoader>().Loadlevel(0);
                 dead = false;
+                Destroy(GameObject.Find("Inventory"));
                 Destroy(GameObject.Find("ItemDatabase"));
                 Destroy(GameObject.Find("Inventory"));
                 Destroy(GameObject.Find("PlayerManager"));

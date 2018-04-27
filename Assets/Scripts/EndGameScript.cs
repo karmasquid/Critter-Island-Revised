@@ -42,12 +42,12 @@ public class EndGameScript : MonoBehaviour {
     }
     IEnumerator EndTheGame(float waitTime)
     {
-        Instantiate(EndOfGame);
+        GameObject ES = Instantiate(EndOfGame);
         yield return new WaitForSeconds(waitTime);
-        EndOfGame.SetActive(false);
+        Destroy(ES);
         LevelLoader.instance.Loadlevel(0);
-        Destroy(GameObject.Find("ItemDatabase"));
         Destroy(GameObject.Find("Inventory"));
+        Destroy(GameObject.Find("ItemDatabase"));
         Destroy(GameObject.Find("PlayerManager"));
         Destroy(GameObject.Find("Player"));
         Destroy(GameObject.Find("Canvas"));
