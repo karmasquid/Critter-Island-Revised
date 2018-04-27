@@ -3360,102 +3360,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc9ea726dac9fe146922bceb0fd0cdb8, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &1416910774
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 507387825}
-    m_Modifications:
-    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
-        type: 2}
-      propertyPath: sentences.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0.35401917
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2.4099998
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.21134153
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0.011814259
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0.96673065
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0.25145411
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.045420676
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -22.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 114401765916101220, guid: cdaa64a9e77664042b74f5c830bfc5bc,
-        type: 2}
-      propertyPath: m_Text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 29.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
-        type: 2}
-      propertyPath: sentences.Array.data[1]
-      value: Your beak is strange.
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
-        type: 2}
-      propertyPath: sentences.Array.data[2]
-      value: game.
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
-        type: 2}
-      propertyPath: sentences.Array.data[0]
-      value: Hey there stranger!
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
-        type: 2}
-      propertyPath: secWaitBetween
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1370072659358858, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-      propertyPath: m_Name
-      value: SpeechBubble (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1430830456
 Prefab:
   m_ObjectHideFlags: 0
@@ -4869,6 +4773,89 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4c65392b69f183b4ab940d8a0304a2d1, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &2092714558
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 507387825}
+    m_Modifications:
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.012607013
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.36533275
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.032100942
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.9302379
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 85.883
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[2]
+      value: Know that danger awaits
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[3]
+      value: For The Phoenix Orb is in the deepest parts of this cave...
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[0]
+      value: Hey there stranger!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -3.953
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.0000013
+      objectReference: {fileID: 0}
+    - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1.0000013
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2138331524
 Prefab:
