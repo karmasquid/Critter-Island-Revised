@@ -19,6 +19,8 @@ public class AttackState : IState {
 
     private float timeBetweenMoves = 4f;
     private float waitMove;
+    private float timeUntillDealDamage = 0.4f;
+    private float waitDealDamage;
 
     //private float waitDealingDamage;
     //private float timeBeforeDealingDamage = 0.5f;
@@ -52,11 +54,12 @@ public class AttackState : IState {
         this.startPos = ownerGO.position;
         moving = true;
         waitAttack = Time.time + timeBetweenAttacks;
+
     }
 
     void IState.Execute()
     {
-        if (!attackComplete && ownerGO != null)
+        if (!attackComplete)
         {
 
             var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
@@ -78,15 +81,19 @@ public class AttackState : IState {
                     this.navMeshAgent.isStopped = true;
                 }
 
-                //fixa ännu en wait så den gör skada mitt i slaget.
+                //Check ifall det är tillåtet att attackera igen
                 if (Time.time > waitAttack)
                 {
                     anim.SetTrigger("attack");
                     waitAttack = Time.time + timeBetweenAttacks;
-                    enemyStats.DealDamage();
+                    waitDealDamage = Time.time + timeUntillDealDamage;
                 }
 
-
+                //check inför att göra skadan så den inte görs direkt. Kolla så att spelaren är inom attackcollider. ---------------------------- KOLLA EFTER SPELARE INOM COLLIDER ----------------
+                if (Time.time > timeUntillDealDamage) 
+                {
+                    enemyStats.DealDamage();
+                }
             }
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
             {
