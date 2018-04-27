@@ -238,7 +238,7 @@ public class Inventory : MonoBehaviour
             int invSlotIndex = -1;
 
             //check if item is in inventory and try to add ammo to that item.
-            if (itemToAdd.ItemType == Item.TypeOfItem.Ranged || itemToAdd.ItemType == Item.TypeOfItem.Miscellaneous)
+            if (itemToAdd.ItemType == Item.TypeOfItem.Ranged)
             {
                 int ammoFull = 99;
 
@@ -332,6 +332,7 @@ public class Inventory : MonoBehaviour
         UpdateInventory();
     }
     
+    //place the gameobject of the meleeweapon in the players hand.
     public void HoldWeapon()
     {
 
@@ -344,6 +345,7 @@ public class Inventory : MonoBehaviour
 
     }
 
+    //change sprite in hud to the current rangeweapon sprite.
     public void ChangeRangeSpriteInHUD()
     {
         if (equippedItems[1] != null)

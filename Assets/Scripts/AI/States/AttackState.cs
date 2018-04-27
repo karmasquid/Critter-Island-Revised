@@ -19,7 +19,7 @@ public class AttackState : IState {
 
     private float timeBetweenMoves = 4f;
     private float waitMove;
-    private float timeUntillDealDamage = 0.4f;
+    private float timeUntillDealDamage = 0.3f;
     private float waitDealDamage;
 
     //private float waitDealingDamage;
@@ -28,6 +28,7 @@ public class AttackState : IState {
     //private bool rotating;
     private bool moving;
     private bool attacking;
+    private bool executingAttack;
 
     Vector3 direction;
 
@@ -87,12 +88,14 @@ public class AttackState : IState {
                     anim.SetTrigger("attack");
                     waitAttack = Time.time + timeBetweenAttacks;
                     waitDealDamage = Time.time + timeUntillDealDamage;
+                    executingAttack = true;
                 }
 
-                //check inför att göra skadan så den inte görs direkt. Kolla så att spelaren är inom attackcollider. ---------------------------- KOLLA EFTER SPELARE INOM COLLIDER ----------------
-                if (Time.time > timeUntillDealDamage) 
+                //check inför att göra skadan så den inte görs direkt. Kolla så att spelaren är inom attackcollider. Denna ska användas sen.
+                if (Time.time > timeUntillDealDamage && executingAttack)
                 {
                     enemyStats.DealDamage();
+                    executingAttack = false;
                 }
             }
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)

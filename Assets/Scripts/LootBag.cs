@@ -35,7 +35,7 @@ public class LootBag : MonoBehaviour {
         {
             Inventory.instance.AddItem(itemInBag);
             pickedUp = true;
-            Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 0.2f);
             Debug.Log("picked up" + itemInBag);
         }        
     }

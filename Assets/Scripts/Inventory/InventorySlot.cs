@@ -36,9 +36,10 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(TaskOnClick);
         descText = this.transform.GetChild(2);
-        //descText.gameObject.SetActive(false);
+        descText.gameObject.SetActive(false);
     }
 
+    //rotate all slots so the sprites are in the right direction.
     public void RotateSlot()
     {
 
@@ -48,15 +49,18 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         }
     }
 
+    //add the image of the item.
     public void UpdateImage()
     {
         this.transform.GetChild(0).GetComponent<Image>().overrideSprite = itemOnSlot.Icon;
     }
 
+    //to update the counter not activated at the moment
     public void UpdateCount()
     {
         descText.GetComponent<Text>().text = "wat";
     }
+
 
     public void OnSelect(BaseEventData eventData)
     {
@@ -83,6 +87,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
 
     }
 
+    //add item to the right slot in the inventory.
     void TaskOnClick()
     {  
         switch (itemOnSlot.ItemType)

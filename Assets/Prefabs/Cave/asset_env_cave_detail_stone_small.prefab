@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33367781118443682}
   - component: {fileID: 23560314928873186}
   - component: {fileID: 95981051812805662}
+  - component: {fileID: 135928923327716014}
   m_Layer: 0
   m_Name: asset_env_cave_detail_stone_small
   m_TagString: Untagged
@@ -100,3 +101,15 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!135 &135928923327716014
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1036549141188476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.34782946
+  m_Center: {x: 0.000000014901161, y: 0, z: 0}
