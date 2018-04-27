@@ -1781,7 +1781,7 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1832,7 +1832,7 @@ Prefab:
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
       propertyPath: sentences.Array.data[3]
-      value: For The Phoenix Orb is in the deepest parts of this cave...
+      value: For The Phoenix Orb is protected
       objectReference: {fileID: 0}
     - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
         type: 2}
@@ -1850,6 +1850,11 @@ Prefab:
     - target: {fileID: 4447634332202476, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
       propertyPath: m_LocalScale.z
       value: 1.0000014
+      objectReference: {fileID: 0}
+    - target: {fileID: 114438401417459580, guid: cdaa64a9e77664042b74f5c830bfc5bc,
+        type: 2}
+      propertyPath: sentences.Array.data[4]
+      value: You'll have to search the caves..
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cdaa64a9e77664042b74f5c830bfc5bc, type: 2}
