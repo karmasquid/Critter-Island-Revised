@@ -326,10 +326,14 @@ public class Character : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Hole" && Inventory.instance.equippedItems[2].Name == "Feather Stride Boots") //&& Right jumping shoes...
+        if (other.tag == "Hole" && Inventory.instance.equippedItems[2].Name != null) //&& Right jumping shoes...
         {
-            
-            pitHole = other.gameObject;
+            if(Inventory.instance.equippedItems[2].Name == "Feather Stride Boots")
+            {
+
+                pitHole = other.gameObject;
+            }
+
         }
     }
     private void OnTriggerStay(Collider other)
