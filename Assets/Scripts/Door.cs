@@ -48,7 +48,7 @@ public class Door : MonoBehaviour {
 
             if (inventoryIndex != -1)
             {
-                Debug.Log("GotKey");
+
                 StartCoroutine(OpenDoor());
                 Inventory.instance.inventoryItems.RemoveAt(inventoryIndex);
                 Inventory.instance.UpdateInventory();
@@ -68,14 +68,12 @@ public class Door : MonoBehaviour {
     {
         opened = true;
 
-        Debug.Log("Opening door");
 
         GetComponent<SphereCollider>().enabled = false;
 
        while (this.transform.position.y > endPos.y)
         {
 
-            Debug.Log("In WhileLoop");
 
             this.transform.Translate(Vector3.down/25);
 
