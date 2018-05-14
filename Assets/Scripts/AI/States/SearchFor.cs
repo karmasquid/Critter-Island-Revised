@@ -31,9 +31,7 @@ public class SearchFor : IState {
 
     private Vector3 roamPos;
 
-    private System.Action<SearchResult> searchResultCallback;
-
-
+    private System.Action<Results> searchResultCallback;
 
     //int triedToFind = 0;
 
@@ -47,7 +45,7 @@ public class SearchFor : IState {
         this.viewDeg = meleeEnemy.ViewDeg; 
         this.roamRadius = meleeEnemy.RoamRange;
         this.navMeshAgent = meleeEnemy.NavMeshAgent;
-        this.searchResultCallback = meleeEnemy.SearchDone;
+        this.searchResultCallback = meleeEnemy.NextState;
         this.attackRange = meleeEnemy.AttackRangeMax;
         this.anim = meleeEnemy.Anim;
     }
@@ -68,7 +66,11 @@ public class SearchFor : IState {
 
     public void Enter()
     {
-
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("isWalking"))
+        {
+            anim.SetBool("isWalking", false);
+        }
+        roaming = false;
     }
 
     public void Execute()
@@ -99,13 +101,13 @@ public class SearchFor : IState {
                 if (Vector3.Angle(ownerGo.forward, targetDirection) < viewDeg / 2)
                 {
                     if (!Physics.Raycast(ownerGo.position, targetDirection, targetDistance, obstacleLayer))
-                    {   var searchResult = new SearchResult(true);
+                    {   var searchResult = new Results(1);
                         this.searchResultCallback(searchResult);
                         this.searchCompleted = true;
                     }
                 }
                 if (targetDistance < attackRange)
-                {   var searchResult = new SearchResult(true);
+                {   var searchResult = new Results(1);
                     this.searchResultCallback(searchResult);
                     this.searchCompleted = true;
                 }
@@ -121,6 +123,7 @@ public class SearchFor : IState {
 
             if (RoamToPoint(ownerGo.position, roamRadius, out roamingPoint))
             {
+                anim.SetBool("isWalking", true);
                 navMeshAgent.SetDestination(roamingPoint);
                 roaming = true;
                 waittime = Time.time + wait;
@@ -129,7 +132,7 @@ public class SearchFor : IState {
             }
             
         }
-        if (roaming && navMeshAgent.remainingDistance < 0.2|| Time.time > waittime)
+        if (roaming && navMeshAgent.remainingDistance < 0.1|| Time.time > waittime)
         {
             anim.SetBool("isWalking", false);
             if (Time.time > waitroam)
@@ -164,13 +167,13 @@ public class SearchFor : IState {
     //    this.ownerGo.transform.rotation = Quaternion.Slerp(this.ownerGo.rotation, lookRotation, Time.deltaTime * rotationspeed);
     //}
 }
-public class SearchResult
-{
-    public bool trueForAttackFalseForIdle;
+//public class SearchResult
+//{
+//    public bool trueForAttackFalseForIdle;
 
-    public SearchResult(bool trueForAttackFalseForIdle)
-    {
-        this.trueForAttackFalseForIdle = trueForAttackFalseForIdle;
-    }
-} 
+//    public SearchResult(bool trueForAttackFalseForIdle)
+//    {
+//        this.trueForAttackFalseForIdle = trueForAttackFalseForIdle;
+//    }
+//} 
 //Stina Hedman

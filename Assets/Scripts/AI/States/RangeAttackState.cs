@@ -32,7 +32,7 @@ public class RangeAttackState : IState {
 
     private RangeEnemy rangeEnemyScript;
 
-    private System.Action<RangeAttackResult> rangeAttackResultCallback;
+    private System.Action<Results> rangeAttackResultCallback;
 
     public RangeAttackState(RangeEnemy ai)
     {
@@ -44,7 +44,7 @@ public class RangeAttackState : IState {
         this.attackRangeMin = ai.AttackRangeMin;
         this.attackRangeMax = ai.AttackRangeMax;
         this.viewRange = ai.ViewRange;
-        this.rangeAttackResultCallback = ai.RangeAttackDone;
+        this.rangeAttackResultCallback = ai.NextState;
         this.anim = ai.Anim;
         this.timeBetweenAttacks = ai.TimeBetweenAttacks;
         this.startRotation = ai.StartRot;
@@ -89,7 +89,7 @@ public class RangeAttackState : IState {
             }
             else if (distanceBetween > viewRange && Time.time > waitMove)
             {
-                var rangeAttackResult = new RangeAttackResult(true);
+                var rangeAttackResult = new Results(3);
                 this.rangeAttackResultCallback(rangeAttackResult);
                 this.attackComplete = true;
             }

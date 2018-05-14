@@ -22,7 +22,7 @@ public class IdleState : IState {
 
     private string tagToLookFor = "Player";
 
-    private System.Action<IdleResult> idleResultsCallback;
+    private System.Action<Results> idleResultsCallback;
 
     public IdleState(MeleeEnemy ai)
     {
@@ -33,7 +33,7 @@ public class IdleState : IState {
         this.viewRange = ai.ViewRange;
         this.viewDeg = ai.ViewDeg;
         this.attackRange = ai.AttackRangeMax;
-        this.idleResultsCallback = ai.IdleDone;
+        this.idleResultsCallback = ai.NextState;
         this.idleTime = ai.IdleTimeBetweenMoves;
         this.anim = ai.Anim;
     }
@@ -46,7 +46,7 @@ public class IdleState : IState {
         this.viewRange = ai.ViewRange;
         this.viewDeg = ai.ViewDeg;
         this.attackRange = ai.AttackRangeMax;
-        this.idleResultsCallback = ai.IdleDone;
+        this.idleResultsCallback = ai.NextState;
         this.idleTime = ai.IdleTimeBetweenMoves;
         this.anim = ai.Anim;
     }
@@ -89,7 +89,7 @@ public class IdleState : IState {
                 {
                     if (!Physics.Raycast(ownerGo.position, targetDirection, targetDistance, obstacleLayer))
                     {
-                        var idleResult = new IdleResult(true);
+                        var idleResult = new Results(1);
                         this.idleResultsCallback(idleResult);
                         this.idleCompleted = true;
                     }
@@ -97,7 +97,7 @@ public class IdleState : IState {
 
                 if (targetDistance < attackRange)
                 {
-                    var idleResult = new IdleResult(true);
+                    var idleResult = new Results(1);
                     this.idleResultsCallback(idleResult);
                     this.idleCompleted = true;
                 }
@@ -114,14 +114,15 @@ public class IdleState : IState {
     //    this.ownerGo.transform.rotation = Quaternion.Slerp(this.ownerGo.rotation, lookRotation, Time.deltaTime * rotationspeed);
     //}
 }
-public class IdleResult
-{
-    public bool trueForAttackFalseForSearch;
+//public class IdleResult
+//{
+//    public bool trueForAttackFalseForSearch;
 
-    public IdleResult(bool trueForAttackFalseForSearch)
-    {
-        this.trueForAttackFalseForSearch = trueForAttackFalseForSearch;
-    }
+//    public IdleResult(bool trueForAttackFalseForSearch)
+//    {
+//        this.trueForAttackFalseForSearch = trueForAttackFalseForSearch;
+//    }
 
 
-}// Stina Hedman
+//}
+// Stina Hedman

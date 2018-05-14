@@ -91,7 +91,7 @@ public class RangeEnemy : MonoBehaviour
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
-    private void Start()
+    private void Awake()
     {
         aitransform = this.gameObject.transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -122,10 +122,35 @@ public class RangeEnemy : MonoBehaviour
                 anim.SetBool("isWalking", false);
             }
         }
-
-
     }
 
+    public void NextState(Results stateResult)
+    {
+        switch (stateResult.nextState)
+        {
+            //SearchFor
+            case 1:
+                this.stateMachine.ChangeState(new RangeAttackState(this));
+                break;
+
+            //
+            //case 2:
+            //    this.stateMachine.ChangeState(new SearchFor(this));
+            //    break;
+
+            case 3:
+                this.stateMachine.ChangeState(new IdleState(this));
+                break;
+
+            case 4:
+                break;
+
+            default:
+                Debug.Log(transform.name + " is trying to switch to a state that doesn't exist !");
+                break;
+        }
+
+    }
     //Next state after Searchstate
     //public void SearchDone(SearchResult searchResult)
     //{
@@ -177,13 +202,13 @@ public class RangeEnemy : MonoBehaviour
     }
 
 
-    public void RangeAttackDone(RangeAttackResult attackResults)
-    {   //attack     
-        this.stateMachine.ChangeState(new IdleState(this));
-    }
+    //public void RangeAttackDone(RangeAttackResult attackResults)
+    //{   //attack     
+    //    this.stateMachine.ChangeState(new IdleState(this));
+    //}
 
-    public void IdleDone(IdleResult idleResult)
-    {   //attack     
-        this.stateMachine.ChangeState(new RangeAttackState(this));
-    }
+    //public void IdleDone(IdleResult idleResult)
+    //{   //attack     
+    //    this.stateMachine.ChangeState(new RangeAttackState(this));
+    //}
 }// STina Hedman

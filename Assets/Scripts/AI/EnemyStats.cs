@@ -12,9 +12,15 @@ public class EnemyStats : MonoBehaviour {
     [SerializeField]
     private string itemToDrop;
 
-    Animator anim;private float health;
+    Animator anim;
+
+    private float health;
     private float damage;
+
+    private bool playerInRange;
+
     private bool dead;
+
 
     public bool Dead
     {
@@ -42,6 +48,19 @@ public class EnemyStats : MonoBehaviour {
         }
     }
 
+    public bool PlayerInRange
+    {
+        set
+        {
+            playerInRange = value;
+        }
+        get
+        {
+            return this.playerInRange;
+        }
+    }
+
+
     private void Start()
     {
         dead = false;
@@ -59,7 +78,6 @@ public class EnemyStats : MonoBehaviour {
 
     public void TakeDamange(int damageDealt)
     {
-        health -= damageDealt;
 
         if (health <= 0 && !dead)
         {
@@ -83,7 +101,10 @@ public class EnemyStats : MonoBehaviour {
 
     public void DealDamage()
     {
-        playermanager.TakeDamage(damage);
+        if (playerInRange)
+        {
+            playermanager.TakeDamage(damage);
+        }
     }
 }//Stina Hedman
 

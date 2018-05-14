@@ -34,7 +34,7 @@ public class AttackState : IState {
 
     public bool attackComplete;
 
-    private System.Action<AttackResult> attackResultCallback;
+    private System.Action<Results> attackResultCallback;
 
     public AttackState(MeleeEnemy ai)
     {
@@ -44,7 +44,21 @@ public class AttackState : IState {
         this.attackRangeMin = ai.AttackRangeMin;
         this.attackRangeMax = ai.AttackRangeMax;
         this.viewRange = ai.ViewRange;
-        this.attackResultCallback = ai.AttackDone;
+        this.attackResultCallback = ai.NextState;
+        this.anim = ai.Anim;
+        this.timeBetweenAttacks = ai.TimeBetweenAttacks;
+        this.enemyStats = ai.EnemyStats;
+    }
+
+    public AttackState(RangeEnemy ai)
+    {
+        this.navMeshAgent = ai.NavMeshAgent;
+        this.ownerGO = ai.transform;
+        this.playerGO = ai.Player;
+        this.attackRangeMin = ai.AttackRangeMin;
+        this.attackRangeMax = ai.AttackRangeMax;
+        this.viewRange = ai.ViewRange;
+        this.attackResultCallback = ai.NextState;
         this.anim = ai.Anim;
         this.timeBetweenAttacks = ai.TimeBetweenAttacks;
         this.enemyStats = ai.EnemyStats;
@@ -65,26 +79,26 @@ public class AttackState : IState {
 
             var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
             direction = (this.ownerGO.position + this.playerGO.position);
-            RotateTowards();
+
             //move towards the enemy if its too far away
-            if (distanceBetween < attackRangeMin)
-            {
+            //if (distanceBetween < attackRangeMin)
+            //{
 
                
-            }
-            if (distanceBetween <= attackRangeMax && distanceBetween >= attackRangeMin)
+            //}
+            if (distanceBetween <= attackRangeMax)
             {
-                if (!attacking)
+                if (!attacking && Time.time > waitAttack)
                 {
-
+                    RotateTowards();
                     moving = false;
-                    attacking = true;
                     this.navMeshAgent.isStopped = true;
                 }
 
                 //Check ifall det är tillåtet att attackera igen
-                if (Time.time > waitAttack)
+                if (Time.time > waitAttack && enemyStats.PlayerInRange == true)
                 {
+                    RotateTowards();
                     anim.SetTrigger("attack");
                     waitAttack = Time.time + timeBetweenAttacks;
                     waitDealDamage = Time.time + timeUntillDealDamage;
@@ -92,7 +106,7 @@ public class AttackState : IState {
                 }
 
                 //check inför att göra skadan så den inte görs direkt. Kolla så att spelaren är inom attackcollider. Denna ska användas sen.
-                if (Time.time > timeUntillDealDamage && executingAttack)
+                if (Time.time > timeUntillDealDamage && executingAttack &&  enemyStats.PlayerInRange == true)
                 {
                     enemyStats.DealDamage();
                     executingAttack = false;
@@ -100,12 +114,9 @@ public class AttackState : IState {
             }
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
             {
-
-
                 if (!moving)
                 {
                     this.navMeshAgent.enabled = true;
-                    attacking = false;
                     moving = true;
                     anim.SetBool("isWalking", true);
                     this.navMeshAgent.isStopped = false;
@@ -116,9 +127,8 @@ public class AttackState : IState {
 
             else if  (distanceBetween >= viewRange && Time.time > waitMove)
             {
-               
                 anim.SetBool("isWalking", false);
-                var attackResults = new AttackResult(true);
+                var attackResults = new Results(2);
                 this.attackResultCallback(attackResults);
                 this.attackComplete = false;
             }
@@ -133,19 +143,21 @@ public class AttackState : IState {
 
     private void RotateTowards()
     {
-        float rotationspeed = 10;
+        Debug.Log("rotating");
+        float rotationspeed =3;
         Vector3 direction = (this.playerGO.position - this.ownerGO.position).normalized;
         direction.y = 0;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         this.ownerGO.transform.rotation = Quaternion.Slerp(this.ownerGO.rotation, lookRotation, Time.deltaTime * rotationspeed);
     }
 }
-public class AttackResult
-{
-    public bool trueForSearchFalseForIdle;
+//public class AttackResult
+//{
+//    public bool trueForSearchFalseForIdle;
 
-    public AttackResult(bool trueForSearchFalseForIdle)
-    {
-        this.trueForSearchFalseForIdle = trueForSearchFalseForIdle;
-    }
-}// Stina Hedman
+//    public AttackResult(bool trueForSearchFalseForIdle)
+//    {
+//        this.trueForSearchFalseForIdle = trueForSearchFalseForIdle;
+//    }
+//}
+// Stina Hedman

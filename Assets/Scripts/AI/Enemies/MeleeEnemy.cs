@@ -38,6 +38,8 @@ public class MeleeEnemy : MonoBehaviour {
     private Transform player;
     private Transform aitransform;
 
+
+    
     private bool dead;
     private NavMeshAgent navMeshAgent;
     private StateMachine stateMachine = new StateMachine();
@@ -77,7 +79,7 @@ public class MeleeEnemy : MonoBehaviour {
         return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
-    private void Start()
+    private void Awake()
     {
         aitransform = this.gameObject.transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -109,44 +111,78 @@ public class MeleeEnemy : MonoBehaviour {
 
     }
 
-    //change to attack or idle after searchstate
-    public void SearchDone(SearchResult searchResult)
+    public void NextState(Results stateResult)
     {
-        if (searchResult.trueForAttackFalseForIdle)
+        switch (stateResult.nextState)
         {
-            this.stateMachine.ChangeState(new AttackState(this));
-        }
+            //SearchFor
+            case 1:
+                this.stateMachine.ChangeState(new AttackState(this));
+                break;
+                
+            case 2:
+                this.stateMachine.ChangeState(new SearchFor(this));
+                break;
 
-        else
-        {
-            this.stateMachine.ChangeState(new IdleState(this));
+            case 3:
+                this.stateMachine.ChangeState(new IdleState(this));
+                break;
+
+            case 4:
+                break;
         }
 
     }
+
+    //change to attack or idle after searchstate
+    //public void SearchDone(SearchResult searchResult)
+    //{
+    //    if (searchResult.trueForAttackFalseForIdle)
+    //    {
+    //        this.stateMachine.ChangeState(new AttackState(this));
+    //    }
+
+    //    else
+    //    {
+    //        this.stateMachine.ChangeState(new IdleState(this));
+    //    }
+
+    //}
     //change to search or idle after attackstate
-    public void AttackDone(AttackResult attackResults)
-    {    
-        if (attackResults.trueForSearchFalseForIdle)
-        {
-            this.stateMachine.ChangeState(new SearchFor(this));
-        }
+    //public void AttackDone(AttackResult attackResults)
+    //{    
+    //    if (attackResults.trueForSearchFalseForIdle)
+    //    {
+    //        this.stateMachine.ChangeState(new SearchFor(this));
+    //    }
         
-        else
-        {
-            this.stateMachine.ChangeState(new IdleState(this));
-        }
-    }
+    //    else
+    //    {
+    //        this.stateMachine.ChangeState(new IdleState(this));
+    //    }
+    //}
     //change to attack or search after idlestate
-    public void IdleDone(IdleResult idleResult)
-    {     
-        if (idleResult.trueForAttackFalseForSearch)
-        {
-            this.stateMachine.ChangeState(new AttackState(this));
-        }
+    //public void IdleDone(IdleResult idleResult)
+    //{     
+    //    if (idleResult.trueForAttackFalseForSearch)
+    //    {
+    //        this.stateMachine.ChangeState(new AttackState(this));
+    //    }
         
-        else
-        {
-            this.stateMachine.ChangeState(new SearchFor(this));
-        }
-    }
+    //    else
+    //    {
+    //        this.stateMachine.ChangeState(new SearchFor(this));
+    //    }
+    //}
 } // Stina Hedman
+
+
+public class Results
+{
+    public int nextState;
+
+    public Results(int setNextState)
+    {
+        this.nextState = setNextState;
+    }
+}
