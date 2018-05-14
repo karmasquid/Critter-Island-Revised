@@ -1,20 +1,38 @@
 fileFormatVersion: 2
-guid: b41bd87213f1dba4b85767eb10e33dce
-timeCreated: 1523628835
+guid: 9055389511ec62946bec504ad47b5aa5
+timeCreated: 1526298233
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: asset_level_cliff_grass
+    100004: asset_level_cliff_plat
+    100006: asset_level_cliff_prim
     400000: //RootNode
-    2100000: asset_env_detail_ext_tree_mat
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: asset_env_detail_ext_tree_3
+    400002: asset_level_cliff_grass
+    400004: asset_level_cliff_plat
+    400006: asset_level_cliff_prim
+    2100000: defaultPolygonShader
+    2100002: asset_env_cliff_main_wall_corner_mat_1
+    2100004: asset_env_cliff_main_wall_corner_mat_2
+    2100006: asset_env_cliff_main_wall_corner_mat_3
+    2100008: asset_env_cliff_main_wall_mat_2
+    2100010: asset_env_cliff_main_wall_mat_1
+    2100012: asset_env_cliff_grass
+    2300000: asset_level_cliff_grass
+    2300002: asset_level_cliff_plat
+    2300004: asset_level_cliff_prim
+    3300000: asset_level_cliff_grass
+    3300002: asset_level_cliff_plat
+    3300004: asset_level_cliff_prim
+    4300000: asset_level_cliff_plat
+    4300002: asset_level_cliff_prim
+    4300004: asset_level_cliff_grass
     9500000: //RootNode
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -42,7 +60,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -67,7 +85,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
