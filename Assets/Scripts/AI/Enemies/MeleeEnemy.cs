@@ -37,8 +37,6 @@ public class MeleeEnemy : MonoBehaviour {
 
     private Transform player;
     private Transform aitransform;
-
-
     
     private bool dead;
     private NavMeshAgent navMeshAgent;
@@ -81,15 +79,16 @@ public class MeleeEnemy : MonoBehaviour {
 
     private void Awake()
     {
-        aitransform = this.gameObject.transform;
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        enemyStats = GetComponent<EnemyStats>();
-        EnemyStats.Health = health;
-        EnemyStats.Damage = damage;
-
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.anim = this.GetComponent<Animator>();
+        this.aitransform = this.gameObject.transform;
+        this.player = GameObject.FindGameObjectWithTag("Player").transform;
+        this.playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        enemyStats = GetComponent<EnemyStats>();
+        enemyStats.ActionCallback = this.NextState;
+        enemyStats.Health = health;
+        enemyStats.Damage = damage;
+
         this.stateMachine.ChangeState(new SearchFor(this));
     }
 
@@ -129,6 +128,7 @@ public class MeleeEnemy : MonoBehaviour {
                 break;
 
             case 4:
+                this.stateMachine.ChangeState(new HurtState(this));
                 break;
         }
 

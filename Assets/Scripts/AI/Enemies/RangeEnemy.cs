@@ -143,6 +143,7 @@ public class RangeEnemy : MonoBehaviour
                 break;
 
             case 4:
+                this.stateMachine.ChangeState(new HurtState(this));
                 break;
 
             default:

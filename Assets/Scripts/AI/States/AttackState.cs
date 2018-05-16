@@ -125,7 +125,7 @@ public class AttackState : IState {
                 this.navMeshAgent.SetDestination(this.playerGO.position);
             }
 
-            else if  (distanceBetween >= viewRange && Time.time > waitMove)
+            else if  (distanceBetween >= viewRange)
             {
                 anim.SetBool("isWalking", false);
                 var attackResults = new Results(2);
