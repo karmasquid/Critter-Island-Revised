@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 1a4c29a094205a347b6e83f2526638f0
-timeCreated: 1523628835
+guid: 33a4dec39eaac2a409ba20c9ec85ef5b
+timeCreated: 1526488654
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: asset_env_detail_ext_tree_mat
+    2100000: lambert15
     2300000: //RootNode
     3300000: //RootNode
-    4300000: asset_env_detail_ext_tree_2
+    4300000: asset_level_stairs_entrance
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -42,7 +42,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.9
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
