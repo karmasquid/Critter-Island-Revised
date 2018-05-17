@@ -29,8 +29,12 @@ public class EnemyProjectile : MonoBehaviour {
     {
         if (collision.transform.tag == "Player")
         {
-            enemyStats.DealDamage();
-            gameObject.SetActive(false);
+            DamagePlayer();
+        }
+
+        if (collision.transform.name == "HurtBox")
+        {
+
         }
 
         else
@@ -41,7 +45,17 @@ public class EnemyProjectile : MonoBehaviour {
 
     private IEnumerator WaitUntillDisable()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
+        yield break;
+    }
+
+    private void DamagePlayer()
+    {
+        enemyStats.PlayerInRange = true;
+        enemyStats.DealDamage();
+        enemyStats.PlayerInRange = false;
+        gameObject.SetActive(false);
+
     }
 }

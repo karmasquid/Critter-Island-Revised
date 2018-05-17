@@ -55,6 +55,8 @@ public class RangeEnemy : MonoBehaviour
     private EnemyStats enemyStats;
     private EnemyProjectile projectileScript;
 
+    private float originalViewRange;
+
     Animator anim;
 
     private Vector3 startPos;
@@ -105,6 +107,7 @@ public class RangeEnemy : MonoBehaviour
         this.stateMachine.ChangeState(new IdleState(this));
         startPos = transform.position;
         startRot = transform.rotation;
+        originalViewRange = viewRange;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -130,13 +133,14 @@ public class RangeEnemy : MonoBehaviour
         {
             //SearchFor
             case 1:
+                viewRange = originalViewRange;
                 this.stateMachine.ChangeState(new RangeAttackState(this));
                 break;
 
-            //
-            //case 2:
-            //    this.stateMachine.ChangeState(new SearchFor(this));
-            //    break;
+            case 2:
+                viewRange = originalViewRange;
+                this.stateMachine.ChangeState(new RangeAttackState(this));
+                break;
 
             case 3:
                 this.stateMachine.ChangeState(new IdleState(this));
@@ -144,6 +148,12 @@ public class RangeEnemy : MonoBehaviour
 
             case 4:
                 this.stateMachine.ChangeState(new HurtState(this));
+                break;
+
+            case 5:
+                viewRange = attackRangeMax;
+                this.stateMachine.ChangeState(new AttackState(this));
+
                 break;
 
             default:

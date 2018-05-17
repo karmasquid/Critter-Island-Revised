@@ -11,7 +11,6 @@ public class RangeAttackState : IState {
     private Transform playerGO;
     private GameObject projectile;
     private Vector3 startPos;
-    private float attackRangeMin;
     private float attackRangeMax;
     private float viewRange;
 
@@ -41,7 +40,6 @@ public class RangeAttackState : IState {
         this.navMeshAgent = ai.NavMeshAgent;
         this.ownerGO = ai.Aitransform;
         this.playerGO = ai.Player;
-        this.attackRangeMin = ai.AttackRangeMin;
         this.attackRangeMax = ai.AttackRangeMax;
         this.viewRange = ai.ViewRange;
         this.rangeAttackResultCallback = ai.NextState;
@@ -65,21 +63,27 @@ public class RangeAttackState : IState {
 
             RotateTowards();
 
-            if (distanceBetween <= attackRangeMax && Time.time > waitAttack)
+            if(distanceBetween <= attackRangeMax && Time.time > waitAttack)
+            {
+                var rangeAttackResult = new Results(5);
+                this.rangeAttackResultCallback(rangeAttackResult);
+                this.attackComplete = true;
+            }
+
+            if (distanceBetween <= viewRange -1 && Time.time > waitAttack)
             {
                 if (!attacking )
                 {              
                     attacking = true;
                 }
                 anim.SetTrigger("attack");
-                Debug.Log("attacking!");
 
                 rangeEnemyScript.ShootProjectile();
 
                 this.waitAttack = Time.time + timeBetweenAttacks;
                 
             }
-            else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
+            else if (distanceBetween > viewRange-1 && distanceBetween <= viewRange)
             {
                 if (attacking)
                 {

@@ -103,7 +103,7 @@ public class EnemyStats : MonoBehaviour {
 
     public void TakeDamange(int damageDealt)
     {
-        StartCoroutine(BeingPushed());
+        rB.AddForce(playerPos.forward * 2.5f, ForceMode.Impulse);
 
         health -= damageDealt;
 
@@ -113,16 +113,16 @@ public class EnemyStats : MonoBehaviour {
             anim = GetComponent<Animator>();
             anim.SetTrigger("isDead");
 
+            rB.velocity = Vector3.zero;
+            rB.angularVelocity = Vector3.zero;
+
             if (willDrop)
             {
                 GameObject lootBag = Instantiate(Resources.Load("Prefabs/Loot Bag"), new Vector3(this.transform.position.x, this.transform.position.y + 1f, this.transform.position.z), Quaternion.identity) as GameObject;
                 lootBag.GetComponent<LootBag>().ItemInBag = itemToDrop;
             }
 
-            rB.velocity = Vector3.zero;
-            rB.angularVelocity = Vector3.zero;
-
-            Destroy(this.gameObject, 5f);
+            StartCoroutine(Dying());
         }
 
 
@@ -133,27 +133,26 @@ public class EnemyStats : MonoBehaviour {
         //}
 
     }
-    private IEnumerator BeingPushed()
-    {
-
-        if (health > playermanager.MeleeDamage)
-        {
-
-            rB.AddForce(playerPos.forward *2f, ForceMode.Impulse);
-
-            yield return new WaitForSeconds(2f);
-
-        }
-
-
-        yield break;
-    }
     public void DealDamage()
     {
         if (playerInRange)
         {
             playermanager.TakeDamage(damage);
         }
+    }
+
+    private IEnumerator Dying()
+    {
+        for (float i = 0; i <= 5f; i =+ 0.5f)
+        {
+            rB.velocity = Vector3.zero;
+            rB.angularVelocity = Vector3.zero;
+            yield return new WaitForSeconds(i);
+        }
+
+        Destroy(this.gameObject, 5f);
+
+        yield break;
     }
 }//Stina Hedman
 

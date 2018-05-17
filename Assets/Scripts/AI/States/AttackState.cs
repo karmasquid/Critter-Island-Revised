@@ -10,7 +10,6 @@ public class AttackState : IState {
     private Transform ownerGO;
     private Transform playerGO;
     private Vector3 startPos;
-    private float attackRangeMin;
     private float attackRangeMax;
     private float viewRange;
 
@@ -41,7 +40,6 @@ public class AttackState : IState {
         this.navMeshAgent = ai.NavMeshAgent;
         this.ownerGO = ai.transform;
         this.playerGO = ai.Player;
-        this.attackRangeMin = ai.AttackRangeMin;
         this.attackRangeMax = ai.AttackRangeMax;
         this.viewRange = ai.ViewRange;
         this.attackResultCallback = ai.NextState;
@@ -55,7 +53,6 @@ public class AttackState : IState {
         this.navMeshAgent = ai.NavMeshAgent;
         this.ownerGO = ai.transform;
         this.playerGO = ai.Player;
-        this.attackRangeMin = ai.AttackRangeMin;
         this.attackRangeMax = ai.AttackRangeMax;
         this.viewRange = ai.ViewRange;
         this.attackResultCallback = ai.NextState;
@@ -68,7 +65,7 @@ public class AttackState : IState {
     {
         this.startPos = ownerGO.position;
         moving = true;
-        waitAttack = Time.time + timeBetweenAttacks;
+        waitAttack = Time.time;
         anim.SetBool("isWalking", false);
     }
 
@@ -76,20 +73,14 @@ public class AttackState : IState {
     {
         if (!attackComplete)
         {
-
             var distanceBetween = Vector3.Distance(this.playerGO.position, this.ownerGO.position);
             direction = (this.ownerGO.position + this.playerGO.position);
 
-            //move towards the enemy if its too far away
-            //if (distanceBetween < attackRangeMin)
-            //{
-
-               
-            //}
             if (distanceBetween <= attackRangeMax)
             {
                 if (!attacking && Time.time > waitAttack)
                 {
+                    Debug.Log("tried to attack");
                     RotateTowards();
                     moving = false;
                     this.navMeshAgent.isStopped = true;
@@ -98,6 +89,7 @@ public class AttackState : IState {
                 //Check ifall det är tillåtet att attackera igen
                 if (Time.time > waitAttack && enemyStats.PlayerInRange == true)
                 {
+                    Debug.Log("attacking");
                     RotateTowards();
                     anim.SetTrigger("attack");
                     waitAttack = Time.time + timeBetweenAttacks;
@@ -108,6 +100,7 @@ public class AttackState : IState {
                 //check inför att göra skadan så den inte görs direkt. Kolla så att spelaren är inom attackcollider. Denna ska användas sen.
                 if (Time.time > timeUntillDealDamage && executingAttack &&  enemyStats.PlayerInRange == true)
                 {
+                    Debug.Log("hitting.");
                     enemyStats.DealDamage();
                     executingAttack = false;
                 }
@@ -125,9 +118,8 @@ public class AttackState : IState {
                 this.navMeshAgent.SetDestination(this.playerGO.position);
             }
 
-            else if  (distanceBetween >= viewRange)
+            else if  (distanceBetween >= viewRange && Time.time > waitMove)
             {
-                anim.SetBool("isWalking", false);
                 var attackResults = new Results(2);
                 this.attackResultCallback(attackResults);
                 this.attackComplete = false;
@@ -137,7 +129,7 @@ public class AttackState : IState {
 
     void IState.Exit()
     {
-
+        anim.SetBool("isWalking", false);
     }
 
 
