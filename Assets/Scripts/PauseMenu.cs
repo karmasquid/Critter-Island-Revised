@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour {
 
+    //Script för att
     public static bool GamePaused = false;
     public GameObject pauseMenu;
 	
@@ -23,7 +24,7 @@ public class PauseMenu : MonoBehaviour {
         }
 
     //Återaktiverar spelet och inaktiverar pausmenyn.
-    void ResumeGame()
+    public void ResumeGame()
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
@@ -31,11 +32,18 @@ public class PauseMenu : MonoBehaviour {
     }
 
     //Pausar spelet och aktiverar pausmenyn.
-    void PauseGame()
+    public void PauseGame()
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;
     }
 
-	}
+    public void QuitGame()
+    {
+        Debug.Log("Cya");
+        Application.Quit();
+    }
+
+}
+//Daniel Laggar
