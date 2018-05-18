@@ -63,7 +63,7 @@ public class Character : MonoBehaviour
     private float rawSpeed;
 
     //Restraints:
-    private bool dodging;
+    public bool dodging;
     bool atckn = false;
     private bool lockMove = false;
     bool isDead;
@@ -277,7 +277,7 @@ public class Character : MonoBehaviour
                 }
                 else
                 {
-                    if (moving)
+                    if (InputManager.MoveMe() == true)
                     {
                         //Forward dodge
 
@@ -388,6 +388,7 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(delay);
         lockMove = false;
         dodging = false;
+        _body.velocity = Vector3.zero;
 
         if (getOverIt)
         {
