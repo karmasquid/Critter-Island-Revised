@@ -57,6 +57,8 @@ public class Character : MonoBehaviour
     private Vector3 curPos;
     private Vector3 pastPos;
     private bool moving;
+    private float movingOffset = 0.25f;
+    Vector3[] previousLocations = new Vector3[3]; //Vector array size = 3.
     private float rawStamRe;
     private float rawSpeed;
 
@@ -159,19 +161,25 @@ public class Character : MonoBehaviour
     }
     void LastPosition() // Check for movement.
     {
-        curPos = this.transform.position;
-        if (curPos == pastPos)
+        for (int i = 0; i < previousLocations.Length - 1; i++)
         {
-            moving = false;
-            
+            previousLocations[i] = previousLocations[i + 1];
         }
-        if (curPos != pastPos)
-        {
-            moving = true;
-         
-        }
+        previousLocations[previousLocations.Length - 1] = this.transform.position;
 
-        pastPos = curPos;
+        for (int i = 0; i < previousLocations.Length - 1; i++)
+        {
+            if (Vector3.Distance(previousLocations[i], previousLocations[i + 1]) >= movingOffset)
+            {
+                //The minimum movement has been detected between frames
+                moving = true;
+                break;
+            }
+            else
+            {
+                moving = false;
+            }
+        }
     }
     void Runner()
     {
@@ -269,13 +277,32 @@ public class Character : MonoBehaviour
                 }
                 else
                 {
-                    dodging = true;
-                    anim.SetTrigger("fDodge");
+                    if (moving)
+                    {
+                        //Forward dodge
+
+                        //Animation
+                        anim.SetTrigger("fDodge");
+
+                        //Dodge calculation:
+                        Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
+                        _body.AddForce(dashVelocity, ForceMode.VelocityChange);
+                    }
+                    else
+                    {
+                        //Backward dodge
+
+                        //Animation
+                        anim.SetTrigger("bDodge");
+
+                        //Dodge calculation:
+                        Vector3 dashVelocity = Vector3.Scale(-transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
+                        _body.AddForce(dashVelocity, ForceMode.VelocityChange);
+                    }
+                    //Stamina loss, same regardless of direction.
                     PlayerManager.instance.LooseStamina(dodgeCost);
 
-                    //Normal Dodge move on player:
-                    Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * _body.drag + 1)) / -Time.deltaTime)));
-                    _body.AddForce(dashVelocity, ForceMode.VelocityChange);
+
                 }
 
                     //Recover:
@@ -283,8 +310,8 @@ public class Character : MonoBehaviour
                     StartCoroutine(DelayGravity);
 
 
-                }
             }
+        }
     }
     
 
