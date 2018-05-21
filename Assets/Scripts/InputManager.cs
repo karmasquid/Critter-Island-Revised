@@ -76,4 +76,13 @@ public static class InputManager
         return Input.GetAxisRaw("Vertical");
     }
 
+    public static bool MoveMe()
+    {
+        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        {
+            return false;
+        }
+        else
+            return true;
+    }
 }
