@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6771332, g: 0.7714652, b: 0.8756256, a: 1}
+  m_IndirectSpecularColor: {r: 0.67713404, g: 0.7714609, b: 0.8756368, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -178,29 +178,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 50.000004, y: 0, z: 0}
---- !u!1 &580134269 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1832076765443370, guid: 1ffa53d5fc840f24f97eb4be19812cfa,
-    type: 2}
-  m_PrefabInternal: {fileID: 797813786}
---- !u!320 &580134272
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 580134269}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 81352f196c54aa24c8116ab2cb7cd362, type: 2}
-  m_InitialState: 1
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 114932886532066846, guid: 81352f196c54aa24c8116ab2cb7cd362, type: 2}
-    value: {fileID: 580134269}
-  m_ExposedReferences:
-    m_References: []
 --- !u!1 &653155429
 GameObject:
   m_ObjectHideFlags: 0
