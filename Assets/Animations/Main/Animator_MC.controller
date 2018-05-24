@@ -654,7 +654,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.1419909
   m_TransitionOffset: 0.08308401
   m_ExitTime: 0.8984772
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -1307,7 +1307,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Foward_Dodge
-  m_Speed: 1
+  m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101944586312137036}
@@ -1321,7 +1321,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 40818a1f225092e4f8adf3e36cb93a5a, type: 3}
+  m_Motion: {fileID: 7400000, guid: 7f1f1d3bce40da34997c4bc1b4c55164, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1404,7 +1404,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b5be58b6e9d6279468938fb953e29845, type: 3}
+  m_Motion: {fileID: 7400000, guid: dc5b33b84981eb34da73fc5e886a37bd, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1459,7 +1459,7 @@ AnimatorStateMachine:
     m_Position: {x: -144, y: -252, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102959804948769734}
-    m_Position: {x: -360, y: -180, z: 0}
+    m_Position: {x: -336, y: -168, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102630236921928610}
     m_Position: {x: -360, y: -84, z: 0}
