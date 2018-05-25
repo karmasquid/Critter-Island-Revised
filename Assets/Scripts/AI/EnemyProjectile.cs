@@ -30,22 +30,24 @@ public class EnemyProjectile : MonoBehaviour {
         if (collision.transform.tag == "Player")
         {
             DamagePlayer();
+            StartCoroutine(WaitUntillDisable());
         }
 
-        if (collision.transform.name == "HurtBox")
-        {
+        //if (collision.transform.name == "HurtBox")
+        //{
 
-        }
+        //}
 
         else
         {
-            WaitUntillDisable();
+            StartCoroutine(WaitUntillDisable());
         }
     }
 
     private IEnumerator WaitUntillDisable()
     {
-        yield return new WaitForSeconds(0.5f);
+        damage = 0;
+        yield return new WaitForSeconds(1.5f);
         gameObject.SetActive(false);
         yield break;
     }
@@ -55,7 +57,7 @@ public class EnemyProjectile : MonoBehaviour {
         enemyStats.PlayerInRange = true;
         enemyStats.DealDamage();
         enemyStats.PlayerInRange = false;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
 
     }
 }

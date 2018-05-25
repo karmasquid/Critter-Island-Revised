@@ -114,6 +114,7 @@ public class EnemyStats : MonoBehaviour {
             dead = true;
             anim = GetComponent<Animator>();
             anim.SetTrigger("isDead");
+            rB.mass = 100;
 
             rB.velocity = Vector3.zero;
             rB.angularVelocity = Vector3.zero;

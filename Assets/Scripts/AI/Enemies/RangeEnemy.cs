@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,6 +48,7 @@ public class RangeEnemy : MonoBehaviour
     private Transform player;
     private Transform aitransform;
     private Transform waypointParent;
+    private Transform hand;
     private Vector3 waypointsMid;
     private List<Transform> waypoints = new List<Transform>();
 
@@ -106,6 +108,8 @@ public class RangeEnemy : MonoBehaviour
         enemyStats = GetComponent<EnemyStats>();
         EnemyStats.Health = health;
         EnemyStats.Damage = damage;
+
+        hand = gameObject.transform.Find("root_JNT/spine_1_JNT/spine_2_JNT/chest_JNT/torso_JNT/R_clavicle_JNT/R_shoulder_JNT/R_elbow_JNT/R_forearm_JNT/R_hand_JNT");
 
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.anim = this.GetComponent<Animator>();
@@ -203,32 +207,26 @@ public class RangeEnemy : MonoBehaviour
         }
 
     }
-    //Next state after Searchstate
-    //public void SearchDone(SearchResult searchResult)
-    //{
-    //    if (searchResult.trueForAttackFalseForIdle)
-    //    {
-    //        this.stateMachine.ChangeState(new AttackState(this));
-    //    }
-
-    //    else
-    //    {
-    //        //go to idle
-    //        this.stateMachine.ChangeState(new IdleState(this));
-    //        //currently going to roaming.
-    //    }
-    //}
+ 
     public void ShootProjectile()
     {
+        StartCoroutine(Throw());
+
+    }
+
+    private IEnumerator Throw()
+    {
+        yield return new WaitForSeconds(0.5f);
+
         GameObject tempProj;
 
         if (projectiles.Count < 5)
         {
-            tempProj = Instantiate(projectile,new Vector3(this.transform.position.x,this.transform.position.y+0.7f,this.transform.position.z)+transform.forward,this.transform.rotation,null) as GameObject;
+            tempProj = Instantiate(projectile, hand.position + transform.forward, this.transform.rotation, null) as GameObject;
             projectileScript = tempProj.GetComponent<EnemyProjectile>();
             projectileScript.Damage = damage;
             projectileScript.EnemyStats = enemyStats;
-            tempProj.GetComponent<Rigidbody>().AddForce(tempProj.transform.forward * projectileForce, ForceMode.Impulse);
+            tempProj.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * projectileForce, ForceMode.Impulse);
             projectiles.Add(tempProj);
         }
 
@@ -236,10 +234,10 @@ public class RangeEnemy : MonoBehaviour
         {
             tempProj = projectiles[index];
             tempProj.SetActive(true);
-            tempProj.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.7f, this.transform.position.z) + transform.forward;
+            tempProj.transform.position = hand.position;
             tempProj.transform.rotation = this.transform.rotation;
-            tempProj.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
-            tempProj.GetComponent<Rigidbody>().AddForce(tempProj.transform.forward * projectileForce, ForceMode.Impulse);
+            tempProj.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+            tempProj.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * projectileForce, ForceMode.Impulse);
 
             if (index == 4)
             {
@@ -251,6 +249,7 @@ public class RangeEnemy : MonoBehaviour
             }
         }
 
+        yield break;
     }
 
 

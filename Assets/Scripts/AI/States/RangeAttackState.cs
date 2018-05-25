@@ -70,7 +70,7 @@ public class RangeAttackState : IState {
                 this.attackComplete = true;
             }
 
-            if (distanceBetween <= viewRange -1 && Time.time > waitAttack)
+            if (distanceBetween > attackRangeMax && distanceBetween <= viewRange -1 && Time.time > waitAttack)
             {
                 if (!attacking )
                 {              
