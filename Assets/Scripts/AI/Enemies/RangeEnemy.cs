@@ -114,17 +114,41 @@ public class RangeEnemy : MonoBehaviour
         startPos = transform.position;
         startRot = transform.rotation;
         originalViewRange = viewRange;
-
-        foreach (Transform child in waypointParent)
-        {
-            Transform waypoint = child;
-            waypoints.Add(waypoint);
-            waypoint.parent = null;
-        }
-
-        this.stateMachine.ChangeState(new IdleState(this));
+        
 
     }
+
+    private void Start()
+    {
+        if (waypointParent != null)
+        {
+            //int indexuru = 0;
+            int childCount = waypointParent.childCount;
+
+            for (int i = 1; i <= childCount; i++)
+            {
+                waypoints.Add(waypointParent.GetChild(i - 1).GetComponent<Transform>());
+                Debug.Log(waypoints[i - 1].transform.name + "  ADDED");
+            }
+
+            foreach (Transform child in waypoints)
+            {
+                child.parent = null;
+                waypointsMid += child.position;
+            }
+
+            waypointsMid /= childCount;
+
+            this.stateMachine.ChangeState(new IdleState(this));
+        }
+
+        else
+        {
+            this.stateMachine.ChangeState(new IdleState(this));
+        }
+
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {

@@ -101,10 +101,14 @@ public class EnemyStats : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+       StartCoroutine(RotateFix());
+
+    }
+
     public void TakeDamange(int damageDealt)
     {
-        rB.freezeRotation = true;
-
         if (health <= 0 && !dead)
         {
             dead = true;
@@ -129,8 +133,6 @@ public class EnemyStats : MonoBehaviour {
 
             health -= damageDealt;
         }
-
-        rB.freezeRotation = false;
 
 
         //if (health > (MaxHealth / 10) * 3)
@@ -159,6 +161,14 @@ public class EnemyStats : MonoBehaviour {
 
         Destroy(this.gameObject, 5f);
 
+        yield break;
+    }
+
+    private IEnumerator RotateFix()
+    {
+        rB.freezeRotation = true;
+        yield return new WaitForSeconds(0.3f);
+        rB.freezeRotation = false;
         yield break;
     }
 }//Stina Hedman

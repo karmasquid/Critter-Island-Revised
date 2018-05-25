@@ -80,7 +80,6 @@ public class AttackState : IState {
             {
                 if (!attacking && Time.time > waitAttack)
                 {
-                    Debug.Log("tried to attack");
                     RotateTowards();
                     moving = false;
                     this.navMeshAgent.isStopped = true;
@@ -137,7 +136,6 @@ public class AttackState : IState {
 
     private void RotateTowards()
     {
-        Debug.Log("rotating");
         float rotationspeed =3;
         Vector3 direction = (this.playerGO.position - this.ownerGO.position).normalized;
         direction.y = 0;
