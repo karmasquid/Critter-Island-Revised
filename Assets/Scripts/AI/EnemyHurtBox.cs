@@ -16,7 +16,6 @@ public class EnemyHurtBox : MonoBehaviour {
         if (other.tag == "Player")
         {
             enemyStats.PlayerInRange = true;
-            Debug.Log("player in range");
         }
     }
 
@@ -25,7 +24,6 @@ public class EnemyHurtBox : MonoBehaviour {
         if (other.tag == "Player")
         {
             enemyStats.PlayerInRange = false;
-            Debug.Log("player not in range");
         }
     }
 

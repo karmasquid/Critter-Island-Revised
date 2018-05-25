@@ -103,9 +103,7 @@ public class EnemyStats : MonoBehaviour {
 
     public void TakeDamange(int damageDealt)
     {
-        rB.AddForce(playerPos.forward * 2.5f, ForceMode.Impulse);
-
-        health -= damageDealt;
+        rB.freezeRotation = true;
 
         if (health <= 0 && !dead)
         {
@@ -124,6 +122,15 @@ public class EnemyStats : MonoBehaviour {
 
             StartCoroutine(Dying());
         }
+
+        if (!dead)
+        {
+            rB.AddForce(playerPos.forward * 2.5f, ForceMode.Impulse);
+
+            health -= damageDealt;
+        }
+
+        rB.freezeRotation = false;
 
 
         //if (health > (MaxHealth / 10) * 3)

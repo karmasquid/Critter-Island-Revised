@@ -46,6 +46,9 @@ public class RangeEnemy : MonoBehaviour
 
     private Transform player;
     private Transform aitransform;
+    private Transform waypointParent;
+    private Vector3 waypointsMid;
+    private List<Transform> waypoints = new List<Transform>();
 
     private bool dead;
     private NavMeshAgent navMeshAgent;
@@ -83,6 +86,8 @@ public class RangeEnemy : MonoBehaviour
     public Transform Aitransform { get { return aitransform; } }
     public Vector3 StartPos { get { return startPos; } }
     public Quaternion StartRot { get { return startRot; } }
+    public List<Transform> Waypoints { get { return waypoints; } }
+    public Vector3 WaypointsMidPos { get { return waypointsMid; } }
 
     public Vector3 DirectionsFromDegrees(float angleInDegrees, bool angleIsGlobal)
     {
@@ -104,10 +109,21 @@ public class RangeEnemy : MonoBehaviour
 
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.anim = this.GetComponent<Animator>();
-        this.stateMachine.ChangeState(new IdleState(this));
+
+        this.waypointParent = this.aitransform.Find("WayPoints");
         startPos = transform.position;
         startRot = transform.rotation;
         originalViewRange = viewRange;
+
+        foreach (Transform child in waypointParent)
+        {
+            Transform waypoint = child;
+            waypoints.Add(waypoint);
+            waypoint.parent = null;
+        }
+
+        this.stateMachine.ChangeState(new IdleState(this));
+
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -152,6 +168,7 @@ public class RangeEnemy : MonoBehaviour
 
             case 5:
                 viewRange = attackRangeMax;
+                anim.SetBool("isWalking", false);
                 this.stateMachine.ChangeState(new AttackState(this));
 
                 break;

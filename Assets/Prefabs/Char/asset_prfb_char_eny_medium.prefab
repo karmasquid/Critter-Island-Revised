@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4763348203311464}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_ThumbClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4217439847313778}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: head_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4389458569419894}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_hand_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4207835643392480}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_middleClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4623346845318016}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: torso_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4530436624203856}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_ThumbClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4997939698035222}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: chest_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,8 +124,23 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4985366685691952}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_elbow_JNT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1130949776816806
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4062605374178400}
+  m_Layer: 0
+  m_Name: 2 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +154,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4074553322732738}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_handTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +169,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4695077036011174}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: headTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +201,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4678487558628648}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_ankle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +216,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4726535935107132}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_shoulder_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +231,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4904609733857486}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_elbow_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +246,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4730044095908670}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_ankle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,8 +261,23 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4955239424020926}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_knee_JNT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1270433251757280
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4552392830465392}
+  m_Layer: 0
+  m_Name: 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,7 +291,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4193520557939864}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_PinkieClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +306,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4161143199738814}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_toe_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +321,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4168725278865694}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: neck_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +336,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4771956594749192}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: spine_2_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +351,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4447227154477162}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_middleClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,8 +366,23 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4992926677252716}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: pelvis_JNT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1338363544362566
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4131509980400824}
+  m_Layer: 0
+  m_Name: 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,7 +396,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4134049214504966}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_ball_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +411,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4641623095632902}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_handTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +426,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4450865734066348}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: spine_1_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +441,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4032456899038280}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_indexClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +456,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4722288013342160}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_clavicle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +492,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4198699409130362}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_indexClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +507,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4456019710425140}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_knee_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +522,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4196380071500996}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_PinkieClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +537,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4148225520707276}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_hip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +552,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4062371168651048}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_indexClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +567,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4854931248274400}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_ThumbClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +582,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4264954453976252}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_middleClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,8 +597,23 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4663153123582976}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_forearm_JNT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1689093062952062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4639535818905618}
+  m_Layer: 0
+  m_Name: Waypoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,7 +627,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4272677770034614}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_clavicle_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +642,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4035825187308816}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_indexClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +657,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4625124564113534}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_toe_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +672,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4314987582693424}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_ball_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +687,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4930505308211314}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_shoulder_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +702,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4136254159932582}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_hip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,7 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4774516876653416}
   - component: {fileID: 137981256251687532}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: MediumEnemyCharacter_POLY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,7 +733,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4390956398667218}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_PinkieClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -688,7 +748,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4263526387995186}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_PinkieClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +763,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4175541956188076}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_ThumbClawBase_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,7 +778,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4968781175782914}
-  m_Layer: 8
+  - component: {fileID: 136709420688351670}
+  m_Layer: 0
   m_Name: root_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +794,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4731999805639732}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_forearm_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -748,7 +809,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4012578655498344}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: L_middleClawTip_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -763,7 +824,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4298095808428664}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: R_hand_JNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -824,6 +885,19 @@ Transform:
   m_Father: {fileID: 4641623095632902}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4062605374178400
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1130949776816806}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.72, y: 0, z: -6.37}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4639535818905618}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4074553322732738
 Transform:
   m_ObjectHideFlags: 1
@@ -852,6 +926,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4310955127336350}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4131509980400824
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338363544362566}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.42, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4639535818905618}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4134049214504966
 Transform:
@@ -1072,6 +1159,7 @@ Transform:
   - {fileID: 4774516876653416}
   - {fileID: 4968781175782914}
   - {fileID: 4127096237563016}
+  - {fileID: 4639535818905618}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1173,6 +1261,19 @@ Transform:
   m_Father: {fileID: 4763348203311464}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4552392830465392
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1270433251757280}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.1, y: 0, z: 3.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4639535818905618}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4623346845318016
 Transform:
   m_ObjectHideFlags: 1
@@ -1200,6 +1301,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4134049214504966}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4639535818905618
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1689093062952062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4131509980400824}
+  - {fileID: 4552392830465392}
+  - {fileID: 4062605374178400}
+  m_Father: {fileID: 4310955127336350}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4641623095632902
 Transform:
@@ -1349,8 +1466,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1827537964677264}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0, y: 0.49, z: -0.23}
+  m_LocalScale: {x: 1, y: 0.5975751, z: 1}
   m_Children: []
   m_Father: {fileID: 4310955127336350}
   m_RootOrder: 0
@@ -1564,6 +1681,19 @@ MonoBehaviour:
   viewDeg: 180
   roamRange: 4
   idleTimeBetweenMoves: 3
+--- !u!136 &136709420688351670
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1900769504493870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.25
+  m_Direction: 0
+  m_Center: {x: -0.5, y: 0, z: 0}
 --- !u!136 &136975314702532718
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1571,7 +1701,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1500153686650690}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2.1961849

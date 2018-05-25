@@ -120,9 +120,11 @@ public class AttackState : IState {
 
             else if  (distanceBetween >= viewRange && Time.time > waitMove)
             {
+                anim.SetBool("isWalking", false);
+                this.attackComplete = true;
                 var attackResults = new Results(2);
                 this.attackResultCallback(attackResults);
-                this.attackComplete = false;
+
             }
         }
     }

@@ -274,6 +274,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4514151194891220}
+  - component: {fileID: 136690217368499992}
   m_Layer: 0
   m_Name: root_JNT
   m_TagString: Untagged
@@ -1535,9 +1536,9 @@ MonoBehaviour:
   damage: 12
   projectileForce: 10
   attackRangeMin: 0.5
-  attackRangeMax: 5
+  attackRangeMax: 2.5
   timeBetweenAttacks: 2
-  viewRange: 6
+  viewRange: 7
   viewDeg: 180
   roamRange: 0
   idleTimeBetweenMoves: 0
@@ -1573,12 +1574,25 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1308698097170098}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2.2120159
   m_Direction: 1
   m_Center: {x: 0, y: 1.1627411, z: 0}
+--- !u!136 &136690217368499992
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1272213860487402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.25
+  m_Direction: 0
+  m_Center: {x: -0.5, y: 0, z: 0}
 --- !u!137 &137302268437307548
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
