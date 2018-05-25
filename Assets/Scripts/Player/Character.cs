@@ -323,6 +323,14 @@ public class Character : MonoBehaviour
         float nowMoving = InputManager.Horizontal() + InputManager.Vertical() / 2;
         anim.SetFloat("Speed", nowMoving);
 
+        if (InputManager.MoveMe() == false) //Makes Run <--> Idle transition smooth.
+        {
+            anim.SetBool("isStopping", true);
+        }
+        else
+        {
+            anim.SetBool("isStopping", false);
+        }
 
         if (input.sqrMagnitude > 1f)
             input.Normalize();
