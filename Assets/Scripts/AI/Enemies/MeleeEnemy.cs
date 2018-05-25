@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -37,6 +38,9 @@ public class MeleeEnemy : MonoBehaviour {
 
     private Transform player;
     private Transform aitransform;
+    private Transform waypointParent;
+    private Vector3 waypointsMid;
+    private List<Transform> waypoints = new List<Transform>();
     
     private bool dead;
     private NavMeshAgent navMeshAgent;
@@ -67,6 +71,8 @@ public class MeleeEnemy : MonoBehaviour {
     public NavMeshAgent NavMeshAgent { get { return navMeshAgent; } }
     public Transform Player { get { return player; } }
     public Transform Aitransform { get { return aitransform; } }
+    public List<Transform> Waypoints { get { return waypoints; } }
+    public Vector3 WaypointsMidPos { get { return waypointsMid; } }
 
     public Vector3 DirectionsFromDegrees(float angleInDegrees, bool angleIsGlobal)
     {
@@ -82,6 +88,7 @@ public class MeleeEnemy : MonoBehaviour {
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.anim = this.GetComponent<Animator>();
         this.aitransform = this.gameObject.transform;
+        this.waypointParent = this.aitransform.Find("Waypoints");
         this.player = GameObject.FindGameObjectWithTag("Player").transform;
         this.playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         enemyStats = GetComponent<EnemyStats>();
@@ -89,7 +96,55 @@ public class MeleeEnemy : MonoBehaviour {
         enemyStats.Health = health;
         enemyStats.Damage = damage;
 
-        this.stateMachine.ChangeState(new SearchFor(this));
+
+
+        //for (int i = 0; i < 2; i++)
+        //{
+        //    Transform waypoint = waypointParent.GetChild(i);
+        //    waypoints.Add(waypoint);
+        //    waypoint.parent = null;
+        //    Debug.Log("pewpew");
+        //}
+
+
+
+    }
+
+    private void Start()
+    {
+        if (waypointParent != null)
+        {
+            //int indexuru = 0;
+            int childCount = waypointParent.childCount;
+
+            for (int i = 1; i <= childCount; i++)
+            {
+                waypoints.Add(waypointParent.GetChild(i - 1).GetComponent<Transform>());
+                Debug.Log(waypoints[i - 1].transform.name + "  ADDED");
+            }
+
+            //foreach (Transform child in waypointParent)
+            //{
+            //    waypoints.Add(child);
+            //    Debug.Log(waypoints[indexuru].transform.name + "  ADDED");
+            //    indexuru++;
+            //}
+            foreach (Transform child in waypoints)
+            {
+                child.parent = null;
+                waypointsMid += child.position;
+            }
+
+            waypointsMid /= childCount;
+
+            this.stateMachine.ChangeState(new RoamingState(this));
+        }
+
+        else
+        {
+            this.stateMachine.ChangeState(new IdleState(this));
+        }
+        
     }
 
     private void FixedUpdate()
@@ -120,7 +175,7 @@ public class MeleeEnemy : MonoBehaviour {
                 break;
                 
             case 2:
-                this.stateMachine.ChangeState(new SearchFor(this));
+                this.stateMachine.ChangeState(new RoamingState(this));
                 break;
 
             case 3:
