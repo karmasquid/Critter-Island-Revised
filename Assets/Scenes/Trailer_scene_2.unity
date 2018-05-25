@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -6531,6 +6531,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 487711408}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &491914441 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 56c02e2fe26625a4ab4ca3d3831d8a13, type: 3}
+  m_PrefabInternal: {fileID: 1064238076}
+--- !u!320 &491914442
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 491914441}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: d71e931fb9e48054fa15acf1a545121d, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 114316308497039140, guid: d71e931fb9e48054fa15acf1a545121d, type: 2}
+    value: {fileID: 491914441}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &495093173
 GameObject:
   m_ObjectHideFlags: 0
@@ -7630,6 +7652,8 @@ GameObject:
   - component: {fileID: 574878049}
   - component: {fileID: 574878048}
   - component: {fileID: 574878047}
+  - component: {fileID: 574878053}
+  - component: {fileID: 574878052}
   m_Layer: 0
   m_Name: Camera (1)
   m_TagString: Untagged
@@ -7705,13 +7729,48 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 574878046}
-  m_LocalRotation: {x: 0.021589868, y: 0.70677716, z: -0.021589868, w: 0.70677716}
-  m_LocalPosition: {x: 140.97, y: -3.76, z: -54.25}
+  m_LocalRotation: {x: 0.027605742, y: 0.90371585, z: -0.013044841, w: 0.4270427}
+  m_LocalPosition: {x: 144.553, y: -3.974, z: -52.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 3.499, y: 90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.00000004031247, y: 359.6714, z: -0.0000001498049}
+--- !u!95 &574878052
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574878046}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!320 &574878053
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 574878046}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 5595dd6915d888a4ebd1bbde819798b5, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 114167483751833448, guid: 5595dd6915d888a4ebd1bbde819798b5, type: 2}
+    value: {fileID: 574878046}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &576472478
 GameObject:
   m_ObjectHideFlags: 0
@@ -13893,15 +13952,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 56c02e2fe26625a4ab4ca3d3831d8a13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -152.161
+      value: 357.8915
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 56c02e2fe26625a4ab4ca3d3831d8a13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -94.265
+      value: 8.007719
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 56c02e2fe26625a4ab4ca3d3831d8a13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.69898987
+      value: 151.9386
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: 56c02e2fe26625a4ab4ca3d3831d8a13, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -23840,6 +23899,8 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 114205980992060024, guid: beb9522df24c9794fb12146b812b0ad3, type: 2}
     value: {fileID: 2017186971}
+  - key: {fileID: 114475841535258350, guid: beb9522df24c9794fb12146b812b0ad3, type: 2}
+    value: {fileID: 491914441}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &2024464391

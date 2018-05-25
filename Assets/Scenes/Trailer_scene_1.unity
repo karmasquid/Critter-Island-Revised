@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.67713404, g: 0.7714609, b: 0.8756368, a: 1}
+  m_IndirectSpecularColor: {r: 0.6771332, g: 0.7714652, b: 0.8756256, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -243,6 +243,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &770297980 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+  m_PrefabInternal: {fileID: 1132859520}
+--- !u!320 &770297981
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 770297980}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 25b374f1f31b0c246934fc4c7513a2e8, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 0}
+    value: {fileID: 770297980}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1001 &1132859520
 Prefab:
   m_ObjectHideFlags: 0
@@ -272,7 +294,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -284,15 +306,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 359.8821
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.0003225593
+      value: -0.0009994503
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.3143309
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -306,6 +328,34 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 2523d9891e272fa4f840fb3a5992d18c, type: 2}
+    - target: {fileID: 400068, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.036966093
+      objectReference: {fileID: 0}
+    - target: {fileID: 400068, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.07589731
+      objectReference: {fileID: 0}
+    - target: {fileID: 400060, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5667634
+      objectReference: {fileID: 0}
+    - target: {fileID: 400060, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.42282298
+      objectReference: {fileID: 0}
+    - target: {fileID: 400060, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.42788878
+      objectReference: {fileID: 0}
+    - target: {fileID: 400060, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.56294864
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
   m_IsPrefabParent: 0
@@ -417,6 +467,8 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 114303353642263996, guid: 2b541263822981e4db5835fd8bb7fa8f, type: 2}
     value: {fileID: 1378886515}
+  - key: {fileID: 114424212249808804, guid: 2b541263822981e4db5835fd8bb7fa8f, type: 2}
+    value: {fileID: 770297980}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &1378886518
