@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6771332, g: 0.7714652, b: 0.8756256, a: 1}
+  m_IndirectSpecularColor: {r: 0.67713404, g: 0.7714609, b: 0.8756368, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ PlayableDirector:
   m_GameObject: {fileID: 770297980}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 25b374f1f31b0c246934fc4c7513a2e8, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 2b541263822981e4db5835fd8bb7fa8f, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -263,6 +263,12 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 0}
     value: {fileID: 770297980}
+  - key: {fileID: 114303353642263996, guid: 2b541263822981e4db5835fd8bb7fa8f, type: 2}
+    value: {fileID: 1378886515}
+  - key: {fileID: 114424212249808804, guid: 2b541263822981e4db5835fd8bb7fa8f, type: 2}
+    value: {fileID: 770297980}
+  - key: {fileID: 114167483751833448, guid: 5595dd6915d888a4ebd1bbde819798b5, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!1001 &1132859520
@@ -310,7 +316,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.0009994503
+      value: 0.4664586
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a0dcf262d38d6014e8aaafd2ff56567a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -513,7 +519,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.5
+  near clip plane: 0.8
   far clip plane: 1000
   field of view: 40
   orthographic: 0

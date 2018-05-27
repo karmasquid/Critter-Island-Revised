@@ -8,18 +8,28 @@ ModelImporter:
     100000: //RootNode
     100002: asset_level_cliff_puzzlecliff
     100004: asset_level_cliff_puzzlegate
+    100006: asset_level_cliff_puzzle_stairs
+    100008: asset_level_cliff_puzzle_wall
     400000: //RootNode
     400002: asset_level_cliff_puzzlecliff
     400004: asset_level_cliff_puzzlegate
+    400006: asset_level_cliff_puzzle_stairs
+    400008: asset_level_cliff_puzzle_wall
     2100000: lambert13
     2100002: asset_level_cliff_details_mat
     2100004: asset_env_cliff_main1
     2300000: asset_level_cliff_puzzlecliff
     2300002: asset_level_cliff_puzzlegate
+    2300004: asset_level_cliff_puzzle_stairs
+    2300006: asset_level_cliff_puzzle_wall
     3300000: asset_level_cliff_puzzlecliff
     3300002: asset_level_cliff_puzzlegate
+    3300004: asset_level_cliff_puzzle_stairs
+    3300006: asset_level_cliff_puzzle_wall
     4300000: asset_level_cliff_puzzlegate
     4300002: asset_level_cliff_puzzlecliff
+    4300004: asset_level_cliff_puzzle_wall
+    4300006: asset_level_cliff_puzzle_stairs
     9500000: //RootNode
   externalObjects: {}
   materials:

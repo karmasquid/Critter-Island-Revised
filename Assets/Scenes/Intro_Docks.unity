@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
@@ -1300,6 +1300,49 @@ Prefab:
     - target: {fileID: 4580642626149304, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
       propertyPath: m_RootOrder
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 108509696634083682, guid: ae2e398ae4de3074a8a6951ee8352205,
+        type: 2}
+      propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 108713739429577594, guid: ae2e398ae4de3074a8a6951ee8352205,
+        type: 2}
+      propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189781073920450, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.33700472
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189781073920450, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.09546567
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189781073920450, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.0058348486
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189781073920450, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.93663234
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189781073920450, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 39.228
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189781073920450, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 13.049001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4189781073920450, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 3.9540002
+      objectReference: {fileID: 0}
+    - target: {fileID: 108182461496701450, guid: ae2e398ae4de3074a8a6951ee8352205,
+        type: 2}
+      propertyPath: m_Shadows.m_Type
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ae2e398ae4de3074a8a6951ee8352205, type: 2}
