@@ -11,7 +11,7 @@ public class LevelForward : MonoBehaviour {
     // Use this for initialization
     void Awake () {
 
-        Level_Loader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+        Level_Loader = GameObject.Find("LoadingScreen").GetComponent<LevelLoader>();
 
 	}
 

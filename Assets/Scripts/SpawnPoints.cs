@@ -12,7 +12,7 @@ public class SpawnPoints : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoader>();
+        levelLoader = GameObject.Find("LoadingScreen").GetComponent<LevelLoader>();
         Player = GameObject.Find("Player");
 
     }
