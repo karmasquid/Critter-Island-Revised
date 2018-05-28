@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b5be58b6e9d6279468938fb953e29845
-timeCreated: 1521803020
+guid: a6aea4b89f92d5543a918dfe775b4b55
+timeCreated: 1527509095
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -119,7 +119,7 @@ ModelImporter:
     400108: tail_6_JNT
     400110: tail_7_JNT
     400112: torso_JNT
-    7400000: Back_Dodge
+    7400000: Fly
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -149,9 +149,9 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Back_Dodge
+      name: Fly
       takeName: Take 001
-      firstFrame: 1
+      firstFrame: 0
       lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
