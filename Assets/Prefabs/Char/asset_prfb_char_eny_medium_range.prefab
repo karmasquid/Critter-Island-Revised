@@ -1641,7 +1641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee820006b31f814db8fa3d4a7c3d252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1371063362476898, guid: 176e10c209e6fa048bf0b18d1558de89, type: 2}
+  projectile: {fileID: 1595897601143072, guid: 54ec5e74c6903884e9d7354ce4ab7721, type: 2}
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -1652,7 +1652,7 @@ MonoBehaviour:
   damage: 12
   projectileForce: 10
   attackRangeMin: 0.5
-  attackRangeMax: 2.5
+  attackRangeMax: 3
   timeBetweenAttacks: 2
   viewRange: 7
   viewDeg: 180
