@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 8
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 1
   m_FogDensity: 1
@@ -3891,20 +3891,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 4086734388894194, guid: 61ecf44bad738734c8107f92e97eac78, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 84.435005
-      objectReference: {fileID: 0}
-    - target: {fileID: 114641036844270148, guid: 61ecf44bad738734c8107f92e97eac78,
-        type: 2}
-      propertyPath: viewRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114992760988034466, guid: 61ecf44bad738734c8107f92e97eac78,
-        type: 2}
-      propertyPath: itemToDrop
-      value: Gold Key
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 61ecf44bad738734c8107f92e97eac78, type: 2}
   m_IsPrefabParent: 0
@@ -4455,15 +4441,6 @@ Prefab:
     - target: {fileID: 1308698097170098, guid: 61ecf44bad738734c8107f92e97eac78, type: 2}
       propertyPath: m_Name
       value: asset_prfb_char_eny_medium_range (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4086734388894194, guid: 61ecf44bad738734c8107f92e97eac78, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 93.850006
-      objectReference: {fileID: 0}
-    - target: {fileID: 114992760988034466, guid: 61ecf44bad738734c8107f92e97eac78,
-        type: 2}
-      propertyPath: itemToDrop
-      value: Silver Key
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 61ecf44bad738734c8107f92e97eac78, type: 2}
@@ -16312,6 +16289,22 @@ Prefab:
       propertyPath: m_Name
       value: asset_prfb_char_eny_small (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4345687825075742, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345687825075742, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323015626472378, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323015626472378, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -4.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049a74a5356005945898bbba8705c043, type: 2}
   m_IsPrefabParent: 0
@@ -17367,21 +17360,6 @@ Prefab:
     - target: {fileID: 4605835499601968, guid: 049a74a5356005945898bbba8705c043, type: 2}
       propertyPath: m_RootOrder
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 114300332385482912, guid: 049a74a5356005945898bbba8705c043,
-        type: 2}
-      propertyPath: willDrop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114300332385482912, guid: 049a74a5356005945898bbba8705c043,
-        type: 2}
-      propertyPath: itemToDrop
-      value: Feather Stride Boots
-      objectReference: {fileID: 0}
-    - target: {fileID: 54967722520214664, guid: 049a74a5356005945898bbba8705c043,
-        type: 2}
-      propertyPath: m_Drag
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049a74a5356005945898bbba8705c043, type: 2}
@@ -23438,6 +23416,30 @@ Prefab:
       propertyPath: m_Name
       value: asset_prfb_char_eny_small (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4345687825075742, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345687825075742, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323015626472378, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323015626472378, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797259030133274, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797259030133274, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049a74a5356005945898bbba8705c043, type: 2}
   m_IsPrefabParent: 0
@@ -24113,26 +24115,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &983782241 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1500153686650690, guid: 6bad86dd84f956a449730160b65f6681,
-    type: 2}
-  m_PrefabInternal: {fileID: 1222212288}
---- !u!54 &983782244
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 983782241}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 10.09
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &987138083
 GameObject:
   m_ObjectHideFlags: 0
@@ -30171,23 +30153,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 114376865322326274, guid: 6bad86dd84f956a449730160b65f6681,
-        type: 2}
-      propertyPath: willDrop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114376865322326274, guid: 6bad86dd84f956a449730160b65f6681,
-        type: 2}
-      propertyPath: itemToDrop
-      value: Dusk Leaf
-      objectReference: {fileID: 0}
-    - target: {fileID: 114495225414512154, guid: 6bad86dd84f956a449730160b65f6681,
-        type: 2}
-      propertyPath: health
-      value: 40
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 54254983859117672, guid: 6bad86dd84f956a449730160b65f6681, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6bad86dd84f956a449730160b65f6681, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1224843624
@@ -40831,6 +40797,22 @@ Prefab:
     - target: {fileID: 1553578260976084, guid: 049a74a5356005945898bbba8705c043, type: 2}
       propertyPath: m_Name
       value: asset_prfb_char_eny_small (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345687825075742, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4345687825075742, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323015626472378, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4323015626472378, guid: 049a74a5356005945898bbba8705c043, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 5.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049a74a5356005945898bbba8705c043, type: 2}

@@ -9,6 +9,9 @@ public class LevelLoader : MonoBehaviour
     //fungerade tillsammans med ChooseNextScene nedan. Planerar att ordna detta så att vi får en laddningsscen mellan scenarna senare.
     public GameObject loadingScreen;
     public Slider slider;
+    public Animator animator;
+
+    private int levelToLoad;
     private bool cameFromPrevLvl = true;
     public bool CameFromPrevLvl
     { get { return cameFromPrevLvl; } }    
@@ -30,30 +33,6 @@ public class LevelLoader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-
-    public void Loadlevel(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
-        //StartCoroutine(LoadAsynch(sceneIndex));
-    }
-
-    //Denna del skall användas senare och står därför kvar här. 
-    //IEnumerator LoadAsynch(int sceneIndex)
-    //{
-
-    //    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-    //    loadingScreen.SetActive(true);
-
-    //    while (!operation.isDone)
-    //    {
-    //        //Gör om Unitys laddningsprocent till ett tal mellan 0 - 1 istället för Unitys 0 - 0.9
-    //        float progress = Mathf.Clamp01(operation.progress) / 0.9f;
-    //        slider.value = progress;
-
-    //        yield return null;
-    //    }
-    //}
-
     public void ChooseNextScene(bool SceneAfterThis)
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
@@ -70,7 +49,41 @@ public class LevelLoader : MonoBehaviour
             cameFromPrevLvl = false;
         }
     }
-    
+
+    public void Loadlevel(int sceneIndex)
+    {
+
+        levelToLoad = sceneIndex;
+        Debug.Log("scene to load index : " + levelToLoad);
+        //SceneManager.LoadScene(sceneIndex);
+        animator.SetTrigger("FadeOut");
+    }
+
+    public void FadeIsComplete()
+    {
+        StartCoroutine(LoadAsynch(levelToLoad));
+    }
+
+    IEnumerator LoadAsynch(int sceneIndex)
+    {
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+        loadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+            //Gör om Unitys laddningsprocent till ett tal mellan 0 - 1 istället för Unitys 0 - 0.9
+            float progress = Mathf.Clamp01(operation.progress) / 0.9f;
+            slider.value = progress;
+
+            yield return null;
+        }
+
+        animator.SetTrigger("FadeIn");
+        loadingScreen.SetActive(false);
 
     }
+
+
+}
 //Daniel Laggar & Stina Hedman
