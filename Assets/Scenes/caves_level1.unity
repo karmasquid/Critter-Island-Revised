@@ -3891,6 +3891,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114992760988034466, guid: 61ecf44bad738734c8107f92e97eac78,
+        type: 2}
+      propertyPath: itemToDrop
+      value: Gold Key
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 61ecf44bad738734c8107f92e97eac78, type: 2}
   m_IsPrefabParent: 0
@@ -16305,6 +16310,11 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: -4.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114300332385482912, guid: 049a74a5356005945898bbba8705c043,
+        type: 2}
+      propertyPath: itemToDrop
+      value: Knife
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049a74a5356005945898bbba8705c043, type: 2}
   m_IsPrefabParent: 0
@@ -23439,6 +23449,11 @@ Prefab:
     - target: {fileID: 4797259030133274, guid: 049a74a5356005945898bbba8705c043, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114300332385482912, guid: 049a74a5356005945898bbba8705c043,
+        type: 2}
+      propertyPath: itemToDrop
+      value: Dusk Leaf
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049a74a5356005945898bbba8705c043, type: 2}
@@ -40813,6 +40828,11 @@ Prefab:
     - target: {fileID: 4323015626472378, guid: 049a74a5356005945898bbba8705c043, type: 2}
       propertyPath: m_LocalPosition.z
       value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114300332385482912, guid: 049a74a5356005945898bbba8705c043,
+        type: 2}
+      propertyPath: itemToDrop
+      value: Knife
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 049a74a5356005945898bbba8705c043, type: 2}
