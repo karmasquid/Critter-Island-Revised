@@ -33,7 +33,7 @@ public class TEST_LevelLoader : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Loadlevel(5);
+            //Loadlevel(5);
         }
     }
 
