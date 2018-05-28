@@ -128,34 +128,18 @@ public class Character : MonoBehaviour
         if (InputManager.AttackDown())
         {
             atckn = true;
-            if (running)
-            {
-                Speed = Speed / (speedMultiplier * rawSpeed);
-            }
-            else if (!running)
-            {
-                Speed = Speed / rawSpeed;
-
-            }
+            Speed = 1;
         }
         if (InputManager.AttackUp()) // Om slag attack.
         {
             atckn = false;
             if (running)
             {
-                Speed = Speed * speedMultiplier * rawSpeed;
-                if (Speed < 1)
-                {
-                    Speed = 1;
-                }
+                Speed = rawSpeed * speedMultiplier; 
             }
-            else if (!running)
+            else
             {
-                Speed = Speed * rawSpeed;
-                if (Speed > rawSpeed)
-                {
-                    Speed = rawSpeed;
-                }
+                Speed = rawSpeed;
             }
         }
     }
@@ -183,60 +167,51 @@ public class Character : MonoBehaviour
     }
     void Runner()
     {
-        if (InputManager.Run())
+        if (InputManager.Run() && !atckn)
         {
-            if (running)
+            Speed = rawSpeed * speedMultiplier;
+            running = true;
+        }
+        if (InputManager.Running())
+        {
+            if (PlayerManager.instance.Stamina.CurrentValue <= 0) //Om du inte står stilla, drain.
             {
-                Speed = Speed * speedMultiplier;
-            }
-            else
-            {
-                if (Speed > 1 && atckn == true)
+                if (!atckn)
+                {
+                    Speed = rawSpeed;
+                }
+                else
                 {
                     Speed = 1;
                 }
 
-                if (Speed >= rawSpeed)
-                {
-                    Speed = rawSpeed * speedMultiplier;
-                }
-                running = true;
-            }
-        }
-        if (InputManager.Running())
-        {
-            if (PlayerManager.instance.Stamina.CurrentValue > 0 && running == true) //Om du inte står stilla, drain.
-            {
-                Speed = rawSpeed * speedMultiplier;
-            }
-            else if (running == true)
-            {
                 running = false;
-                Speed = rawSpeed;
             }
-            if (!moving) //And out of stamina
-            {
-                stamReCharge = rawStamRe;
-            }
-            else //Moving and running.
+
+            if (moving || InputManager.MoveMe() && !atckn) //Moving and running.
             {
                 PlayerManager.instance.LooseStamina(20 * Time.deltaTime); //Stamina drain.
                 stamReCharge = 0f;
+            }
+            else
+            {
+                stamReCharge = rawStamRe;
             }
         }
 
         if (InputManager.Ran())
         {
-            Speed = Speed / speedMultiplier; running = false;
-            if (Speed < 1)
-            {
-                Speed = 1;
-            }
-            if (Speed > rawSpeed || Speed > 1)
+            if (!atckn)
             {
                 Speed = rawSpeed;
             }
+            else
+            {
+                Speed = 1;
+            }
+
             stamReCharge = rawStamRe;
+            running = false;
         }
     }
     void Jump()
@@ -247,6 +222,7 @@ public class Character : MonoBehaviour
             this.GetComponent<NavMeshAgent>().enabled = false;
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Speed * speedMultiplier * 2 * Time.deltaTime);
             this.transform.forward = -target.transform.forward;
+            //Animation for jump over bridge...
         }
         else
         {
