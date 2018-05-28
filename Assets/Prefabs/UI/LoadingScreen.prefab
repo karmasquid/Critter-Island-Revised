@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 222324862894267114}
   - component: {fileID: 114882952267909258}
   - component: {fileID: 95372375850946686}
-  - component: {fileID: 114843569681395234}
+  - component: {fileID: 114374702049953388}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 223084889339041398}
   - component: {fileID: 114825607113416692}
   - component: {fileID: 114220413983737872}
+  - component: {fileID: 114043087489899576}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -162,6 +163,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114043087489899576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703865500904322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ab7d39e4149144ca543d44afe1a098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 1824898794044216}
+  slider: {fileID: 114495489955755296}
+  animator: {fileID: 95372375850946686}
 --- !u!114 &114084983811397758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,6 +247,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114374702049953388
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1369796837183656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097eb76d9084cc144b65c71f2c25a3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114495489955755296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,20 +354,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114843569681395234
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1369796837183656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f783e8f84593b54296d241b7f553027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadingScreen: {fileID: 1824898794044216}
-  slider: {fileID: 114495489955755296}
-  animator: {fileID: 95372375850946686}
 --- !u!114 &114882952267909258
 MonoBehaviour:
   m_ObjectHideFlags: 1
