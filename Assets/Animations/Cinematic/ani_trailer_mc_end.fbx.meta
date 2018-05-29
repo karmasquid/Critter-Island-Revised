@@ -1,0 +1,210 @@
+fileFormatVersion: 2
+guid: ed464b71e57e5724f9aee4bec7d98632
+timeCreated: 1527599658
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: REAL_asset_ani_main_cycle_charge_walk:chest_JNT
+    100004: REAL_asset_ani_main_cycle_charge_walk:head_JNT
+    100006: REAL_asset_ani_main_cycle_charge_walk:headtip_JNT
+    100008: REAL_asset_ani_main_cycle_charge_walk:L_ankle_JNT
+    100010: REAL_asset_ani_main_cycle_charge_walk:L_ball_JNT
+    100012: REAL_asset_ani_main_cycle_charge_walk:L_clavicle_JNT
+    100014: REAL_asset_ani_main_cycle_charge_walk:L_ear_1_JNT
+    100016: REAL_asset_ani_main_cycle_charge_walk:L_ear_2_JNT
+    100018: REAL_asset_ani_main_cycle_charge_walk:L_ear_3_JNT
+    100020: REAL_asset_ani_main_cycle_charge_walk:L_elbow_JNT
+    100022: REAL_asset_ani_main_cycle_charge_walk:L_finger_JNT
+    100024: REAL_asset_ani_main_cycle_charge_walk:L_fingertip_JNT
+    100026: REAL_asset_ani_main_cycle_charge_walk:L_forearm_JNT
+    100028: REAL_asset_ani_main_cycle_charge_walk:L_hand_JNT
+    100030: REAL_asset_ani_main_cycle_charge_walk:L_hip_JNT
+    100032: REAL_asset_ani_main_cycle_charge_walk:L_knee_JNT
+    100034: REAL_asset_ani_main_cycle_charge_walk:L_lower_eyelid_JNT
+    100036: REAL_asset_ani_main_cycle_charge_walk:L_shoulder_JNT
+    100038: REAL_asset_ani_main_cycle_charge_walk:L_thumb_1_JNT
+    100040: REAL_asset_ani_main_cycle_charge_walk:L_thumb_2_JNT
+    100042: REAL_asset_ani_main_cycle_charge_walk:L_thumbtip_JNT
+    100044: REAL_asset_ani_main_cycle_charge_walk:L_toe_JNT
+    100046: REAL_asset_ani_main_cycle_charge_walk:L_upper_eyelid_JNT
+    100048: REAL_asset_ani_main_cycle_charge_walk:MainCharacter_POLY
+    100050: REAL_asset_ani_main_cycle_charge_walk:MainCharacter_RIG
+    100052: REAL_asset_ani_main_cycle_charge_walk:neck_JNT
+    100054: REAL_asset_ani_main_cycle_charge_walk:pelvis_JNT
+    100056: REAL_asset_ani_main_cycle_charge_walk:R_ankle_JNT
+    100058: REAL_asset_ani_main_cycle_charge_walk:R_ball_JNT
+    100060: REAL_asset_ani_main_cycle_charge_walk:R_clavicle_JNT
+    100062: REAL_asset_ani_main_cycle_charge_walk:R_ear_1_JNT
+    100064: REAL_asset_ani_main_cycle_charge_walk:R_ear_2_JNT
+    100066: REAL_asset_ani_main_cycle_charge_walk:R_ear_3_JNT
+    100068: REAL_asset_ani_main_cycle_charge_walk:R_elbow_JNT
+    100070: REAL_asset_ani_main_cycle_charge_walk:R_finger_JNT
+    100072: REAL_asset_ani_main_cycle_charge_walk:R_fingertip_JNT
+    100074: REAL_asset_ani_main_cycle_charge_walk:R_forearm_JNT
+    100076: REAL_asset_ani_main_cycle_charge_walk:R_hand_JNT
+    100078: REAL_asset_ani_main_cycle_charge_walk:R_hip_JNT
+    100080: REAL_asset_ani_main_cycle_charge_walk:R_knee_JNT
+    100082: REAL_asset_ani_main_cycle_charge_walk:R_lower_eyelid_JNT
+    100084: REAL_asset_ani_main_cycle_charge_walk:R_shoulder_JNT
+    100086: REAL_asset_ani_main_cycle_charge_walk:R_thumb_1_JNT
+    100088: REAL_asset_ani_main_cycle_charge_walk:R_thumb_2_JNT
+    100090: REAL_asset_ani_main_cycle_charge_walk:R_thumbtip_JNT
+    100092: REAL_asset_ani_main_cycle_charge_walk:R_toe_JNT
+    100094: REAL_asset_ani_main_cycle_charge_walk:R_upper_eyelid_JNT
+    100096: REAL_asset_ani_main_cycle_charge_walk:root_JNT
+    100098: REAL_asset_ani_main_cycle_charge_walk:spine_1_JNT
+    100100: REAL_asset_ani_main_cycle_charge_walk:spine_2_JNT
+    100102: REAL_asset_ani_main_cycle_charge_walk:tail_1_JNT
+    100104: REAL_asset_ani_main_cycle_charge_walk:tail_2_JNT
+    100106: REAL_asset_ani_main_cycle_charge_walk:tail_3_JNT
+    100108: REAL_asset_ani_main_cycle_charge_walk:tail_4_JNT
+    100110: REAL_asset_ani_main_cycle_charge_walk:tail_5_JNT
+    100112: REAL_asset_ani_main_cycle_charge_walk:tail_6_JNT
+    100114: REAL_asset_ani_main_cycle_charge_walk:tail_7_JNT
+    100116: REAL_asset_ani_main_cycle_charge_walk:torso_JNT
+    400000: //RootNode
+    400002: REAL_asset_ani_main_cycle_charge_walk:chest_JNT
+    400004: REAL_asset_ani_main_cycle_charge_walk:head_JNT
+    400006: REAL_asset_ani_main_cycle_charge_walk:headtip_JNT
+    400008: REAL_asset_ani_main_cycle_charge_walk:L_ankle_JNT
+    400010: REAL_asset_ani_main_cycle_charge_walk:L_ball_JNT
+    400012: REAL_asset_ani_main_cycle_charge_walk:L_clavicle_JNT
+    400014: REAL_asset_ani_main_cycle_charge_walk:L_ear_1_JNT
+    400016: REAL_asset_ani_main_cycle_charge_walk:L_ear_2_JNT
+    400018: REAL_asset_ani_main_cycle_charge_walk:L_ear_3_JNT
+    400020: REAL_asset_ani_main_cycle_charge_walk:L_elbow_JNT
+    400022: REAL_asset_ani_main_cycle_charge_walk:L_finger_JNT
+    400024: REAL_asset_ani_main_cycle_charge_walk:L_fingertip_JNT
+    400026: REAL_asset_ani_main_cycle_charge_walk:L_forearm_JNT
+    400028: REAL_asset_ani_main_cycle_charge_walk:L_hand_JNT
+    400030: REAL_asset_ani_main_cycle_charge_walk:L_hip_JNT
+    400032: REAL_asset_ani_main_cycle_charge_walk:L_knee_JNT
+    400034: REAL_asset_ani_main_cycle_charge_walk:L_lower_eyelid_JNT
+    400036: REAL_asset_ani_main_cycle_charge_walk:L_shoulder_JNT
+    400038: REAL_asset_ani_main_cycle_charge_walk:L_thumb_1_JNT
+    400040: REAL_asset_ani_main_cycle_charge_walk:L_thumb_2_JNT
+    400042: REAL_asset_ani_main_cycle_charge_walk:L_thumbtip_JNT
+    400044: REAL_asset_ani_main_cycle_charge_walk:L_toe_JNT
+    400046: REAL_asset_ani_main_cycle_charge_walk:L_upper_eyelid_JNT
+    400048: REAL_asset_ani_main_cycle_charge_walk:MainCharacter_POLY
+    400050: REAL_asset_ani_main_cycle_charge_walk:MainCharacter_RIG
+    400052: REAL_asset_ani_main_cycle_charge_walk:neck_JNT
+    400054: REAL_asset_ani_main_cycle_charge_walk:pelvis_JNT
+    400056: REAL_asset_ani_main_cycle_charge_walk:R_ankle_JNT
+    400058: REAL_asset_ani_main_cycle_charge_walk:R_ball_JNT
+    400060: REAL_asset_ani_main_cycle_charge_walk:R_clavicle_JNT
+    400062: REAL_asset_ani_main_cycle_charge_walk:R_ear_1_JNT
+    400064: REAL_asset_ani_main_cycle_charge_walk:R_ear_2_JNT
+    400066: REAL_asset_ani_main_cycle_charge_walk:R_ear_3_JNT
+    400068: REAL_asset_ani_main_cycle_charge_walk:R_elbow_JNT
+    400070: REAL_asset_ani_main_cycle_charge_walk:R_finger_JNT
+    400072: REAL_asset_ani_main_cycle_charge_walk:R_fingertip_JNT
+    400074: REAL_asset_ani_main_cycle_charge_walk:R_forearm_JNT
+    400076: REAL_asset_ani_main_cycle_charge_walk:R_hand_JNT
+    400078: REAL_asset_ani_main_cycle_charge_walk:R_hip_JNT
+    400080: REAL_asset_ani_main_cycle_charge_walk:R_knee_JNT
+    400082: REAL_asset_ani_main_cycle_charge_walk:R_lower_eyelid_JNT
+    400084: REAL_asset_ani_main_cycle_charge_walk:R_shoulder_JNT
+    400086: REAL_asset_ani_main_cycle_charge_walk:R_thumb_1_JNT
+    400088: REAL_asset_ani_main_cycle_charge_walk:R_thumb_2_JNT
+    400090: REAL_asset_ani_main_cycle_charge_walk:R_thumbtip_JNT
+    400092: REAL_asset_ani_main_cycle_charge_walk:R_toe_JNT
+    400094: REAL_asset_ani_main_cycle_charge_walk:R_upper_eyelid_JNT
+    400096: REAL_asset_ani_main_cycle_charge_walk:root_JNT
+    400098: REAL_asset_ani_main_cycle_charge_walk:spine_1_JNT
+    400100: REAL_asset_ani_main_cycle_charge_walk:spine_2_JNT
+    400102: REAL_asset_ani_main_cycle_charge_walk:tail_1_JNT
+    400104: REAL_asset_ani_main_cycle_charge_walk:tail_2_JNT
+    400106: REAL_asset_ani_main_cycle_charge_walk:tail_3_JNT
+    400108: REAL_asset_ani_main_cycle_charge_walk:tail_4_JNT
+    400110: REAL_asset_ani_main_cycle_charge_walk:tail_5_JNT
+    400112: REAL_asset_ani_main_cycle_charge_walk:tail_6_JNT
+    400114: REAL_asset_ani_main_cycle_charge_walk:tail_7_JNT
+    400116: REAL_asset_ani_main_cycle_charge_walk:torso_JNT
+    2100000: REAL_asset_ani_main_cycle_charge_walk_asset_char_mc_uv_4_blinn1
+    4300000: REAL_asset_ani_main_cycle_charge_walk:MainCharacter_POLY
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: REAL_asset_ani_main_cycle_charge_walk:MainCharacter_POLY
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 23
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
