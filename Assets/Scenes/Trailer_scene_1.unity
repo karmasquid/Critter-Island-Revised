@@ -19,7 +19,7 @@ RenderSettings:
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 20
-  m_LinearFogEnd: 1000
+  m_LinearFogEnd: 600
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -411,7 +411,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 77aaee560fc90d2419e45096155c652e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0014935976546e24aaf409921a2c5b9c, type: 2}
+      objectReference: {fileID: 2100000, guid: 50769387b7123e444a321d9a172ff95b, type: 2}
     - target: {fileID: 100000, guid: 77aaee560fc90d2419e45096155c652e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -708,6 +708,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 137425240727419046, guid: fe4894f3d19571d47bd627ae76c59bbc,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1544f34e6a697d43bc81b951a7485b1, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe4894f3d19571d47bd627ae76c59bbc, type: 2}
   m_IsPrefabParent: 0
