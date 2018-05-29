@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
     float rotationSpeed;
 
     Animator anim;
+    Vector3 forward, right;
 
     public float SpeedMultiplier
     {
@@ -48,8 +49,8 @@ public class Character : MonoBehaviour
     //Controls and rotation.
     private bool running;
     private Rigidbody _body;
-    private Vector3 _inputs = Vector3.zero; 
-    private bool _isGrounded = true;
+    private Vector3 _inputs = Vector3.zero;
+    private Vector3 heading;
     private Vector3 targetRotation;
     private Transform _groundChecker;
 
@@ -95,6 +96,12 @@ public class Character : MonoBehaviour
         //Modular variables. Saves start values set in inspector:
         rawStamRe = stamReCharge;
         rawSpeed = Speed;
+
+        forward = Camera.main.transform.forward;
+        forward.y = 0;
+        forward = Vector3.Normalize(forward);
+
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
         _body = GetComponent<Rigidbody>();
         _groundChecker = transform.GetChild(0); //Both
@@ -293,13 +300,34 @@ public class Character : MonoBehaviour
 
     void mover()
     {
-        Vector3 input = new Vector3(InputManager.Horizontal(), 0.0f, InputManager.Vertical()); //InputManager.VerticalAxis
+        //Rotation of player, takes input into account for rotation after movement of player.
+        Vector3 input = new Vector3(InputManager.Horizontal(), 0.0f, InputManager.Vertical()); 
         Vector3 inputRaw = new Vector3(InputManager.RawHorizontal(), 0.0f, InputManager.RawVertical());
 
-        float nowMoving = InputManager.Horizontal() + InputManager.Vertical() / 2;
+        Vector3 rightMovement = right * Speed * Time.deltaTime * InputManager.Horizontal();
+        Vector3 upMovement = forward * Speed * Time.deltaTime * InputManager.Vertical();
+
+        heading = Vector3.Normalize(rightMovement + upMovement);
+
+        if (heading.sqrMagnitude > 1f) //Normalizing the rotation.
+            input.Normalize();
+        if (inputRaw.sqrMagnitude > 1f)
+            inputRaw.Normalize();
+
+        if (inputRaw != Vector3.zero)
+            targetRotation = Quaternion.LookRotation(heading).eulerAngles;
+
+
+        //Makes rotation of player so that he/she may only move in 8 diffrent directions.
+        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation.x, Mathf.Round(targetRotation.y / 45) * 45, targetRotation.z), Time.deltaTime * rotationSpeed);
+
+
+        //Animations and transitions while moving.
+        float nowMoving = InputManager.Horizontal() + InputManager.Vertical();
         anim.SetFloat("Speed", nowMoving);
 
-        if (InputManager.MoveMe() == false) //Makes Run <--> Idle transition smooth.
+        //See if player is trying to move by checking input of player.
+        if (InputManager.MoveMe() == false) 
         {
             anim.SetBool("isStopping", true);
         }
@@ -308,30 +336,18 @@ public class Character : MonoBehaviour
             anim.SetBool("isStopping", false);
         }
 
-        if (input.sqrMagnitude > 1f)
-            input.Normalize();
-        if (inputRaw.sqrMagnitude > 1f)
-            inputRaw.Normalize();
-
-        if (inputRaw != Vector3.zero)
-            targetRotation = Quaternion.LookRotation(input).eulerAngles;
-
-
-        this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(targetRotation.x, Mathf.Round(targetRotation.y / 45) * 45, targetRotation.z), Time.deltaTime * rotationSpeed);
-
-        _isGrounded = Physics.CheckSphere(_groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
 
         _inputs = Vector3.zero;
         _inputs.x = InputManager.Horizontal();
         _inputs.z = InputManager.Vertical();
         if (_inputs != Vector3.zero)
-            transform.forward = _inputs;
+            transform.forward = heading;
     }
     void FixedUpdate()
     {
         if (!PlayerManager.instance.dead)
         {
-            _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
+            _body.MovePosition(_body.position + heading * Speed * Time.fixedDeltaTime);
 
             if (!getOverIt)
             {
