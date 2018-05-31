@@ -324,12 +324,17 @@ public class Character : MonoBehaviour
 
         //Animations and transitions while moving.
         float nowMoving = InputManager.Horizontal() + InputManager.Vertical();
+        if (nowMoving == 0 && moving)
+        {
+            nowMoving = 0.1f;
+        }
         anim.SetFloat("Speed", nowMoving);
 
         //See if player is trying to move by checking input of player.
         if (InputManager.MoveMe() == false) 
         {
             anim.SetBool("isStopping", true);
+            _body.velocity = Vector3.zero;
         }
         else
         {
