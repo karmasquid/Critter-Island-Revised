@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-public class IdleState : IState {
+public class IdleState : IState
+{
 
     private Animator anim;
 
@@ -53,7 +54,6 @@ public class IdleState : IState {
 
     public void Enter()
     {
-        Debug.Log("Entered idlestate");
 
     }
 
@@ -84,7 +84,7 @@ public class IdleState : IState {
                 var targetDirection = (playerGo.position - ownerGo.position).normalized;
                 var targetDistance = Vector3.Distance(ownerGo.transform.position, playerGo.position);
 
-
+                // if enemy is found, proceed to attackstate.
                 if (Vector3.Angle(ownerGo.forward, targetDirection) < viewDeg / 2)
                 {
                     if (!Physics.Raycast(ownerGo.position, targetDirection, targetDistance, obstacleLayer))
@@ -95,6 +95,7 @@ public class IdleState : IState {
                     }
                 }
 
+                //if the player is within attackrange, so if it sneaks up behind the enemy but still is outside the viewrange. Proceed to attackstate.
                 if (targetDistance < attackRange)
                 {
                     var idleResult = new Results(1);
@@ -104,25 +105,5 @@ public class IdleState : IState {
             }
         }
     }
-
-    //private void RotateTowards()
-    //{
-    //    float rotationspeed = 10;
-    //    Vector3 direction = (this.startPos - this.ownerGo.position).normalized;
-    //    direction.y = 0;
-    //    Quaternion lookRotation = Quaternion.LookRotation(direction);
-    //    this.ownerGo.transform.rotation = Quaternion.Slerp(this.ownerGo.rotation, lookRotation, Time.deltaTime * rotationspeed);
-    //}
 }
-//public class IdleResult
-//{
-//    public bool trueForAttackFalseForSearch;
-
-//    public IdleResult(bool trueForAttackFalseForSearch)
-//    {
-//        this.trueForAttackFalseForSearch = trueForAttackFalseForSearch;
-//    }
-
-
-//}
 // Stina Hedman

@@ -33,6 +33,7 @@ public class LevelLoader : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    //check for where the player enters. changes scene depending on what side the player exits the scene.
     public void ChooseNextScene(bool SceneAfterThis)
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
@@ -50,6 +51,7 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
+    //loads the level of index sceneindex and triggers the fadeout animation.
     public void Loadlevel(int sceneIndex)
     {
 
@@ -59,11 +61,13 @@ public class LevelLoader : MonoBehaviour
         animator.SetTrigger("FadeOut");
     }
 
+    //called upon when the faceout is completed.
     public void FadeIsComplete()
     {
         StartCoroutine(LoadAsynch(levelToLoad));
     }
 
+    //activates the loadingscreen
     IEnumerator LoadAsynch(int sceneIndex)
     {
 

@@ -57,7 +57,6 @@ public class PlayerManager : MonoBehaviour {
         }
     }
 
-    //-----------------------------------------------------------------------------------------ENDFIXIT---------------------------------------------------------------------------------------
     public GameObject player;
 
     #region Singleton
@@ -88,24 +87,22 @@ public class PlayerManager : MonoBehaviour {
     }
     #endregion
 
+    //updates the current value of the stamina.
     private void Update()
     { 
-        //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
         if (stamina.CurrentValue < stamina.MaxValue)
         {
             timeCheck += Time.deltaTime;
         }
-
-        //timeCheck vs wait time
+        
         if (timeCheck > waitTime)
         {
             timeCheck = 0;
-            //+= staminaRecharge
             stamina.CurrentValue += staminaRecharge;
         }
-        //SKAPA CORUTINER av detta ----------------------------------------------------------------------------
     }
 
+    //used to change stats on the player when an item is equipped.
     public void AddPlayerstats(Item itemAdd)
     {
         armor += itemAdd.Armor;
@@ -133,6 +130,7 @@ public class PlayerManager : MonoBehaviour {
         //characterattackthingystuffscript.attackrate += itemAdd.AttackSpeed;
     }
 
+    //used to remove stats when an item is unequipped
     public void Removestats(Item itemrem)
     {
 
@@ -163,17 +161,20 @@ public class PlayerManager : MonoBehaviour {
         GameObject.Find("AmmoCounter").GetComponent<AmmoCounterHUD>().UpdateAmmoCounter(ammoCount);
     }
 
+    //used to set ammo on the player.
     public void SetAmmo(int ammo)
     {
         ammoCount = ammo;
         AmmoCounter(0);
     }
 
+    //used to drain stamina on rangeattack.
     public void RangeAttack(GameObject enemy)
     {
         stamina.CurrentValue -= Inventory.instance.equippedItems[1].StaminaCost;
     }
 
+    //used when the player uses a consumable item from its backpack.
     public void UseConsumable(Item consumable)
     {
         health.CurrentValue += consumable.Health;
@@ -181,11 +182,14 @@ public class PlayerManager : MonoBehaviour {
         stamina.CurrentValue += consumable.StaminaRecovery;
     }
 
+    //used to set the stamina after a special attack.
     public void SpecAttack(GameObject[] enemys)
     {
         stamina.CurrentValue -= Inventory.instance.equippedItems[0].StaminaCostSpec;
     }
 
+
+    //used to take damage from enemies.
     public void TakeDamage(float Damage)
     {
         health.CurrentValue -= Damage;
@@ -196,6 +200,8 @@ public class PlayerManager : MonoBehaviour {
             Character.instance.IsDead = true;
         }
     }
+
+    //Updates the ammocount and the hud ammocountdisplay.
     public void AmmoCounter(int AmmoDrain)
     {
         ammoCount -= AmmoDrain;
@@ -206,6 +212,7 @@ public class PlayerManager : MonoBehaviour {
         GameObject.Find("AmmoCounter").GetComponent<AmmoCounterHUD>().UpdateAmmoCounter(ammoCount);
     }
 
+    //used to loose stamina.
     public void LooseStamina(float sta)
     {
 
@@ -218,4 +225,4 @@ public class PlayerManager : MonoBehaviour {
             stamina.CurrentValue = 0;       
     }
 
-} // Stina Hedman
+} // Stina Hedman & Mattias Eriksson & Daniel Laggar.

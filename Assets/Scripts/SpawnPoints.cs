@@ -19,6 +19,7 @@ public class SpawnPoints : MonoBehaviour {
 
     void Start () {
 
+        //checks if player came from previous level or not then places the player at the position and rotation of the spawnpoint.
         if (levelLoader.CameFromPrevLvl)
         {
             Player.GetComponent<NavMeshAgent>().Warp(gameObject.transform.GetChild(0).transform.position);
@@ -32,5 +33,5 @@ public class SpawnPoints : MonoBehaviour {
 
 	}
 
-} // STina Hedman
+} // Stina Hedman
 
