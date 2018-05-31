@@ -8,7 +8,6 @@ public class StateMachine {
 
     IState prevState;
 
-    //used to change state in statemachine.
     public void ChangeState(IState newState)
     {
         if (this.currRunningState != null)
@@ -23,7 +22,6 @@ public class StateMachine {
         this.currRunningState.Enter();
     }
 
-    //used to execute state update.
     public void ExecuteStateUpdate()
     {
         var runningState = this.currRunningState;
@@ -34,7 +32,6 @@ public class StateMachine {
         }
     }
 
-    //used to switch to previous state.
     public void SwitchToPrevState()
     {
         this.currRunningState.Exit();

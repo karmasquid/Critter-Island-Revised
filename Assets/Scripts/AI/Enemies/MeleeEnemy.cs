@@ -95,13 +95,26 @@ public class MeleeEnemy : MonoBehaviour {
         enemyStats.ActionCallback = this.NextState;
         enemyStats.Health = health;
         enemyStats.Damage = damage;
+
+
+
+        //for (int i = 0; i < 2; i++)
+        //{
+        //    Transform waypoint = waypointParent.GetChild(i);
+        //    waypoints.Add(waypoint);
+        //    waypoint.parent = null;
+        //    Debug.Log("pewpew");
+        //}
+
+
+
     }
 
     private void Start()
     {
         if (waypointParent != null)
         {
-            //count the childs of waypoints. add them to a list of waypoints then sets parent to null to keep their position in the scene.
+            //int indexuru = 0;
             int childCount = waypointParent.childCount;
 
             for (int i = 1; i <= childCount; i++)
@@ -110,6 +123,12 @@ public class MeleeEnemy : MonoBehaviour {
                 Debug.Log(waypoints[i - 1].transform.name + "  ADDED");
             }
 
+            //foreach (Transform child in waypointParent)
+            //{
+            //    waypoints.Add(child);
+            //    Debug.Log(waypoints[indexuru].transform.name + "  ADDED");
+            //    indexuru++;
+            //}
             foreach (Transform child in waypoints)
             {
                 child.parent = null;
@@ -121,7 +140,6 @@ public class MeleeEnemy : MonoBehaviour {
             this.stateMachine.ChangeState(new RoamingState(this));
         }
 
-        //if the enemy has no waypoints, go to idlestate.
         else
         {
             this.stateMachine.ChangeState(new IdleState(this));
@@ -131,13 +149,12 @@ public class MeleeEnemy : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        //if player or enemy isn't dead, execute states update.
+
         if (!EnemyStats.Dead && !playerManager.dead)
         {
             this.stateMachine.ExecuteStateUpdate();
         }
 
-        //if dead stop walking.
         else
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("isWalking"))
@@ -150,9 +167,9 @@ public class MeleeEnemy : MonoBehaviour {
 
     public void NextState(Results stateResult)
     {
-        //Handles the results returned from the different states and evaluates which new state to switch to.
         switch (stateResult.nextState)
         {
+            //SearchFor
             case 1:
                 this.stateMachine.ChangeState(new AttackState(this));
                 break;
@@ -172,6 +189,46 @@ public class MeleeEnemy : MonoBehaviour {
 
     }
 
+    //change to attack or idle after searchstate
+    //public void SearchDone(SearchResult searchResult)
+    //{
+    //    if (searchResult.trueForAttackFalseForIdle)
+    //    {
+    //        this.stateMachine.ChangeState(new AttackState(this));
+    //    }
+
+    //    else
+    //    {
+    //        this.stateMachine.ChangeState(new IdleState(this));
+    //    }
+
+    //}
+    //change to search or idle after attackstate
+    //public void AttackDone(AttackResult attackResults)
+    //{    
+    //    if (attackResults.trueForSearchFalseForIdle)
+    //    {
+    //        this.stateMachine.ChangeState(new SearchFor(this));
+    //    }
+        
+    //    else
+    //    {
+    //        this.stateMachine.ChangeState(new IdleState(this));
+    //    }
+    //}
+    //change to attack or search after idlestate
+    //public void IdleDone(IdleResult idleResult)
+    //{     
+    //    if (idleResult.trueForAttackFalseForSearch)
+    //    {
+    //        this.stateMachine.ChangeState(new AttackState(this));
+    //    }
+        
+    //    else
+    //    {
+    //        this.stateMachine.ChangeState(new SearchFor(this));
+    //    }
+    //}
 } // Stina Hedman
 
 

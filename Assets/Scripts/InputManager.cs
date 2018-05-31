@@ -2,9 +2,7 @@
 using UnityEngine;
 
 public static class InputManager
-{   //Modular input script that takes in the input and returns it.
-
-    //---------------Attacks---------------
+{
     public static bool Attack()
     {
         return Input.GetButton("Attack");
@@ -17,24 +15,26 @@ public static class InputManager
     {
         return Input.GetButtonDown("Attack");
     }
+
+
     public static bool ThrowAttack()
     {
         return Input.GetButtonDown("ThrowAttack");
     }
 
-    //---------------Interactions---------------
+
     public static bool Interact()
     {
         return Input.GetButtonDown("Interact");
     }
 
-    //---------------Inventory show/hide---------------
+
     public static bool Inventory()
     {
         return Input.GetButtonDown("Inventory");
     }
 
-    //---------------Dodge---------------
+
     public static bool Dodge()
     {
         return Input.GetButtonDown("Dodge");
@@ -42,7 +42,7 @@ public static class InputManager
 
 
 
-    //---------------Running---------------
+
     public static bool Run() //Down
     {
         return Input.GetButtonDown("Run");
@@ -58,7 +58,7 @@ public static class InputManager
 
 
 
-    //---------------Axis Up/down/left/right---------------
+
     public static float Horizontal()
     {
         return Input.GetAxis("Horizontal");
@@ -75,7 +75,7 @@ public static class InputManager
     {
         return Input.GetAxisRaw("Vertical");
     }
-    //---------------Minor input movement check---------------
+
     public static bool MoveMe()
     {
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
@@ -85,4 +85,4 @@ public static class InputManager
         else
             return true;
     }
-}//Mattias Eriksson
+}

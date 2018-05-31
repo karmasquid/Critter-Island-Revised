@@ -4,15 +4,13 @@ using UnityEngine.AI;
 
 public class RangeAttackState : IState {
 
-
-    private RangeEnemy rangeEnemyScript;
-    private System.Action<Results> rangeAttackResultCallback;
     private PlayerManager playerManager;
     private Animator anim;
     private NavMeshAgent navMeshAgent;
     private Transform ownerGO;
     private Transform playerGO;
     private GameObject projectile;
+    private Vector3 startPos;
     private float attackRangeMax;
     private float viewRange;
 
@@ -27,8 +25,13 @@ public class RangeAttackState : IState {
 
     private Vector3 direction;
 
+    private Quaternion startRotation;
+
     public bool attackComplete;
 
+    private RangeEnemy rangeEnemyScript;
+
+    private System.Action<Results> rangeAttackResultCallback;
 
     public RangeAttackState(RangeEnemy ai)
     {
@@ -42,10 +45,12 @@ public class RangeAttackState : IState {
         this.rangeAttackResultCallback = ai.NextState;
         this.anim = ai.Anim;
         this.timeBetweenAttacks = ai.TimeBetweenAttacks;
+        this.startRotation = ai.StartRot;
     }
 
     void IState.Enter()
     {
+        this.startPos = ownerGO.position;
         waitAttack = Time.time + 0.5f;
     }
 
@@ -58,7 +63,6 @@ public class RangeAttackState : IState {
 
             RotateTowards();
 
-            //if the player is close enough to meleeattack, go to AttackState instead.
             if(distanceBetween <= attackRangeMax && Time.time > waitAttack)
             {
                 var rangeAttackResult = new Results(5);
@@ -66,7 +70,6 @@ public class RangeAttackState : IState {
                 this.attackComplete = true;
             }
 
-            //if the player is close enough to use rangeattack and it's time to attack. shoot projectile towards player.
             if (distanceBetween > attackRangeMax && distanceBetween <= viewRange -1 && Time.time > waitAttack)
             {
                 if (!attacking )
@@ -80,7 +83,6 @@ public class RangeAttackState : IState {
                 this.waitAttack = Time.time + timeBetweenAttacks;
                 
             }
-            // set attack to false if player is too far away.
             else if (distanceBetween > viewRange-1 && distanceBetween <= viewRange)
             {
                 if (attacking)
@@ -89,7 +91,6 @@ public class RangeAttackState : IState {
                 }
                 this.waitMove = Time.time + timeBetweenMoves;
             }
-            //if the player is outside the viewrange, go back to IdleState.
             else if (distanceBetween > viewRange && Time.time > waitMove)
             {
                 var rangeAttackResult = new Results(3);
@@ -109,7 +110,6 @@ public class RangeAttackState : IState {
         
     }
 
-    //used to rotate towards the player.
     private void RotateTowards()
     {
         float rotationspeed = 10;

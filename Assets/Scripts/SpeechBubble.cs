@@ -23,7 +23,7 @@ public class SpeechBubble : MonoBehaviour {
         canvas.enabled = false;
     }
 
-    // Saved as it might be used later to turn the canvas towards the camera, as it might have different angles later on in game.
+    // Update is called once per frame
     //void Update()
     //{
     //    if (canvas.enabled)
@@ -32,7 +32,6 @@ public class SpeechBubble : MonoBehaviour {
     //    }
     //}
 
-    //used for the player to be able of interacting and starting the conversation.
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && !talking && InputManager.Interact())
@@ -41,7 +40,6 @@ public class SpeechBubble : MonoBehaviour {
         }
     }
 
-    //used to display the sentences written in the inspector.
     private IEnumerator Talk()
     {
         talking = true;
@@ -63,4 +61,4 @@ public class SpeechBubble : MonoBehaviour {
         yield break;
     }
 
-}// Stina Hedman
+}// STina Hedman

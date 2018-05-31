@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Notetoself : needs cleaning up, subclasses.
 public class Item
 {
 
@@ -36,13 +35,13 @@ public class Item
     protected int ability;
     protected int cost;
 
-    //used to create an empty item to hold a slot.
+    //gör ett tomt item
     public Item()
     {
 
     }
 
-    //used to create an item with speccs.
+    //skapa grunditem
     public Item(int Id, string Name, string Desc, TypeOfItem KindOfGear, int MeleeDamage, int RangeDamage, int SpecDamage, float Health, float Armor, float StaminaCost, float StaminaCostSpec, float StaminaRecovery, float Range, int AmmoCount, float MovementDiff, float Attackspeed, int Ability, int Cost)
     {
         id = Id;
@@ -72,7 +71,7 @@ public class Item
         go = Resources.Load<GameObject>("Prefabs/Items/" + name);
     }
 
-    //used to clone an item.
+    //klona item
     public Item(Item itemToCopy) //Gör ett tomt item
     {
         id = itemToCopy.id;

@@ -13,42 +13,35 @@ public class Attacker : MonoBehaviour {
     [SerializeField]
     Collider[] attackHitBoxes;
 
-    //Current Equipped item.
     public Item currentRange;
     public Item currentMelee;
 
-    //Bools used to check if player is dead.
     bool dead;
     bool dying;
-    
-    //Time to wait until restart.
+
     float waitUntillRestart;
 
-    //Attack variables
     bool chargingAttack;
     bool throwing = false;
+    
     float chargeTimer;
     bool canAtk = true;
 
-    //Gets the scripts, animator and rigidbody.
     Throwable throwableScript;
     Inventory inventory;
     Character characterScript;
-    Animator anim;
-    Rigidbody rb;
-
     IEnumerator Reload;
 
-    //Array/lists of enemy gameobjects.
+    Animator anim;
+
+    Rigidbody rb;
+
     GameObject[] enemies;
     List<GameObject> listOfEffect = new List<GameObject>();
 
-    public bool Dead //Dead bool, used to get/set the player to a dead state.
+
+    public bool Dead
     {
-        get
-        {
-            return this.dead;
-        }
         set
         {
             dead = value;
@@ -69,118 +62,124 @@ public class Attacker : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
 
-        //Sets the animator, rigidbody and the character.
         anim = GetComponent<Animator>();
+
         rb = GetComponent<Rigidbody>();
+
         characterScript = GetComponent<Character>();
+    }
+
+    void Start ()
+    {
+        
     }
     void AtkControl()
     {
-            if (canAtk) //Checking if the player can attack.
+        if (canAtk)
+        {
+            if (InputManager.Attack())
             {
-                if (InputManager.Attack())
+
+                chargeTimer += Time.deltaTime;
+                if (chargeTimer > 1.0f)
                 {
-                    chargeTimer += Time.deltaTime;
-                    if (chargeTimer > 1.0f) //Promps the charge attack.
-                    {
-                        chargingAttack = true;
-                        anim.SetBool("isCharging", true);
-                    }
-                }
-                if (InputManager.AttackUp())
-                {
-                    Attacking();
-                    canAtk = false;
+                    chargingAttack = true;
+                    anim.SetBool("isCharging", true);
                 }
             }
+            if (InputManager.AttackUp())
+            {
+                Attacking();
+                canAtk = false;
+            }
+        }
     }
     void Update()
     {
-        if (!dead) //Checking if the player is not dead.
+        if (!dead)
         { 
             //-------------------------------------Main Attacks & Controls------------------------------------------------
             AtkControl();
 
-            if (PlayerManager.instance.AmmoCount > 0 && InputManager.ThrowAttack()) //Check if player can throw.
+            if (PlayerManager.instance.AmmoCount > 0 && InputManager.ThrowAttack())
             {
                 if (!throwing)
                 {
                     throwing = true;
+
+                    Debug.Log(PlayerManager.instance.RangeDamage);
                     StartCoroutine(ThrowCD());
 
                 }
             }
-            if (InputManager.Dodge() && chargingAttack == true) //Checking if dodging and charging an attack.
+            if (InputManager.Dodge() && chargingAttack == true)
             {
                 chargingAttack = false;
-                chargeTimer = 0; //Resets the charge attack.
+                chargeTimer = 0;
                 anim.SetBool("isCharging", false);
             }
 
         }
-        else //If the player is dead.
+        else
         {
-            if (!dying) //If player is dying.
+            if (!dying)
             {
                 anim.SetTrigger("isDead");
-                waitUntillRestart = Time.time + 5f; //Waiting 5 seconds from the moment the players health runs out to the moment the next scene is loaded.
+                waitUntillRestart = Time.time + 5f;
                 this.gameObject.layer = 0;
                 dying = true;
             }
-            else if (Time.time >= waitUntillRestart && dead) //Loads the village scene, returns the player to the surface...
+            else if (Time.time >= waitUntillRestart && dead)
             {
-                GameObject.Find("LoadingScreen").GetComponent<LevelLoader>().Loadlevel(2);
-                //Spawn at correct location...
-                
+
+                GameObject.Find("LevelLoader").GetComponent<LevelLoader>().Loadlevel(0);
+                dead = false;
+                Destroy(GameObject.Find("Inventory"));
                 Destroy(GameObject.Find("ItemDatabase"));
+                Destroy(GameObject.Find("Inventory"));
                 Destroy(GameObject.Find("PlayerManager"));
                 Destroy(GameObject.Find("Player"));
-                
             }
         }
     }
 
-    void LaunchAttack(Collider col) //Launching an attack, gets the colliders inside the player's attack collider.
+    void LaunchAttack(Collider col)
     {
         Collider[] cols = Physics.OverlapBox(col.bounds.center, col.bounds.extents, col.transform.rotation, LayerMask.GetMask("HitBox"));
         foreach (Collider c in cols)
         {
             if (c.transform.root == gameObject.transform) // Don't hit yourself...
             {
-                continue; //Skip your own collider.
+                continue;
             }
-            listOfEffect.Add(c.gameObject); //Adds the enemy colliders into a list.
+            listOfEffect.Add(c.gameObject);
         }
     }
-    void Attacking() //Checking Basic or special attack
+    void Attacking() //Checking Basic or special attack:
     {
 
-            //Check if charging up an attack or not and that there is stamina.
+            //---------Check if charging up an attack or not------------
             if (chargingAttack && PlayerManager.instance.Stamina.CurrentValue >= PlayerManager.instance.MeleeSpecStaminaCost)
             {
-                StartCoroutine(SpecAttackCD()); //Starts the cooldown timer.
+                StartCoroutine(SpecAttackCD());
             }
             else
             {
-                StartCoroutine(AttackCD());//Starts the cooldown timer.
+                StartCoroutine(AttackCD());
             }
-               
-            listOfEffect.Clear(); //Clears the list of enemies.
-
-            if (listOfEffect.Count.Equals(0)) //Checking if the list is empty.
+            listOfEffect.Clear();
+            if (listOfEffect.Count.Equals(0))
             {
-                enemies = null; //Then array is empty.
+                enemies = null;
             }
+            chargeTimer = 0;
 
-            chargeTimer = 0; //Reset the charge up timer.
-            
-            //Promps the cooldown.
             Reload = AttackCD();
             StartCoroutine(Reload);
         
     }
 
-    IEnumerator ThrowCD () //Coroutine for throw attacks.
+    IEnumerator ThrowCD () //Coroutine for throw:
     {
         rb.velocity = Vector3.zero;
 
@@ -205,14 +204,14 @@ public class Attacker : MonoBehaviour {
     {
         characterScript.Attacking = true;
 
-        rb.velocity = Vector3.zero; //Stopping the player when attacking normally.
+        rb.velocity = Vector3.zero;
 
         anim.SetTrigger("attack");
 
         yield return new WaitForSeconds(0.2f);
 
         LaunchAttack(attackHitBoxes[0]);
-        PlayerManager.instance.LooseStamina(currentMelee.StaminaCost); //Stamina drain 
+        PlayerManager.instance.LooseStamina(currentMelee.StaminaCost); //Stamina drain ---------------------------------------------- FIXA DETTA  ---------------------------------
 
         if (!listOfEffect.Count.Equals(0)) //If list isn't empty...
         {
@@ -220,7 +219,7 @@ public class Attacker : MonoBehaviour {
         }
         if (enemies != null)
         {
-            foreach (GameObject enemy in enemies) //For every enemy, take their rigidbody and apply a force to them on successful hit.
+            foreach (GameObject enemy in enemies)
             {
                 Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
 
@@ -258,7 +257,7 @@ public class Attacker : MonoBehaviour {
         }
         if (enemies != null)
         {
-            foreach (GameObject enemy in enemies) //For every enemy, take their rigidbody and apply a force to them on successful hit.
+            foreach (GameObject enemy in enemies)
             {
                 Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
 
@@ -271,4 +270,4 @@ public class Attacker : MonoBehaviour {
 
         characterScript.Attacking = false;
     }
-} //Mattias Eriksson
+}

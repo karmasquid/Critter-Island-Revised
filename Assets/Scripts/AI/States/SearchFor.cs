@@ -2,8 +2,6 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-
-// THIS SCRIPT IS NOT USED BUT SAVED INCASE IT WILL BE IMPLEMENTED AGAIN.
 public class SearchFor : IState {
 
     private Animator anim;

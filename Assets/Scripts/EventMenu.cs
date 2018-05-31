@@ -5,30 +5,23 @@ using UnityEngine.EventSystems;
 
 public class EventMenu : MonoBehaviour
 {
-    //Script for the eventsystem, making sure you can't click out of the main menu.
-
-    //Gets the eventsystem and gameobject currently selected.
+    //Scriptet för att alltid ha något element i UI:et 
     EventSystem eS;
     GameObject selectedGameobject;
-
-
     void Start()
     {
-        //Sets the eventsystem.
         eS = GetComponent<EventSystem>();
-        
-        //Invokes mentioned metod every half second.
         InvokeRepeating("MenuEventSystemChecker", 0 , 0.5f);
     }
     void MenuEventSystemChecker()
     {
-        if (eS.currentSelectedGameObject == null) //If there is no selected element in the menu...
+        if (eS.currentSelectedGameObject == null)
         {
-            eS.SetSelectedGameObject(selectedGameobject); //Then set the selected element to the selected element set at the start.
+            eS.SetSelectedGameObject(selectedGameobject);
         }
         else
         {
-            selectedGameobject = eS.currentSelectedGameObject; //Setting the selected element the current selected element.
+            selectedGameobject = eS.currentSelectedGameObject;
         }
     }
-}//Mattias Eriksson
+}

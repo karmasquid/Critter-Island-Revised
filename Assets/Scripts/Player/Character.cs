@@ -27,18 +27,18 @@ public class Character : MonoBehaviour
     Animator anim;
     Vector3 forward, right;
 
-    public float SpeedMultiplier //Variable used to calculate by how much speed is increased when running.
+    public float SpeedMultiplier
     {
         get { return this.speedMultiplier; }
         set { this.speedMultiplier = value; }
     }
 
-    public bool Attacking //Bool variable used to check if player is attacking.
+    public bool Attacking
     {
         set { atckn = value; }
     }
 
-    public bool IsDead //Bool variable used to check if player is dead.
+    public bool IsDead
     {
         set
         {
@@ -52,6 +52,7 @@ public class Character : MonoBehaviour
     private Vector3 _inputs = Vector3.zero;
     private Vector3 heading;
     private Vector3 targetRotation;
+    private Transform _groundChecker;
 
     //Movement and stamina:
     private Vector3 curPos;
@@ -96,33 +97,33 @@ public class Character : MonoBehaviour
         rawStamRe = stamReCharge;
         rawSpeed = Speed;
 
-        //Variables used to allow the player to move in relation to the main camera.
         forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
+
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
-        //Invokes and checks last position of player.
-        InvokeRepeating("LastPosition", 0f, 0.1f); 
-
-        //Set the components...
         _body = GetComponent<Rigidbody>();
+        _groundChecker = transform.GetChild(0); //Both
+
+        InvokeRepeating("LastPosition", 0f, 0.1f); //Invokes and checks last position of player.
+
         anim = GetComponent<Animator>();
+
     }
 
     void Update()
     {
-        if (!isDead) //Checking if player is not dead.
+        if (!isDead)
         {
-            if (!lockMove) //Check if player have controll, used on for jump over bridge.
+            if (!lockMove)
             {
                 mover(); //Handles Movement and Rotation.
             }
             Runner(); //Handles Running.
             Dodger(); //Handles Dodge.
             RestricMove(); //Restricts Movement when attacking.
-            Jump(); //Jump over bridge metod.
-
+            Jump();
             PlayerManager.instance.StaminaRecharge = stamReCharge;
 
         }
@@ -131,12 +132,12 @@ public class Character : MonoBehaviour
     }
     void RestricMove()
     {
-        if (InputManager.AttackDown()) //On starting to attack.
+        if (InputManager.AttackDown())
         {
             atckn = true;
             Speed = 1;
         }
-        if (InputManager.AttackUp()) //On release attack.
+        if (InputManager.AttackUp()) // Om slag attack.
         {
             atckn = false;
             if (running)
@@ -149,19 +150,19 @@ public class Character : MonoBehaviour
             }
         }
     }
-    void LastPosition() // Check if the player is moving.
+    void LastPosition() // Check for movement.
     {
-        for (int i = 0; i < previousLocations.Length - 1; i++) //Checking the last 3 positions of the player.
+        for (int i = 0; i < previousLocations.Length - 1; i++)
         {
             previousLocations[i] = previousLocations[i + 1];
         }
-        previousLocations[previousLocations.Length - 1] = this.transform.position; //Setting the next last position.
+        previousLocations[previousLocations.Length - 1] = this.transform.position;
 
         for (int i = 0; i < previousLocations.Length - 1; i++)
         {
             if (Vector3.Distance(previousLocations[i], previousLocations[i + 1]) >= movingOffset)
             {
-                //Movement is detected.
+                //The minimum movement has been detected between frames
                 moving = true;
                 break;
             }
@@ -173,20 +174,20 @@ public class Character : MonoBehaviour
     }
     void Runner()
     {
-        if (InputManager.Run() && !atckn) //Checking if the player is running and not attacking.
+        if (InputManager.Run() && !atckn)
         {
-            Speed = rawSpeed * speedMultiplier; //Gives running speed.
+            Speed = rawSpeed * speedMultiplier;
             running = true;
         }
         if (InputManager.Running())
         {
-            if (PlayerManager.instance.Stamina.CurrentValue <= 0) //Checking if the player doesn't have enough stamina to continue running.
+            if (PlayerManager.instance.Stamina.CurrentValue <= 0) //Om du inte står stilla, drain.
             {
                 if (!atckn)
                 {
                     Speed = rawSpeed;
                 }
-                else // If we are attacking then speed is 1 regardless if running.
+                else
                 {
                     Speed = 1;
                 }
@@ -197,15 +198,15 @@ public class Character : MonoBehaviour
             if (moving || InputManager.MoveMe() && !atckn) //Moving and running.
             {
                 PlayerManager.instance.LooseStamina(20 * Time.deltaTime); //Stamina drain.
-                stamReCharge = 0f; //Not regaining any stamina.
+                stamReCharge = 0f;
             }
             else
             {
-                stamReCharge = rawStamRe; //Allows player to regain stamina again if they are not trying to use stamina. They won't lose stamina if the player is standing still.
+                stamReCharge = rawStamRe;
             }
         }
 
-        if (InputManager.Ran()) // Going from running to walking.
+        if (InputManager.Ran())
         {
             if (!atckn)
             {
@@ -222,13 +223,13 @@ public class Character : MonoBehaviour
     }
     void Jump()
     {
-        if (getOverIt) //If trying to dodge over the bridge.
+        if (getOverIt)
         {
-            //Breifly disables the navmeshagent and moves the player to the other side of the gap.
+
             this.GetComponent<NavMeshAgent>().enabled = false;
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Speed * speedMultiplier * 2 * Time.deltaTime);
             this.transform.forward = -target.transform.forward;
-            //Add animation for jump over bridge here.
+            //Animation for jump over bridge...
         }
         else
         {
@@ -240,26 +241,26 @@ public class Character : MonoBehaviour
         if (InputManager.Dodge())
         {
 
-            if (!dodging && PlayerManager.instance.Stamina.CurrentValue >= dodgeCost) //Checking if the player has stamina and not currently dodging.
+            if (!dodging && PlayerManager.instance.Stamina.CurrentValue >= dodgeCost) //If there is stamina:
             {
                 dodging = true;
 
                 if (inHole && pitHole.tag == "Hole" && Inventory.instance.equippedItems[2] != null) //Inside hole coll. && Jumping Shoes...
                 {
-                    if (Inventory.instance.equippedItems[2].Name == "Feather Stride Boots") //Checking if the player has the correct boots to jump.
+                    if (Inventory.instance.equippedItems[2].Name == "Feather Stride Boots")
                     {
-                        target = pitHole.GetComponent<GoOver>().target; //Sets the target gameobject collected from the GoOver script.
+                        target = pitHole.GetComponent<GoOver>().target;
                         if (this.transform.forward != pitHole.GetComponent<GoOver>().target.transform.forward)
                         {
                             getOverIt = true;
                             lockMove = true;
-                            PlayerManager.instance.LooseStamina(dodgeCost); //Applies dodge cost.
+                            PlayerManager.instance.LooseStamina(dodgeCost);
                         }
                     }
                 }
                 else
                 {
-                    if (InputManager.MoveMe() == true) //Checking if the player is moving/trying to move.
+                    if (InputManager.MoveMe() == true)
                     {
                         //Forward dodge
 
@@ -282,12 +283,12 @@ public class Character : MonoBehaviour
                         _body.AddForce(dashVelocity, ForceMode.VelocityChange);
                     }
                     //Stamina loss, same regardless of direction.
-                    PlayerManager.instance.LooseStamina(dodgeCost); //Losing stamina regardless of dodge direction.
+                    PlayerManager.instance.LooseStamina(dodgeCost);
 
 
                 }
 
-                    //Recover the player from the dodge. Stopping it from sliding away.
+                    //Recover:
                     DelayGravity = DodgeDown(DashDistance / (DashDistance * 2));
                     StartCoroutine(DelayGravity);
 
@@ -308,8 +309,7 @@ public class Character : MonoBehaviour
 
         heading = Vector3.Normalize(rightMovement + upMovement);
 
-        //Normalizing the rotation.
-        if (heading.sqrMagnitude > 1f) 
+        if (heading.sqrMagnitude > 1f) //Normalizing the rotation.
             input.Normalize();
         if (inputRaw.sqrMagnitude > 1f)
             inputRaw.Normalize();
@@ -341,7 +341,7 @@ public class Character : MonoBehaviour
             anim.SetBool("isStopping", false);
         }
 
-        //Sets the players forward.
+
         _inputs = Vector3.zero;
         _inputs.x = InputManager.Horizontal();
         _inputs.z = InputManager.Vertical();
@@ -350,20 +350,20 @@ public class Character : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!PlayerManager.instance.dead) //Check if not dead.
+        if (!PlayerManager.instance.dead)
         {
             _body.MovePosition(_body.position + heading * Speed * Time.fixedDeltaTime);
 
             if (!getOverIt)
             {
-                _body.AddForce(Physics.gravity, ForceMode.Acceleration); //Gravitation in the world, not applied when jumping over the bridge.
+                _body.AddForce(Physics.gravity, ForceMode.Acceleration);
             }
         }
 
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Hole") //Takes and stores in the colliding gameobject, used for getting over the bridge. 
+        if (other.tag == "Hole") //&& Right jumping shoes...
         {
                 pitHole = other.gameObject;
 
@@ -371,14 +371,14 @@ public class Character : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Hole") //Sets the player as ready to jump over the hole.
+        if (other.tag == "Hole") //&& Right jumping shoes...
         {
             inHole = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Hole") //Not ready to jump over hole.
+        if (other.tag == "Hole")
         {
             inHole = false;
         }
@@ -390,7 +390,6 @@ public class Character : MonoBehaviour
     }
     IEnumerator DodgeDown(float delay)
     {
-        //Resets variables after delay time.
         yield return new WaitForSeconds(delay);
         lockMove = false;
         dodging = false;
@@ -401,4 +400,4 @@ public class Character : MonoBehaviour
             getOverIt = false;
         }
     }
-} //Mattias Eriksson
+}

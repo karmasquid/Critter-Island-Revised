@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//THIS SCRIPT IS NOT USED BUT SAVED IN CASE IT WILL BE IMPLEMENTED AGAIN.
 public class RetreatState : IState {
 
     private LayerMask obstacleLayer;
