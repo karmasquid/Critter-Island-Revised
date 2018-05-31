@@ -21,10 +21,6 @@ public class AttackState : IState {
     private float timeUntillDealDamage = 0.3f;
     private float waitDealDamage;
 
-    //private float waitDealingDamage;
-    //private float timeBeforeDealingDamage = 0.5f;
-
-    //private bool rotating;
     private bool moving;
     private bool attacking;
     private bool executingAttack;
@@ -85,7 +81,7 @@ public class AttackState : IState {
                     this.navMeshAgent.isStopped = true;
                 }
 
-                //Check ifall det är tillåtet att attackera igen
+                //Check if its allowed to attack again
                 if (Time.time > waitAttack && enemyStats.PlayerInRange == true)
                 {
                     Debug.Log("attacking");
@@ -96,7 +92,7 @@ public class AttackState : IState {
                     executingAttack = true;
                 }
 
-                //check inför att göra skadan så den inte görs direkt. Kolla så att spelaren är inom attackcollider. Denna ska användas sen.
+                //check for when to deal the damage after starting to attack.
                 if (Time.time > timeUntillDealDamage && executingAttack &&  enemyStats.PlayerInRange == true)
                 {
                     Debug.Log("hitting.");
@@ -104,6 +100,7 @@ public class AttackState : IState {
                     executingAttack = false;
                 }
             }
+            //if the player is outside attackrange. move towards it.
             else if (distanceBetween > attackRangeMax && distanceBetween <= viewRange)
             {
                 if (!moving)
@@ -117,6 +114,7 @@ public class AttackState : IState {
                 this.navMeshAgent.SetDestination(this.playerGO.position);
             }
 
+            //if the player is outside the enemies viewrange, move back to RoamingState.
             else if  (distanceBetween >= viewRange && Time.time > waitMove)
             {
                 anim.SetBool("isWalking", false);
