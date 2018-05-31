@@ -34,6 +34,8 @@ public class EquippedSlot : MonoBehaviour {
         //button = gameObject.GetComponent<Button>();
         //button.onClick.AddListener(TaskOnClick);
     }
+
+    //updates the rotation of a slot after its in use.
     public void UpdateSlot(int rotation)
     {
         foreach (Transform child in transform)
@@ -42,10 +44,13 @@ public class EquippedSlot : MonoBehaviour {
         }
     }
 
+    //updates the sprite of a slot if its in use.
     public void ChangeSprite()
     {
         this.transform.GetChild(0).GetComponent<Image>().overrideSprite = itemOnSlot.Icon;
     }
+
+    //unequip item if its in the slot.
     void TaskOnClick()
     {
        if (Inventory.instance.inventoryItems.Count < 12)

@@ -124,9 +124,9 @@ public class RangeEnemy : MonoBehaviour
 
     private void Start()
     {
+        //count the childs of waypoints. add them to a list of waypoints then sets parent to null to keep their position in the scene.
         if (waypointParent != null)
         {
-            //int indexuru = 0;
             int childCount = waypointParent.childCount;
 
             for (int i = 1; i <= childCount; i++)
@@ -146,6 +146,7 @@ public class RangeEnemy : MonoBehaviour
             this.stateMachine.ChangeState(new IdleState(this));
         }
 
+        //else, go to idlestate.
         else
         {
             this.stateMachine.ChangeState(new IdleState(this));
@@ -156,12 +157,13 @@ public class RangeEnemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (!EnemyStats.Dead && !playerManager.dead)
+        //if player or enemy isn't dead, execute states update.
+        if (!EnemyStats.Dead || !playerManager.dead)
         {
             this.stateMachine.ExecuteStateUpdate();
         }
 
+        //if dead stop walking.
         else
         {
             if (anim.GetCurrentAnimatorStateInfo(0).IsName("isWalking"))
@@ -173,9 +175,9 @@ public class RangeEnemy : MonoBehaviour
 
     public void NextState(Results stateResult)
     {
+        //Handles the results returned from the different states and evaluates which new state to switch to.
         switch (stateResult.nextState)
         {
-            //SearchFor
             case 1:
                 viewRange = originalViewRange;
                 this.stateMachine.ChangeState(new RangeAttackState(this));
@@ -196,7 +198,6 @@ public class RangeEnemy : MonoBehaviour
 
             case 5:
                 viewRange = attackRangeMax;
-                anim.SetBool("isWalking", false);
                 this.stateMachine.ChangeState(new AttackState(this));
 
                 break;
@@ -208,11 +209,13 @@ public class RangeEnemy : MonoBehaviour
 
     }
  
+    //called upon for shooting projectile in RangeAttackState.
     public void ShootProjectile()
     {
         StartCoroutine(Throw());
 
     }
+
 
     private IEnumerator Throw()
     {
@@ -220,6 +223,7 @@ public class RangeEnemy : MonoBehaviour
 
         GameObject tempProj;
 
+        // if not allready five projectiles spawned from this enemy in the scene spawn a new one, apply the damage to it then throw it towards the player.
         if (projectiles.Count < 5)
         {
             tempProj = Instantiate(projectile, hand.position + transform.forward, this.transform.rotation, null) as GameObject;
@@ -230,6 +234,7 @@ public class RangeEnemy : MonoBehaviour
             projectiles.Add(tempProj);
         }
 
+        //if allready five projectiles instantiated activate one of the allready instantiated objects and throw it towards player.
         else
         {
             tempProj = projectiles[index];
@@ -252,14 +257,4 @@ public class RangeEnemy : MonoBehaviour
         yield break;
     }
 
-
-    //public void RangeAttackDone(RangeAttackResult attackResults)
-    //{   //attack     
-    //    this.stateMachine.ChangeState(new IdleState(this));
-    //}
-
-    //public void IdleDone(IdleResult idleResult)
-    //{   //attack     
-    //    this.stateMachine.ChangeState(new RangeAttackState(this));
-    //}
-}// STina Hedman
+}// Stina Hedman

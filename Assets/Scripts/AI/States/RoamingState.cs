@@ -79,7 +79,7 @@ public class RoamingState : IState {
 
     private void RoamToPos()
     {
-
+        //if not roaming or rotating move to next positionn.
         if (!roaming && !rotating && Time.time > wait)
         {
             navMeshAgent.SetDestination(waypoints[index].position);
@@ -87,6 +87,7 @@ public class RoamingState : IState {
 
             wait = Time.time + 1f;
 
+            //set index of the next position
             if (index + 1 <= waypoints.Count - 1)
             {
                 index++;
@@ -103,10 +104,15 @@ public class RoamingState : IState {
             Debug.Log("roaming destination set.");
 
         }
+
+
+        //if moving
         else if (roaming && Time.time > wait)
         {
+            //if path is not pending
             if (!navMeshAgent.pathPending)
             {
+                //if enemy doesn't have a path or has moved to their destination
                 if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude == 0f)
                 {
 
@@ -115,20 +121,17 @@ public class RoamingState : IState {
                     //waitBeforemoving = Time.time + 3f;
                     roaming = false;
                     rotating = true;
-                    anim.SetBool("isWalking", false);
                 }
             }
         }
 
+        //if not roaming, rotate towards next positiong short. then allow the ai to move again.
         else if (!roaming && rotating && Time.time > rotateWait)
         {
-            anim.SetBool("isWalking", true);
-            Debug.Log("rotating");
             RotateTowards();
 
             if (Time.time > wait)
             {
-                anim.SetBool("isWalking", false);
                 rotating = false;
                 roaming = false;
                 wait = Time.time + 1.5f;
@@ -136,6 +139,7 @@ public class RoamingState : IState {
         }
     }
 
+    //used to search for the player, check if the player is within the field of view set for the enemy.
     private void SearchForPlayer()
     {
         Collider[] foundTargets = Physics.OverlapSphere(ownerGo.transform.position, this.viewRange, this.searchLayer);
@@ -165,9 +169,9 @@ public class RoamingState : IState {
         }
     }
 
+    //used to rotate towards the next position in the waypoints list.
     private void RotateTowards()
     {
-        Debug.Log("rotating");
         //move to next position in list.
         Vector3 targetDir = positionToCheck - ownerGo.position;
 
