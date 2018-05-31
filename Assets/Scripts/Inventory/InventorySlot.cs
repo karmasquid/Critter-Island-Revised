@@ -61,7 +61,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         descText.GetComponent<Text>().text = "wat";
     }
 
-
+    //shows that the slot is selected.
     public void OnSelect(BaseEventData eventData)
     {
         Debug.Log("selected : " + gameObject.name);
@@ -80,6 +80,7 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
         }
     }
 
+    //can be used to drop an item if we want.
     private void DropItem()
     {
         Inventory.instance.inventoryItems.RemoveAt(IndexInList);
@@ -122,4 +123,4 @@ public class InventorySlot : MonoBehaviour, ISelectHandler
     }
 }
 
-//Stina Hedm
+//Stina Hedman

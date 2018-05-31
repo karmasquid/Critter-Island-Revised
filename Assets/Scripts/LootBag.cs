@@ -10,6 +10,7 @@ public class LootBag : MonoBehaviour {
 
     private bool pickedUp;
 
+    //used to set item in bag. Set by the enemy that drops it.
     public string ItemInBag
     {
         set
@@ -18,16 +19,12 @@ public class LootBag : MonoBehaviour {
         }
     }
 
-    //private void Awake()
-    //{
-    //    inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-    //}
-
     private void Start()
     {
         WaitRemoveRigidbody();
     }
 
+    //allowes player to pick up item if its within range and using the interact key.
     private void OnTriggerStay(Collider other)
     {
         //if (collision.transform.tag == "Player" && Input.GetAxis("Interact") > 0.1 && !pickedUp && Inventory.instance.inventoryItems.Count < 12)
@@ -40,6 +37,7 @@ public class LootBag : MonoBehaviour {
         }        
     }
 
+    //keep the rigidbody from moving when pushed.
     IEnumerator WaitRemoveRigidbody()
     {
         yield return new  WaitForSeconds(1f);

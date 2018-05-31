@@ -62,7 +62,7 @@ public class ItemDatabase : MonoBehaviour
         allItems.Add(new Item(15, "Gold Key", "unlocks secret door!", Item.TypeOfItem.Miscellaneous, 0, 0, 0, 0f, 0f, 0f, 0f, 0f, 0f, 0, 0f, 0f, 0, 3));
         allItems.Add(new Item(16, "Sphere of Renewal", "Sphere of Renewal!", Item.TypeOfItem.Miscellaneous, 10, 0, 5, 0f, 0f, 5f, 15f, 0f, 0f, 100, 0f, 0f, 1, 5));
 
-        //add the startitems in game.
+        //adds the startitems at the start of the game..
         if (Inventory.instance != null)
         {
             Inventory.instance.AddItem(allItems[0].Name);
@@ -74,5 +74,5 @@ public class ItemDatabase : MonoBehaviour
         }
     }
     
-}// STina Hedman
+}// Stina Hedman
 

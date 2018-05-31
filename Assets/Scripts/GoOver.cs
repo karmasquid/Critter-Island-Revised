@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class GoOver : MonoBehaviour
 {
+    //Creates two public gameobjects.
     public GameObject current;
     public GameObject target;
 
 	// Use this for initialization
 	void Start()
     {
-        current = this.gameObject;
+        current = this.gameObject; //Sets the current gameobject to the game object this script is being called from.
+
+
+        //Checking the name of the current gameobject and based on that sets the opposite target.
         if (current.name == "HolePoint B")
         {
             target = GameObject.Find("HolePoint A");
@@ -29,4 +33,4 @@ public class GoOver : MonoBehaviour
         }
 
     }
-}
+}//Mattias Eriksson
