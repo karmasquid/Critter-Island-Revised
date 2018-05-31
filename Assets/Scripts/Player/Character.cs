@@ -334,7 +334,10 @@ public class Character : MonoBehaviour
         if (InputManager.MoveMe() == false) 
         {
             anim.SetBool("isStopping", true);
-            _body.velocity = Vector3.zero;
+            if (!dodging)
+            {
+                _body.velocity = Vector3.zero;
+            }
         }
         else
         {
